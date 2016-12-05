@@ -25,62 +25,58 @@ public class Client_Main {
    
     public static void main(String[] args) {
        try{
-    if(args.length<2)
-      System.exit(1);
-    String host = args[0];
-    int port = Integer.parseInt(args[1]);
-    Socket s = new Socket(host, port);
-    CodedInputStream cis = CodedInputStream.newInstance(s.getInputStream());
-    CodedOutputStream cos = CodedOutputStream.newInstance(s.getOutputStream());
+        /*if(args.length<2)
+        System.exit(1);
+        String host = args[0];
+        int port = Integer.parseInt(args[1]);
+        Socket s = new Socket(host, port);
+        CodedInputStream cis = CodedInputStream.newInstance(s.getInputStream());
+        CodedOutputStream cos = CodedOutputStream.newInstance(s.getOutputStream());*/
     
-    Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
     
     
-    System.out.println("************ Bolsa Online  ************");
-    System.out.println("++++++++++++++++++++++++++++++++++++");
-    System.out.println("|        1. Login      |");
-    System.out.println("|        2. Exit       |");
+        System.out.println("************ Bolsa Online  ************");
+        System.out.println("++++++++++++++++++++++++++++++++++++");
+        System.out.println("|        1. Login      |");
+        System.out.println("|        2. Exit       |");
    
-    int swValue = sc.nextInt();
+        int swValue = sc.nextInt();
     
-    switch(swValue){
+        switch(swValue){
         
-        case 1:
-            System.out.println("Insira o seu Username");
-            String user= sc.nextLine();
-            System.out.println("Insira a sua password");
-            String psd= sc.nextLine();
-            User u = creatUser(user, psd);
-            byte[] ba = u.toByteArray();
+            case 1:
+                System.out.println("Insira o seu Username");
+                String user= sc.nextLine();
+                System.out.println("Insira a sua password");
+                String psd= sc.nextLine();
+                User u = creatUser(user, psd);
+                byte[] ba = u.toByteArray();
             
             
-        case 2: System.exit(1);     
+            case 2: System.exit(1);     
         
-        default: System.exit(1);
+            default: System.exit(1);
+        }
     
     
     
-    }
+        while (true) {
     
-    
-    
-    while (true) {
-    
-      //cos.flush();
-      Thread.sleep(3000);
-    }
-    //os.close();
-    //s.shutdownOutput();
-    }catch(Exception e){
-      e.printStackTrace();
-      System.exit(0);
-    }
-  
-       
+        //cos.flush();
+            Thread.sleep(3000);
+        }
+        //os.close();
+        //s.shutdownOutput();
+        }catch(Exception e){
+            e.printStackTrace();
+            System.exit(0);
+        }
+         
     }
     
     static Buy creatBuy(String company,int actions, float price){
-    return 
+        return 
             Buy.newBuilder()
             .setCompany(company)
             .setActions(actions)
@@ -88,8 +84,8 @@ public class Client_Main {
             .build();
     }
     
-      static Sell creatSell(String company,int actions, float price){
-    return 
+    static Sell creatSell(String company,int actions, float price){
+        return 
             Sell.newBuilder()
             .setCompany(company)
             .setActions(actions)
@@ -97,8 +93,8 @@ public class Client_Main {
             .build();
     }
       
-      static User creatUser(String user ,String pwd){
-    return 
+    static User creatUser(String user ,String pwd){
+        return 
             User.newBuilder()
             .setUser(user)
             .setPass(pwd)

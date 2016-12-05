@@ -5,7 +5,7 @@ package proto_client;
 message User {
     required string user=1;
     required string pass=2;
-    required string accountNumber=3;
+    optional string accountNumber=3;
 }
 
 message Sell {
