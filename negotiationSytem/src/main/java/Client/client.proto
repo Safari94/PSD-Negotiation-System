@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-
+package proto_client;
 
 message User {
     required string user=1;
