@@ -66,7 +66,7 @@ public class Client_Main {
     
     while (true) {
     
-      cos.flush();
+      //cos.flush();
       Thread.sleep(3000);
     }
     //os.close();
