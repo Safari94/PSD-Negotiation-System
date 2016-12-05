@@ -1,21 +1,21 @@
 syntax = "proto2";
 
-package Client;
 
-message Client{
+
+message User {
     required string user=1;
-    requiered string pass=2;
-    requiered string accountNumber=3;
+    required string pass=2;
+    required string accountNumber=3;
 }
 
-message Sell{
+message Sell {
 
     required string company=1;
     required int32 actions=2;
     required float price=3;
 }
 
-message Buy{
+message Buy {
 
     required string company=1;
     required int32 actions=2;
