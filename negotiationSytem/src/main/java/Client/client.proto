@@ -1,0 +1,24 @@
+syntax = "proto2";
+
+package Client;
+
+message Client{
+    required string user=1;
+    requiered string pass=2;
+    requiered string accountNumber=3;
+}
+
+message Sell{
+
+    required string company=1;
+    required int32 actions=2;
+    required float price=3;
+}
+
+message Buy{
+
+    required string company=1;
+    required int32 actions=2;
+    required float price=3;
+}
+
