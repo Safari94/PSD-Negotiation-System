@@ -7,23 +7,14 @@ package Client;
 
 import static Client.Client_Main.creatBuy;
 import static Client.Client_Main.creatSell;
-import java.nio.ByteBuffer;
-import java.io.IOException;
-import java.net.InetSocketAddress;
 import co.paralleluniverse.actors.*;
 import co.paralleluniverse.fibers.SuspendExecution;
-import co.paralleluniverse.fibers.io.*;
 import com.google.protobuf.Message;
 import java.util.Scanner;
 import proto_client.Client.Sell;
 import proto_client.Client.Buy;
 import proto_client.Client.User;
-import zmq.Msg;
-
-
-
-
-
+//import zmq.Msg;
 
 /**
  *
@@ -37,7 +28,7 @@ class Msg {
     final Buy b;
     final Sell s;  // careful with mutable objects, such as the byte array
     Msg(Buy b, Sell s) { this.b= b; this.s = s; }
-  }
+}
 
 
 public class Client_Actor extends Actor<Message, Void> {
@@ -45,8 +36,8 @@ public class Client_Actor extends Actor<Message, Void> {
     User u;
     ActorRef cli;
     
-   public  Client_Actor(User u){
-    this.u=u;
+    public  Client_Actor(User u){
+        this.u=u;
     }
     
     
@@ -95,9 +86,9 @@ public class Client_Actor extends Actor<Message, Void> {
             }
         }
         
-        }
-        
     }
+        
+}
     
     
     
@@ -109,4 +100,4 @@ public class Client_Actor extends Actor<Message, Void> {
    
     
     
-  }
+  

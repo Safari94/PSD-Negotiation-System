@@ -23,12 +23,6 @@ public class Client_Main {
      * @param args the command line arguments
      */
     
-    
-    
- 
-        
-       
-   
     public static void main(String[] args) {
        try{
        //if(args.length<2)
