@@ -22,16 +22,65 @@ public class Client_Main {
     /**
      * @param args the command line arguments
      */
+    
+    
+    
+    public static void MainMenu(User u){
+        
+        Scanner sc = new Scanner(System.in);
+    while (true){
+        System.out.println("************ Welcome "+u.getUser()+"************");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("|        1. Sell     |");
+        System.out.println("|        2. Buy       |");
+        System.out.println("|        3. Logout      |");
+        
+        int opt = sc.nextInt();
+        
+        switch(opt){
+            
+            case 1: //Sell
+                System.out.println("Name of the company:");
+                String company=sc.nextLine();
+                System.out.println("Number of shares to sell:");
+                int ns = sc.nextInt();
+                System.out.println("Price");
+                float price = sc.nextFloat();
+                Sell sl= creatSell(company, ns, price);
+                
+                
+                
+                
+            
+            case 2:
+                
+                System.out.println("Name of the company:");
+                 company=sc.nextLine();
+                System.out.println("Number of shares to Buy:");
+                 ns = sc.nextInt();
+                System.out.println("Price");
+                 price = sc.nextFloat();
+                Buy by= creatBuy(company, ns, price);
+                
+            
+            case 3:
+                
+                break;
+        
+        }
+    }
+        
+        }
    
     public static void main(String[] args) {
        try{
-        /*if(args.length<2)
-        System.exit(1);
+       //if(args.length<2)
+        //System.exit(1);
         String host = args[0];
         int port = Integer.parseInt(args[1]);
         Socket s = new Socket(host, port);
         CodedInputStream cis = CodedInputStream.newInstance(s.getInputStream());
-        CodedOutputStream cos = CodedOutputStream.newInstance(s.getOutputStream());*/
+        CodedOutputStream cos = CodedOutputStream.newInstance(s.getOutputStream());
     
         Scanner sc = new Scanner(System.in);
     
@@ -41,9 +90,9 @@ public class Client_Main {
         System.out.println("|        1. Login      |");
         System.out.println("|        2. Exit       |");
    
-        int swValue = sc.nextInt();
+        int opt = sc.nextInt();
     
-        switch(swValue){
+        switch(opt){
         
             case 1:
                 System.out.println("Insira o seu Username");
@@ -52,22 +101,37 @@ public class Client_Main {
                 String psd= sc.nextLine();
                 User u = creatUser(user, psd);
                 byte[] ba = u.toByteArray();
-            
-            
-            case 2: System.exit(1);     
+                cos.writeRawBytes(ba);
+                cos.flush();
+               
+                System.out.println("Checking in progress..."); // Aguardar resposta do servidor
+                Thread.sleep(3000);
+                
+                int len = cis.readRawVarint32();
+                ba = cis.readRawBytes(len);
+                User f = User.parseFrom(ba);
+                if(f!=null){
+                
+                    MainMenu(f);
+                
+                }
+                else {
+                System.out.println("User not found!!");
+                }
+                
+                
+                
+                
+             case 2: System.exit(1);     
         
             default: System.exit(1);
         }
     
     
     
-        while (true) {
-    
-        //cos.flush();
-            Thread.sleep(3000);
-        }
-        //os.close();
-        //s.shutdownOutput();
+      
+        
+        s.shutdownOutput();
         }catch(Exception e){
             e.printStackTrace();
             System.exit(0);
