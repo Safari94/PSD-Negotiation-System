@@ -25,52 +25,9 @@ public class Client_Main {
     
     
     
-    public static void MainMenu(User u){
+ 
         
-        Scanner sc = new Scanner(System.in);
-    while (true){
-        System.out.println("************ Welcome "+u.getUser()+"************");
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println("|        1. Sell     |");
-        System.out.println("|        2. Buy       |");
-        System.out.println("|        3. Logout      |");
-        
-        int opt = sc.nextInt();
-        
-        switch(opt){
-            
-            case 1: //Sell
-                System.out.println("Name of the company:");
-                String company=sc.nextLine();
-                System.out.println("Number of shares to sell:");
-                int ns = sc.nextInt();
-                System.out.println("Price");
-                float price = sc.nextFloat();
-                Sell sl= creatSell(company, ns, price);
-                
-                
-                
-                
-            
-            case 2:
-                
-                System.out.println("Name of the company:");
-                 company=sc.nextLine();
-                System.out.println("Number of shares to Buy:");
-                 ns = sc.nextInt();
-                System.out.println("Price");
-                 price = sc.nextFloat();
-                Buy by= creatBuy(company, ns, price);
-                
-            
-            case 3:
-                
-                break;
-        
-        }
-    }
-        
-        }
+       
    
     public static void main(String[] args) {
        try{
@@ -105,14 +62,14 @@ public class Client_Main {
                 cos.flush();
                
                 System.out.println("Checking in progress..."); // Aguardar resposta do servidor
-                Thread.sleep(3000);
+               
                 
                 int len = cis.readRawVarint32();
                 ba = cis.readRawBytes(len);
                 User f = User.parseFrom(ba);
                 if(f!=null){
                 
-                    MainMenu(f);
+                    new Client_Actor(f);
                 
                 }
                 else {

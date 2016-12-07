@@ -10,18 +10,32 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
+    
     <dependencies>
         <dependency>
          <groupId>com.google.protobuf</groupId>
         <artifactId>protobuf-java</artifactId>
         <version>3.0.2</version>
         </dependency>
+        
+        
+
+
 
 	<dependency>
     	<groupId>co.paralleluniverse</groupId>
     	<artifactId>quasar-core</artifactId>
     	<version>0.7.6</version>
+	    <type>jar</type>
 	</dependency>
+        
+        <!-- https://mvnrepository.com/artifact/co.paralleluniverse/quasar-actors -->
+        <dependency>
+            <groupId>co.paralleluniverse</groupId>
+            <artifactId>quasar-actors</artifactId>
+            <version>0.7.6</version>
+        </dependency>
 
 	<dependency>
     	<groupId>org.zeromq</groupId>
@@ -47,4 +61,6 @@
         <version>1.2.1</version>
         </dependency>
     </dependencies>
+    
+     
 </project>
