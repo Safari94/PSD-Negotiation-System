@@ -14,7 +14,14 @@ import java.util.Scanner;
 import proto_client.Client.Sell;
 import proto_client.Client.Buy;
 import proto_client.Client.User;
+<<<<<<< Updated upstream
 //import zmq.Msg;
+=======
+
+
+
+
+>>>>>>> Stashed changes
 
 /**
  *
@@ -24,20 +31,40 @@ import proto_client.Client.User;
  * 
  */
 
-class Msg {
+class MsgB {
     final Buy b;
+<<<<<<< Updated upstream
     final Sell s;  // careful with mutable objects, such as the byte array
     Msg(Buy b, Sell s) { this.b= b; this.s = s; }
 }
+=======
+      // careful with mutable objects, such as the byte array
+    MsgB(Buy b) { this.b= b; }
+  }
+>>>>>>> Stashed changes
 
+class MsgS {
+    final Sell s;
+      // careful with mutable objects, such as the byte array
+    MsgS(Sell s) { this.s= s; }
+    
+}
 
 public class Client_Actor extends Actor<Message, Void> {
     
     User u;
     ActorRef cli;
     
+<<<<<<< Updated upstream
     public  Client_Actor(User u){
         this.u=u;
+=======
+   
+    
+   public  Client_Actor(User u){
+    this.u=u;
+   
+>>>>>>> Stashed changes
     }
     
     
@@ -64,7 +91,7 @@ public class Client_Actor extends Actor<Message, Void> {
                     System.out.println("Price");
                     float price = sc.nextFloat();
                     Sell sl=creatSell(company, ns, price);
-                    cli.send(new Msg(null, sl));
+                    cli.send(new MsgS(sl));
                     
                     
                 case 2:
@@ -76,7 +103,7 @@ public class Client_Actor extends Actor<Message, Void> {
                     System.out.println("Price");
                     price = sc.nextFloat();
                     Buy by= creatBuy(company, ns, price);
-                    cli.send(new Msg(by, null));
+                    cli.send(new MsgB(by));
                     
                     
                 case 3:
@@ -85,6 +112,7 @@ public class Client_Actor extends Actor<Message, Void> {
                     
             }
         }
+       
         
     }
         
