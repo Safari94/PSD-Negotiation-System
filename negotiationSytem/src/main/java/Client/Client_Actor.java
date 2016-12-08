@@ -33,38 +33,31 @@ import proto_client.Client.User;
 
 class MsgB {
     final Buy b;
-<<<<<<< Updated upstream
-    final Sell s;  // careful with mutable objects, such as the byte array
-    Msg(Buy b, Sell s) { this.b= b; this.s = s; }
-}
-=======
+
       // careful with mutable objects, such as the byte array
     MsgB(Buy b) { this.b= b; }
   }
->>>>>>> Stashed changes
+
 
 class MsgS {
     final Sell s;
       // careful with mutable objects, such as the byte array
     MsgS(Sell s) { this.s= s; }
-    
 }
+    
+
 
 public class Client_Actor extends Actor<Message, Void> {
     
     User u;
     ActorRef cli;
     
-<<<<<<< Updated upstream
-    public  Client_Actor(User u){
-        this.u=u;
-=======
+
    
     
-   public  Client_Actor(User u){
+   public Client_Actor(User u){
     this.u=u;
-   
->>>>>>> Stashed changes
+
     }
     
     
