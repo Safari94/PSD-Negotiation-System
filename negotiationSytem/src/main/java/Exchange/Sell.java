@@ -5,8 +5,7 @@
  */
 package Exchange;
 
-import proto_client.Client.Sell;
-import proto_client.Client.Buy;
+
 import proto_client.Client.User;
 
 
@@ -20,39 +19,14 @@ import co.paralleluniverse.fibers.io.*;
 
 import java.util.*;
 
-class MsgLoginOK{
+/**
+ *
+ * @author xavier
+ */
+public class Sell{
     
-    
-    final ActorRef serve;
-    final User u;
-    
-    MsgLoginOK(User u,ActorRef rf){
-    this.serve=rf;
-    this.u=u;
-    }        
-
-    
-
-
-}
-
-class MsgLoginFailed{
-    
-    final User u;
-    public MsgLoginFailed() {
-        this.u = null;
-    }
-    
-    
-
-    
-}
-
-public class ExchangeServer {
-    
-     
-    
-    
-
+    User u;
+    String company;
+    int 
     
 }

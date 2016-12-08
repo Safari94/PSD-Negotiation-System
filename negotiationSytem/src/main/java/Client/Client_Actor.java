@@ -14,14 +14,9 @@ import java.util.Scanner;
 import proto_client.Client.Sell;
 import proto_client.Client.Buy;
 import proto_client.Client.User;
-<<<<<<< Updated upstream
+
 //import zmq.Msg;
-=======
 
-
-
-
->>>>>>> Stashed changes
 
 /**
  *
@@ -55,8 +50,9 @@ public class Client_Actor extends Actor<Message, Void> {
 
    
     
-   public Client_Actor(User u){
+   public Client_Actor(User u, ActorRef ser){
     this.u=u;
+    this.cli=ser;
 
     }
     
