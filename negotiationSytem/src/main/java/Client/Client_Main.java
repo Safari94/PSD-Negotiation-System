@@ -25,7 +25,7 @@ public class Client_Main {
     
     public static void main(String[] args) {
        try{
-       //if(args.length<2)
+        //if(args.length<2)
         //System.exit(1);
         String host = args[0];
         int port = Integer.parseInt(args[1]);
@@ -36,10 +36,10 @@ public class Client_Main {
         Scanner sc = new Scanner(System.in);
     
     
-        System.out.println("************ Bolsa Online  ************");
-        System.out.println("++++++++++++++++++++++++++++++++++++");
-        System.out.println("|        1. Login      |");
-        System.out.println("|        2. Exit       |");
+        System.out.println("************ Bolsa Online *************");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++");
+        System.out.println("1. Login");
+        System.out.println("2. Exit");
    
         int opt = sc.nextInt();
     
@@ -56,26 +56,24 @@ public class Client_Main {
                 cos.flush();
                
                 System.out.println("Checking in progress..."); // Aguardar resposta do servidor
-               
                 
                 int len = cis.readRawVarint32();
                 ba = cis.readRawBytes(len);
+                                
                 User f = User.parseFrom(ba);
-                if(f!=null){
-                
-                    new Client_Actor(f);
-                
+                if(f!=null){                
+                    new Client_Actor(f).spawn();                
                 }
                 else {
-                System.out.println("User not found!!");
+                    System.out.println("User not found!!");
                 }
+                break;
                 
-                
-                
-                
-             case 2: System.exit(1);     
+            case 2: 
+                System.exit(1);              
         
-            default: System.exit(1);
+            default: 
+                System.exit(1);
         }
     
     

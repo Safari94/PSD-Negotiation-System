@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Client;
 
 import static Client.Client_Main.creatBuy;
@@ -21,22 +16,16 @@ import proto_client.Client.User;
 /**
  *
  * @author xavier
- * 
- * 
- * 
  */
 
 class MsgB {
     final Buy b;
-
-      // careful with mutable objects, such as the byte array
     MsgB(Buy b) { this.b= b; }
-  }
+}
 
 
 class MsgS {
     final Sell s;
-      // careful with mutable objects, such as the byte array
     MsgS(Sell s) { this.s= s; }
 }
     
@@ -47,15 +36,11 @@ public class Client_Actor extends Actor<Message, Void> {
     User u;
     ActorRef cli;
     
-
-   
     
-   public Client_Actor(User u, ActorRef ser){
-    this.u=u;
-    this.cli=ser;
-
+    public Client_Actor(User u){
+        this.u=u;
+        this.cli=Actor.currentActor().ref();
     }
-    
     
     @Override
     protected Void doRun() throws InterruptedException, SuspendExecution {
@@ -64,9 +49,9 @@ public class Client_Actor extends Actor<Message, Void> {
         while (true){
             System.out.println("************ Welcome "+u.getUser()+"************");
             System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
-            System.out.println("|        1. Sell     |");
-            System.out.println("|        2. Buy       |");
-            System.out.println("|        3. Logout      |");
+            System.out.println("1. Sell");
+            System.out.println("2. Buy");
+            System.out.println("3. Logout");
             
             int opt = sc.nextInt();
             
