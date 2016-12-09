@@ -3,18 +3,14 @@ package Exchange;
 import proto_client.Client.Sell;
 import proto_client.Client.Buy;
 import proto_client.Client.User;
-import java.nio.ByteBuffer;
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import co.paralleluniverse.actors.*;
-import co.paralleluniverse.fibers.SuspendExecution;
-import co.paralleluniverse.fibers.io.*;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.google.protobuf.Message;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.ArrayList;
 
 class MsgLoginOK{    
     
@@ -53,17 +49,29 @@ class MsgLoginFailed{
     }
 */
 
+
 public class ExchServer extends Actor<Message,Void> {
     
+    private final ArrayList<Buy> buyOrders;
+    private final ArrayList<Sell> sellOrders;
+    private final ArrayList<User> users;
+    
+    public ExchServer(){
+        this.buyOrders=new ArrayList<>();
+        this.sellOrders=new ArrayList<>();
+        this.users=new ArrayList<>();
+    }
+    
     @Override
-    public Void doRun() {        
+    public Void doRun() {      
+                        
         try{
             ServerSocket ss = new ServerSocket(6063);
             System.out.println("Exchange Server started.");
         
             while(true){
                 Socket client = ss.accept();
-                new Thread(new LoginHandler(client)).start();
+                new Thread(new LoginHandler(client,users)).start();
             }
         
         } catch (Exception e){}
@@ -73,9 +81,11 @@ public class ExchServer extends Actor<Message,Void> {
     static class LoginHandler extends Thread{
         
         Socket c;
+        ArrayList<User> users;
         
-        public LoginHandler(Socket c){
+        public LoginHandler(Socket c,ArrayList<User> users){
             this.c=c;
+            this.users=users;
         }
         
         @Override
@@ -85,9 +95,25 @@ public class ExchServer extends Actor<Message,Void> {
                                         (c.getInputStream());
                 CodedOutputStream cos = CodedOutputStream.newInstance
                                         (c.getOutputStream());
-            
+                
                 //Verificação de login
                 
+                int len = cis.readRawVarint32();
+                byte[] ba = cis.readRawBytes(len);                                
+                User f = User.parseFrom(ba);
+                String username = f.getUser();
+                String password = f.getPass();
+                boolean found=false;
+                
+                for (User u : users){
+                    if (u.getUser().equals(username) &&
+                            u.getPass().equals(password)){
+                        cos.writeRawBytes(u.toByteArray());
+                        found=true;
+                        break;                        
+                    }
+                }
+                if(!found)cos.write(null);
             
             } catch (IOException e){}
         }
