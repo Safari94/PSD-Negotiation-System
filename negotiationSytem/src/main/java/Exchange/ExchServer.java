@@ -50,35 +50,24 @@ class MsgLoginFailed{
 */
 
 
-public class ExchServer extends Actor<Message,Void> {
+public class ExchServer {
     
     private final ArrayList<Buy> buyOrders;
     private final ArrayList<Sell> sellOrders;
-    private final ArrayList<User> users;
     
     public ExchServer(){
         this.buyOrders=new ArrayList<>();
         this.sellOrders=new ArrayList<>();
-        this.users=new ArrayList<>();
     }
     
-    @Override
-    public Void doRun() {      
-                        
-        try{
-            ServerSocket ss = new ServerSocket(6063);
-            System.out.println("Exchange Server started.");
+    public static void main (String[] args){
         
-            while(true){
-                Socket client = ss.accept();
-                new Thread(new LoginHandler(client,users)).start();
-            }
-        
-        } catch (Exception e){}
-        return null;
+        int port=6063;
+        Acceptor acceptor = new Acceptor(port);
+        acceptor.spawn();
     }
      
-    static class LoginHandler extends Thread{
+    /*static class LoginHandler extends Thread{
         
         Socket c;
         ArrayList<User> users;
@@ -117,7 +106,7 @@ public class ExchServer extends Actor<Message,Void> {
             
             } catch (IOException e){}
         }
-    }        
+    }*/        
         
 }
   
