@@ -5,8 +5,6 @@
  */
 package Client;
 import Exchange.Auth;
-import co.paralleluniverse.actors.ActorRef;
-import co.paralleluniverse.fibers.io.FiberSocketChannel;
 import proto_client.Client.Sell;
 import proto_client.Client.Buy;
 import proto_client.Client.User;
