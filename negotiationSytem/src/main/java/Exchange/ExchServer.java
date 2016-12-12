@@ -2,15 +2,6 @@ package Exchange;
 
 import proto_client.Client.Sell;
 import proto_client.Client.Buy;
-import proto_client.Client.User;
-import java.io.IOException;
-import co.paralleluniverse.actors.*;
-import co.paralleluniverse.fibers.SuspendExecution;
-import co.paralleluniverse.fibers.io.*;
-import com.google.protobuf.CodedInputStream;
-import com.google.protobuf.CodedOutputStream;
-import com.google.protobuf.Message;
-import java.net.ServerSocket;
 
 import java.util.ArrayList;
 
@@ -19,13 +10,6 @@ import java.util.ArrayList;
 
 public class ExchServer {
     
-
-    int port=12345;
-    int settlementPort=12456;
-    
-    ActorRef login = new checkLogin().spawn();
-    
-        
 
     private final ArrayList<Buy> buyOrders;
     private final ArrayList<Sell> sellOrders;
@@ -37,8 +21,9 @@ public class ExchServer {
     
     public static void main (String[] args){
         
-        int port=6063;
-        Acceptor acceptor = new Acceptor(port);
+        int exchangeport = 12345;
+        int settlementport = 123456;
+        Acceptor acceptor = new Acceptor(exchangeport);
         acceptor.spawn();
     }
      
@@ -47,9 +32,6 @@ public class ExchServer {
                 
                 //Verificação de login
                 
-                int len = cis.readRawVarint32();
-                byte[] ba = cis.readRawBytes(len);                                
-                User f = User.parseFrom(ba);
                 String username = f.getUser();
                 String password = f.getPass();
                 boolean found=false;
@@ -63,12 +45,11 @@ public class ExchServer {
                     }
                 }
 
-                if(!found)cos.write(null);*/        
+                if(!found)cos.write(null);       
                 if(!found)cos.write(null);
             
             } catch (IOException e){}
-        }
-    }      
+        }*/
 
         
 }

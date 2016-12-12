@@ -34,7 +34,7 @@ public class Acceptor extends Actor{
         
         try{
             
-            ServerSocket ss = new ServerSocket(6063);            
+            ServerSocket ss = new ServerSocket(port);            
             FiberServerSocketChannel fss = FiberServerSocketChannel.open();
             fss.bind(new InetSocketAddress(port));
             
@@ -47,9 +47,11 @@ public class Acceptor extends Actor{
                 CodedOutputStream cos = CodedOutputStream.newInstance
                                 (socket.getOutputStream());
                 
+                int len = cis.readRawVarint32();
+                byte[] ba = cis.readRawBytes(len);                                
+                User user = User.parseFrom(ba);
                 
-                
-                //new LoginManager(fsocket,user).spawn();
+                new LoginManager(fsocket,user).spawn();
             }
             
         } catch (Exception e) {

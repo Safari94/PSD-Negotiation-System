@@ -13,6 +13,9 @@ import com.google.protobuf.CodedOutputStream;
 import com.google.protobuf.Message;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.ArrayList;
 import proto_client.Client.User;
 
@@ -34,9 +37,12 @@ public class LoginManager extends Actor<Message,Void>{
     protected Void doRun() throws InterruptedException, SuspendExecution {
         
         try{
+        //Conexão SQL
+        Connection c = DriverManager.getConnection("jdbc:postgresql://localhost/PSDDB");
+        Statement s = c.createStatement();
         
-        
-        
+        String username = u.getUser();
+        String password = u.getPass();
         
         
         return null;
