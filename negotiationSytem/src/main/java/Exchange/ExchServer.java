@@ -67,23 +67,8 @@ public class ExchServer {
         acceptor.spawn();
     }
      
-    /*static class LoginHandler extends Thread{
-        
-        Socket c;
-        ArrayList<User> users;
-        
-        public LoginHandler(Socket c,ArrayList<User> users){
-            this.c=c;
-            this.users=users;
-        }
-        
+    /*                
         @Override
-        public void run(){
-            try{
-                CodedInputStream cis = CodedInputStream.newInstance
-                                        (c.getInputStream());
-                CodedOutputStream cos = CodedOutputStream.newInstance
-                                        (c.getOutputStream());
                 
                 //Verificação de login
                 
@@ -102,11 +87,7 @@ public class ExchServer {
                         break;                        
                     }
                 }
-                if(!found)cos.write(null);
-            
-            } catch (IOException e){}
-        }
-    }*/        
+                if(!found)cos.write(null);*/        
         
 }
   

@@ -8,7 +8,13 @@ package Exchange;
 import co.paralleluniverse.actors.*;
 import co.paralleluniverse.fibers.*;
 import co.paralleluniverse.fibers.io.*;
+import com.google.protobuf.CodedInputStream;
+import com.google.protobuf.CodedOutputStream;
 import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import proto_client.Client.User;
 
 /**
  *
@@ -17,6 +23,7 @@ import java.net.InetSocketAddress;
 public class Acceptor extends Actor{
     
     int port;
+    ArrayList<User> users;
     
     public Acceptor(int port){
         this.port=port;
@@ -26,12 +33,23 @@ public class Acceptor extends Actor{
     protected Void doRun() throws InterruptedException, SuspendExecution {
         
         try{
-            FiberServerSocketChannel ss = FiberServerSocketChannel.open();
-            ss.bind(new InetSocketAddress(port));
+            
+            ServerSocket ss = new ServerSocket(6063);            
+            FiberServerSocketChannel fss = FiberServerSocketChannel.open();
+            fss.bind(new InetSocketAddress(port));
             
             while(true){
-                FiberSocketChannel socket = ss.accept();
-                //new LoginManager(socket);
+                FiberSocketChannel fsocket = fss.accept();
+                Socket socket = ss.accept();
+                
+                CodedInputStream cis = CodedInputStream.newInstance
+                                (socket.getInputStream());
+                CodedOutputStream cos = CodedOutputStream.newInstance
+                                (socket.getOutputStream());
+                
+                
+                
+                //new LoginManager(fsocket,user).spawn();
             }
             
         } catch (Exception e) {
