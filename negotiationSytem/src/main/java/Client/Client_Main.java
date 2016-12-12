@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package Client;
+import co.paralleluniverse.actors.ActorRef;
+import co.paralleluniverse.fibers.io.FiberSocketChannel;
 import proto_client.Client.Sell;
 import proto_client.Client.Buy;
 import proto_client.Client.User;
@@ -32,6 +34,8 @@ public class Client_Main {
         Socket s = new Socket(host, port);
         CodedInputStream cis = CodedInputStream.newInstance(s.getInputStream());
         CodedOutputStream cos = CodedOutputStream.newInstance(s.getOutputStream());
+        
+        
     
         Scanner sc = new Scanner(System.in);
     
@@ -61,8 +65,9 @@ public class Client_Main {
                 ba = cis.readRawBytes(len);
                                 
                 User f = User.parseFrom(ba);
+               
                 if(f!=null){                
-                    new Client_Actor(f).spawn();                
+                    new Client_Actor(f,port).spawn();                
                 }
                 else {
                     System.out.println("User not found!!");

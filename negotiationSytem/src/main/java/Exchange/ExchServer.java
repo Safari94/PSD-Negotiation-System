@@ -19,14 +19,14 @@ import java.util.ArrayList;
 
 public class ExchServer {
     
-<<<<<<< HEAD
+
     int port=12345;
     int settlementPort=12456;
     
     ActorRef login = new checkLogin().spawn();
     
         
-=======
+
     private final ArrayList<Buy> buyOrders;
     private final ArrayList<Sell> sellOrders;
     
@@ -62,16 +62,14 @@ public class ExchServer {
                         break;                        
                     }
                 }
-<<<<<<< HEAD
+
                 if(!found)cos.write(null);*/        
-=======
                 if(!found)cos.write(null);
             
             } catch (IOException e){}
         }
-    }*/        
->>>>>>> origin/master
->>>>>>> ee30a09b8f865148fd341e39a26d17aaa0e65bc4
+    }      
+
         
 }
   
