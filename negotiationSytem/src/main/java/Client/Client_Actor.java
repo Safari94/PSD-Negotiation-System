@@ -2,6 +2,7 @@ package Client;
 
 import static Client.Client_Main.creatBuy;
 import static Client.Client_Main.creatSell;
+import Exchange.Auth;
 import co.paralleluniverse.actors.*;
 import co.paralleluniverse.fibers.SuspendExecution;
 import co.paralleluniverse.fibers.io.FiberSocketChannel;
@@ -11,7 +12,6 @@ import java.net.InetSocketAddress;
 import java.util.Scanner;
 import proto_client.Client.Sell;
 import proto_client.Client.Buy;
-import proto_client.Client.User;
 
 //import zmq.Msg;
 
@@ -38,13 +38,14 @@ class MsgS {
 
 public class Client_Actor extends Actor<Message, Void> {
     
-    User u;
+    Auth a;
     ActorRef cli;
     FiberSocketChannel fc;
  
     
-    public Client_Actor(User u,int port) throws IOException{
-        this.u=u;
+    public Client_Actor(Auth a,int port) throws IOException{
+        this.a=a;
+        this.cli=a.ref;
         fc.bind(new InetSocketAddress(port));
         }
     
@@ -53,7 +54,7 @@ public class Client_Actor extends Actor<Message, Void> {
         
         Scanner sc = new Scanner(System.in);
         while (true){
-            System.out.println("************ Welcome "+u.getUser()+"************");
+            System.out.println("************ Welcome "+a.user+"************");
             System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println("1. Sell");
             System.out.println("2. Buy");

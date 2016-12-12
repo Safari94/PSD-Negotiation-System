@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Client;
+import Exchange.Auth;
 import co.paralleluniverse.actors.ActorRef;
 import co.paralleluniverse.fibers.io.FiberSocketChannel;
 import proto_client.Client.Sell;
@@ -12,6 +13,7 @@ import proto_client.Client.User;
 
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -20,21 +22,17 @@ import java.util.Scanner;
  * @author xavier
  */
 public class Client_Main {
-
-    /**
-     * @param args the command line arguments
-     */
     
     public static void main(String[] args) {
        try{
-        //if(args.length<2)
-        //System.exit(1);
+        if(args.length<2)
+        System.exit(1);
         String host = args[0];
         int port = Integer.parseInt(args[1]);
-        Socket s = new Socket(host, port);
+        Socket s = new Socket(host,port);
         CodedInputStream cis = CodedInputStream.newInstance(s.getInputStream());
         CodedOutputStream cos = CodedOutputStream.newInstance(s.getOutputStream());
-        
+        ObjectInputStream is = new ObjectInputStream(s.getInputStream());
         
     
         Scanner sc = new Scanner(System.in);
@@ -59,16 +57,13 @@ public class Client_Main {
                 cos.writeRawBytes(ba);
                 cos.flush();
                
-                System.out.println("Checking in progress..."); // Aguardar resposta do servidor
+                System.out.println("Checking in progress..."); 
                 
-                int len = cis.readRawVarint32();
-                ba = cis.readRawBytes(len);
-                                
-                User f = User.parseFrom(ba);
+                Auth auth=(Auth)is.readObject();
                 
                
-                if(f!=null){                
-                    new Client_Actor(f,port).spawn();                
+                if(auth!=null){                
+                    new Client_Actor(auth,port).spawn();                
                 }
                 else {
                     System.out.println("User not found!!");
@@ -88,7 +83,7 @@ public class Client_Main {
         
         s.shutdownOutput();
         }catch(Exception e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             System.exit(0);
         }
          

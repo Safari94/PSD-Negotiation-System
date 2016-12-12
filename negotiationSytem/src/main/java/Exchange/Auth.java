@@ -12,10 +12,10 @@ import co.paralleluniverse.actors.ActorRef;
  * @author toanjo
  */
 public class Auth {
-    final String user;
-    final String pass;
-    final String accountnumber;
-    final ActorRef ref;
+    public final String user;
+    public final String pass;
+    public final String accountnumber;
+    public final ActorRef ref;
     
     public Auth(String user, String pass, String accountnumber,ActorRef ref){
         this.user=user;

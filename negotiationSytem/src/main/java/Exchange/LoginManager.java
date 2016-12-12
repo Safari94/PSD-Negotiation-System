@@ -24,7 +24,7 @@ import proto_client.Client.User;
  *
  * @author toanjo
  */
-public class LoginManager extends Actor<Message,Void>{
+public class LoginManager extends Actor<Message,Auth>{
     
     FiberSocketChannel s;
     User u;
@@ -35,10 +35,9 @@ public class LoginManager extends Actor<Message,Void>{
     }
 
     @Override
-    protected Void doRun() throws InterruptedException, SuspendExecution {
+    protected Auth doRun() throws InterruptedException, SuspendExecution {
         
         try{
-        //Conexão SQL
         Connection c = DriverManager.getConnection("jdbc:postgresql://localhost/PSDDB");
         Statement s = c.createStatement();
                 
@@ -49,21 +48,21 @@ public class LoginManager extends Actor<Message,Void>{
         ResultSet rs = s.executeQuery("select * from users where userid = "+username
         +"and password = "+password);
         if(!rs.next()){
-            Auth client = new Auth(null,null,null,self());
-            client.ref.send(null);
+            return null;
         } else {
             while(rs.next()){
                 String accountnumber=rs.getString("accountnumber");
                 
                 Auth client = new Auth(username,password,accountnumber,self());
-                client.ref.send(client);                
+                return client;
             }
         }
         
-                
         return null;
+        
         } catch (Exception e){
-        return null;
+            System.out.println(e.getMessage());
+            return null;
         }
     }
     

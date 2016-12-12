@@ -10,6 +10,7 @@ import co.paralleluniverse.fibers.*;
 import co.paralleluniverse.fibers.io.*;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -47,11 +48,16 @@ public class Acceptor extends Actor{
                 CodedOutputStream cos = CodedOutputStream.newInstance
                                 (socket.getOutputStream());
                 
+                ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
+                
                 int len = cis.readRawVarint32();
                 byte[] ba = cis.readRawBytes(len);                                
                 User user = User.parseFrom(ba);
                 
-                new LoginManager(fsocket,user).spawn();
+                Auth auth = new LoginManager(fsocket,user).doRun();
+
+                os.writeObject(auth);
+                
             }
             
         } catch (Exception e) {
