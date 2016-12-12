@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import proto_client.Client.User;
@@ -40,11 +41,25 @@ public class LoginManager extends Actor<Message,Void>{
         //Conexão SQL
         Connection c = DriverManager.getConnection("jdbc:postgresql://localhost/PSDDB");
         Statement s = c.createStatement();
+                
         
         String username = u.getUser();
         String password = u.getPass();
         
+        ResultSet rs = s.executeQuery("select * from users where userid = "+username
+        +"and password = "+password);
+        if(!rs.next()){
+            //enviar null
+        } else 
+        while(rs.next()){
+            String accountnumber=rs.getString("accountnumber");
+            
+            User f = User.newBuilder().setAccountNumber(accountnumber)
+                    .setUser(username).setPass(password).build();
+            //enviar f
+        }
         
+                
         return null;
         } catch (Exception e){
         return null;
