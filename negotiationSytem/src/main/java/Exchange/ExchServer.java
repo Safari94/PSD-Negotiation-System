@@ -5,53 +5,28 @@ import proto_client.Client.Buy;
 import proto_client.Client.User;
 import java.io.IOException;
 import co.paralleluniverse.actors.*;
+import co.paralleluniverse.fibers.SuspendExecution;
+import co.paralleluniverse.fibers.io.*;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.google.protobuf.Message;
 import java.net.ServerSocket;
-import java.net.Socket;
+
 import java.util.ArrayList;
 
-class MsgLoginOK{    
-    
-    final ActorRef serve;
-    final User u;
-    
-    public MsgLoginOK(User u,ActorRef rf){
-        this.serve=rf;
-        this.u=u;
-    }        
-}
 
-class MsgLoginFailed{
-    
-    final User u;
-    
-    public MsgLoginFailed() {
-        this.u = null;
-    }  
-}
-
-/*class Request {
-        final ActorRef from;
-        final Exchange.Buy buy;
-        final Exchange.Sell sell;
-        Request(ActorRef from, Exchange.Sell sell){
-            this.from=from;
-            this.buy=null;
-            this.sell=sell;
-        }
-        Request(ActorRef from, Exchange.Buy buy){
-            this.from=from;
-            this.buy=buy;
-            this.sell=null;
-        }
-    }
-*/
 
 
 public class ExchServer {
     
+<<<<<<< HEAD
+    int port=12345;
+    int settlementPort=12456;
+    
+    ActorRef login = new checkLogin().spawn();
+    
+        
+=======
     private final ArrayList<Buy> buyOrders;
     private final ArrayList<Sell> sellOrders;
     
@@ -87,7 +62,16 @@ public class ExchServer {
                         break;                        
                     }
                 }
+<<<<<<< HEAD
                 if(!found)cos.write(null);*/        
+=======
+                if(!found)cos.write(null);
+            
+            } catch (IOException e){}
+        }
+    }*/        
+>>>>>>> origin/master
+>>>>>>> ee30a09b8f865148fd341e39a26d17aaa0e65bc4
         
 }
   
