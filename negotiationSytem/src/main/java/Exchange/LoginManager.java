@@ -49,14 +49,15 @@ public class LoginManager extends Actor<Message,Void>{
         ResultSet rs = s.executeQuery("select * from users where userid = "+username
         +"and password = "+password);
         if(!rs.next()){
-            //enviar null
-        } else 
-        while(rs.next()){
-            String accountnumber=rs.getString("accountnumber");
-            
-            User f = User.newBuilder().setAccountNumber(accountnumber)
-                    .setUser(username).setPass(password).build();
-            //enviar f
+            Auth client = new Auth(null,null,null,self());
+            client.ref.send(null);
+        } else {
+            while(rs.next()){
+                String accountnumber=rs.getString("accountnumber");
+                
+                Auth client = new Auth(username,password,accountnumber,self());
+                client.ref.send(client);                
+            }
         }
         
                 

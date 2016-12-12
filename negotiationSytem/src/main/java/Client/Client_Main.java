@@ -65,6 +65,7 @@ public class Client_Main {
                 ba = cis.readRawBytes(len);
                                 
                 User f = User.parseFrom(ba);
+                
                
                 if(f!=null){                
                     new Client_Actor(f,port).spawn();                
