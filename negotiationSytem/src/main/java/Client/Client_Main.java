@@ -50,10 +50,8 @@ public class Client_Main {
                 String user= sc.nextLine();
                 System.out.println("Insira a sua password");
                 String psd= sc.nextLine();
-                User u = creatUser(user, psd);
-                byte[] ba = u.toByteArray();
-                cos.writeRawBytes(ba);
-                cos.flush();
+                
+               
                
                 System.out.println("Checking in progress..."); 
                 
@@ -87,6 +85,8 @@ public class Client_Main {
          
     }
     
+/*    
+    
     static Buy creatBuy(String company,int actions, float price){
         return 
             Buy.newBuilder()
@@ -115,3 +115,5 @@ public class Client_Main {
     }
     
 }
+
+*/
