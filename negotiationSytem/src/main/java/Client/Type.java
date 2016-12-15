@@ -7,27 +7,18 @@ public enum Type {
 	ENTER, 
 	LEAVE, 
 	LINE, 
+        BUY,
+        SELL,
 	CREATE, 
-	LOGIN, 
-	DELETE, 
+	LOGIN,  
 	LOGIN_OK,
         LOGIN_FAILED,
-        
-	
-	PMESSAGE,
-	LOGOUT_OK,
+        LOGOUT_OK,
 	LOGOUT,
-	DELETE_ROOM, 
-	LIST_USERS,
-	USERS_ONLINE,
-	ROOM_END,
-	DELETE_ROOM_OK,
-	CREATE_ROOM_OK,
-	ENTER_ROOM_USER,
-	LEAVE_ROOM_USER,
-	USER_CREATED_ACCOUNT,
-	USER_DELETED_ACCOUNT,
-	USER_LOGIN
+        SEND_REQUEST,
+        BANK_OK,
+        BANK_FAILED
+        
 	
 
 }

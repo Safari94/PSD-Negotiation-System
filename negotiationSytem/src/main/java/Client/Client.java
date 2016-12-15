@@ -39,4 +39,153 @@ public class Client extends BasicActor<Msg,Void> {
     private final String inicioErro = "\nERROR chose one of the following commands:\n 1)Login <user> <pass>\n 2)Exit\n\n";
     private final String menu1 = "Commands:\n 1)Sell <Companyname> <Ammount> <price>\n 2)Buy <> <Ammount> <price>\n 3) Logout\n";
     private final String menu1Erro = "\nERROR chose one of the following commands: \n 1)Sell <Companyname> <Ammount> <price>\n 2)Buy <> <Ammount> <price>\n 3) Logout\n";
+
+    protected Void doRun() throws InterruptedException, SuspendExecution {
+
+            new LineReader(self(), socket).spawn();
+
+            self().send(new Msg(Type.LINE, inicio.getBytes()));
+
+            while (receive(msg -> {
+
+                  try {
+
+                  switch (msg.type) {
+
+                    case DATA:
+                      String s= new String((byte[])msg.o);
+                        String[] aux= s.split(" ");
+
+                      if(!ativo){
+
+                          switch(aux[0]){
+
+                              case "Login\n":
+                                  if(aux.length == 3) {
+                                      userHandler.send(new Msg(Type.LOGIN,new User (self,aux[1],aux[2])));
+                                  }
+                                  else{
+                                      self().send(new Msg(Type.LINE,inicioErro.getBytes()));
+                                  }
+                                  break;
+
+                             
+
+                              case "Exit\n":
+                                  if(aux.length == 1) {
+                                      this.socket.close();
+                                      return false;
+                                  }
+                                  else{
+                                      self().send(new Msg(Type.LINE,inicioErro.getBytes()));
+                                      break;
+                                  }
+
+                          default: self().send(new Msg(Type.LINE,inicioErro.getBytes()));
+
+                        }
+
+                      }
+
+                        else{
+                          switch(aux[0]){
+
+                            case "Sell":
+                                if(aux.length == 3) {
+                                    userHandler.send(new Msg(Type.SELL, new Sell(self(),aux[1],aux[2],aux[3])));
+                                }
+                                else{
+                                     self().send(new Msg(Type.LINE,menu1Erro.getBytes()));
+                                }
+                                break;
+
+                            case "Buy":
+                                if(aux.length ==3) {
+                                    userHandler.send(new Msg(Type.BUY, new Buy(self(),aux[1],aux[2],aux[3])));
+                                }
+                                else{
+                                    
+                                    self().send(new Msg(Type.LINE,menu1Erro.getBytes()));
+                                }
+                                break;
+
+                            case ":Logout\n":
+                                if(aux.length == 1) {
+                                   
+                                    userHandler.send(new Msg(Type.LOGOUT, );
+                                }
+                               
+                                    else self().send(new Msg(Type.LINE,menu1Erro.getBytes()));
+                                
+                                break;
+
+                         
+
+
+
+
+
+                            default: if(ativo ){
+
+                                        StringBuilder nick= new StringBuilder();
+                                        String mess= new String((byte[])msg.o);
+                                        nick.append("@"+ this.nome+ ": " + mess);
+                                       
+                                      }
+                                      else if(ativo) self().send(new Msg(Type.LINE,menu1Erro.getBytes()));
+                          }
+
+                        }
+                        return true;
+
+                    
+
+                      case LOGIN_OK:
+
+                          this.ativo=true;
+                          self().send(new Msg(Type.LINE,menu1.getBytes()));
+                          return true;
+                          
+                     case LOGIN_FAILED:
+                         this.ativo=true;
+                         self().send(new Msg(Type.LINE,))
+
+                      case LOGOUT_OK:
+
+                          this.ativo=false;
+                          self().send(new Msg(Type.LINE,inicio.getBytes()));
+                          
+
+                          return true;
+
+                     
+
+                      case EOF:
+
+                      case IOE:
+                          userHandler.send(new Msg(Type.LOGOUT, new MRoom2(this.nome, self(), null)));
+                          this.socket.close();
+
+                          return false;
+
+                      case LINE:
+
+                          this.socket.write(ByteBuffer.wrap((byte[])msg.o));
+
+                          return true;
+                  }
+              }
+
+              catch (IOException e) {
+                self().send(new Msg(Type.LEAVE, self()));
+              }
+
+              return false;
+
+            }));
+
+        return null;
+    }
+
+
 }
