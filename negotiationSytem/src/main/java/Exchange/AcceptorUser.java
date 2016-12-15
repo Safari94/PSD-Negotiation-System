@@ -2,6 +2,8 @@
 
 package Exchange;
 
+
+import Client.Client;
 import java.nio.ByteBuffer;
 import java.io.IOException;
 import java.net.InetSocketAddress;

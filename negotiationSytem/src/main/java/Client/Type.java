@@ -1,3 +1,5 @@
+package Client;
+
 public enum Type {
 	DATA,
 	EOF, 
@@ -8,16 +10,10 @@ public enum Type {
 	CREATE, 
 	LOGIN, 
 	DELETE, 
-	LOGIN_OK, 
-	CREATE_OK, 
-	DELETE_OK, 
-	JOIN_ROOM,
-	OK_ROOM,
-	CREATE_ROOM, 
-	CHANGE_ROOM, 
-	LEAVE_ROOM, 
-	LIST_ROOMS,
-	LEAVE_OK,
+	LOGIN_OK,
+        LOGIN_FAILED,
+        
+	
 	PMESSAGE,
 	LOGOUT_OK,
 	LOGOUT,
