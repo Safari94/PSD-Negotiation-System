@@ -21,7 +21,7 @@ import java.util.*;
 public class SettlementServer {
     
     public static void main(String[] args) throws Exception {
-	    i
+	    
 	    int port1= 12346;
 
 	    
