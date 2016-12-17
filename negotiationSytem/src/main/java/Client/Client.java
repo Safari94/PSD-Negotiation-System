@@ -27,7 +27,7 @@ public class Client extends BasicActor<Msg,Void> {
     private String nome;
     private String password;
     
-    Client(FiberSocketChannel socket, ActorRef userHandler){
+    public Client(FiberSocketChannel socket, ActorRef userHandler){
     this.userHandler=userHandler;
     this.socket=socket;
     this.ativo=false;

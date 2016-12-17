@@ -5,10 +5,38 @@
  */
 package Settlement;
 
+import java.nio.ByteBuffer;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import co.paralleluniverse.actors.*;
+import co.paralleluniverse.fibers.SuspendExecution;
+import co.paralleluniverse.fibers.io.*;
+
+import java.util.*;
+
 /**
  *
  * @author toanjo
  */
 public class SettlementServer {
+    
+    public static void main(String[] args) throws Exception {
+	    i
+	    int port1= 12346;
+
+	    
+
+	    ActorRef bank= new Bank().spawn();
+	    ActorRef requests = new RequestsHandler().spawn();
+
+	    AcceptorExchange acceptorE = new AcceptorExchange();
+	    
+
+	    acceptorE.spawn();
+	    
+
+	    acceptorE.join();
+	    
+	  }
     
 }

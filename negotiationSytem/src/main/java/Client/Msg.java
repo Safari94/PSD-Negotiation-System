@@ -14,5 +14,5 @@ public class Msg {
    final Type type;
    final Object o;
 
-   Msg(Type type, Object o) { this.type = type; this.o = o; }
+   public Msg(Type type, Object o) { this.type = type; this.o = o; }
  }

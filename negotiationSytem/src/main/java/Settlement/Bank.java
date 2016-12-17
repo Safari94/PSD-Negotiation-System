@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Exchange;
+package Settlement;
 
 /**
  *
  * @author xavier
  */
-public class AcceptorBank {
+class Bank {
+
+    public Bank() {
+    }
     
 }

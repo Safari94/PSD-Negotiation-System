@@ -23,7 +23,7 @@ public class LineReader extends BasicActor<Msg, Void> {
   ByteBuffer in = ByteBuffer.allocate(MAXLEN);
   ByteBuffer out = ByteBuffer.allocate(MAXLEN);
 
-  LineReader(ActorRef<Msg> dest, FiberSocketChannel socket) {
+  public LineReader(ActorRef<Msg> dest, FiberSocketChannel socket) {
     this.dest = dest; this.socket = socket;
   }
 

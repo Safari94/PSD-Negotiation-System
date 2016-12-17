@@ -28,13 +28,13 @@ public class ExchServer {
             ActorRef settlementHandler = new SettlementHandler().spawn();
 
 	    AcceptorUser acceptorUser = new AcceptorUser(port_cliente,userHandler);
-	    AcceptorBank acceptorBank = new AcceptorBank(port_bank,settlementHandler);
+	    AcceptorSettlement acceptorS = new AcceptorSettlement(port_bank,settlementHandler);
 
 	    acceptorUser.spawn();
-	    acceptorBank.spawn();
+	    acceptorS.spawn();
 
 	    acceptorUser.join();
-	    acceptorBank.join();
+	    acceptorS.join();
 	  }
     }
            
