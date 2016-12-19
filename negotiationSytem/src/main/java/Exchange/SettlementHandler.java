@@ -12,7 +12,7 @@ import co.paralleluniverse.fibers.SuspendExecution;
  *
  * @author xavier
  */
-class SettlementHandler extends BasicActor{
+public class SettlementHandler extends BasicActor{
     
     
     

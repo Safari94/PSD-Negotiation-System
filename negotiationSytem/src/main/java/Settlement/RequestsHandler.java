@@ -23,7 +23,7 @@ import java.util.*;
  * Nesta classe serão tratados todos os pedidos enviados pelo Exchange, aqui são tratadas as trocas de acçoes
  * e posteriormente 
  */
-class RequestsHandler extends BasicActor<Msg, Void>  {
+public class RequestsHandler extends BasicActor<Msg, Void>  {
     
     final ActorRef exchangeH;
     final FiberSocketChannel socket;
