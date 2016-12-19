@@ -19,8 +19,8 @@ public class Bank {
     Statement s;
 
     public Bank(){
-        //Connection c = ;
-        //Statement s = c.createStatement();
+        //this.c = ;
+        //this.s = c.createStatement();
     }
     
     public void execute(String a, String b, float quantidade){
