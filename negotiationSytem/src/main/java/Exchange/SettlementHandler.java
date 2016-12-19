@@ -25,7 +25,7 @@ public abstract class SettlementHandler extends BasicActor<Msg,Void>{
     }
 
     @Override
-    protected Object doRun() throws InterruptedException, SuspendExecution {
+    protected Void doRun() throws InterruptedException, SuspendExecution {
         return null;
     }
     

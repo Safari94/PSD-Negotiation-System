@@ -11,8 +11,8 @@ import java.util.*;
 
 public class Msg {
 
-   final Type type;
-   final Object o;
+   public final Type type;
+   public final Object o;
 
    public Msg(Type type, Object o) { this.type = type; this.o = o; }
  }

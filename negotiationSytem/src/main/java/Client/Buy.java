@@ -19,6 +19,8 @@ public class Buy {
         this.usr = usr;
         this.company = company;
         this.ammount = ammount;
+        this.price = price;
+    }
         
     
 }

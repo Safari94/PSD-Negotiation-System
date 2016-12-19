@@ -5,7 +5,7 @@
  */
 package Exchange;
 
-import Client.Msg;
+import Client.*;
 import java.util.*;
 import java.nio.ByteBuffer;
 import java.io.IOException;
@@ -20,12 +20,12 @@ import co.paralleluniverse.fibers.io.*;
  */
 public class UserHandler extends BasicActor<Msg, Void> {
     
-    final HashMap<String,User> users;
+    final HashMap<String,Usr> users;
     final ArrayList<Sell> sells;
     final ArrayList<Buy> buys;
     
     UserHandler(){
-		this.users= new HashMap<String,String>();
+		this.users= new HashMap<String,Usr>();
 		this.sells= new ArrayList<Sell>();
                 this.buys= new ArrayList<Buy>();
 	}
@@ -35,62 +35,44 @@ public class UserHandler extends BasicActor<Msg, Void> {
         this.populate();
         while(receive(msg -> { 
 
-			switch(msg.type){
+            switch(msg.type){
+
+		case LOGIN:
+                    Usr u1= (Usr)msg.o;					
+                    if(users.containsKey(u1.username) && users.get(u1.username).equals(u1.password)){											
+			u1.rf.send(new Msg(Type.LINE,"Login with sucess\n\n".getBytes()));
+                        u1.rf.send(new Msg(Type.LOGIN_OK,null)); 			
+                    }
+                    else {
+                    u1.rf.send(new Msg(Type.LINE,"Your password or user are wrong\n\n".getBytes()));
+                    }
+                    return true;
 
 				
-				case LOGIN:
-					User u1= (User)msg.o;
-					if(users.containsKey(data1.user) && logins.get(data1.user).equals(data1.pass)){
-						if(!online.containsKey(data1.user)){
-							online.put(data1.user,data1.ref);
-							
-							data1.ref.send(new Msg(Type.LINE,"Login with sucess\n\n".getBytes()));
+		case LOGOUT:
+                    u1= (Usr)msg.o;
+                    u1.rf.send(new Msg(Type.LINE,"Comeback soon !\n\n".getBytes()));
+                    u1.rf.send(new Msg(Type.LOGOUT_OK, null));
+                    return true;
+            }
 
-							data1.ref.send(new Msg(Type.LOGIN_OK,null)); 
-						}
-
-						else{
-							data1.ref.send(new Msg(Type.LINE,"This account is already online, please logout or try again later\n\n".getBytes()));
-						}
-					}
-
-					else {
-						data1.ref.send(new Msg(Type.LINE,"Your password or user are wrong\n\n".getBytes()));
-					}
-					return true;
-
-				
-
-				case LOGOUT:
-				
-                                MRoom2 dados=(MRoom2)msg.o;
-				this.online.remove(dados.name);
-				dados.user.send(new Msg(Type.LINE,"Comeback soon !\n\n".getBytes()));
-				dados.user.send(new Msg(Type.LOGOUT_OK, null));
-				return true;
-
-				
-
-				
-			}
-
-				return false;
-		}));
-			return null;
+            return false;
+	}));
+            return null;
 	}
     
     void populate (){
-        User u;
-        u = new User("Xavier","xavier");
+        Usr u;
+        u = new Usr("Xavier","xavier");
         users.put("Xavier", u);
         
-        u = new User("Antonio","antonio");
+        u = new Usr("Antonio","antonio");
         users.put("Antonio",u);
         
-        u = new User("Joao","joao");
+        u = new Usr("Joao","joao");
         users.put("Joao",u);
         
-        u = new User("Jose","jose");
+        u = new Usr("Jose","jose");
         users.put("Jose",u);        
     }
 }
