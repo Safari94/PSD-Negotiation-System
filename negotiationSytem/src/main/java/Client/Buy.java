@@ -19,7 +19,12 @@ public class Buy {
         this.usr = usr;
         this.company = company;
         this.ammount = ammount;
+<<<<<<< HEAD
         this.price=price;
+=======
+        this.price = price;
+    }
+>>>>>>> origin/master
         
     
 }

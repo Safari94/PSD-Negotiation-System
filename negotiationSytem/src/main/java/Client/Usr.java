@@ -6,6 +6,7 @@
 package Client;
 
 import co.paralleluniverse.actors.ActorRef;
+import static co.paralleluniverse.actors.LocalActor.self;
 
 /**
  *
@@ -13,12 +14,18 @@ import co.paralleluniverse.actors.ActorRef;
  */
 public class Usr {
     
-    final ActorRef rf;
-    final String username;
-    final String password;
+    public final ActorRef rf;
+    public final String username;
+    public final String password;
     
     public Usr(ActorRef rf, String username, String password){
         this.rf=rf;
+        this.username=username;
+        this.password=password;
+    }
+    
+    public Usr(String username, String password){
+        this.rf=self();
         this.username=username;
         this.password=password;
     }

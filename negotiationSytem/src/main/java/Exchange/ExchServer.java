@@ -24,11 +24,8 @@ public class ExchServer {
 	    int port_bank= 12346;
             
 	    ActorRef userHandler = new UserHandler().spawn();
-<<<<<<< Updated upstream
             ActorRef settlementHandler = new SettlementHandler(,self()).spawn();
-=======
-            ActorRef settlementHandler = new SettlementHandler().spawn();
->>>>>>> Stashed changes
+
 
 	    AcceptorUser acceptorUser = new AcceptorUser(port_cliente,userHandler);
 	    AcceptorSettlement acceptorS = new AcceptorSettlement(port_bank,settlementHandler);

@@ -169,7 +169,7 @@ public class Client extends BasicActor<Msg,Void> {
                       case EOF:
 
                       case IOE:
-                          userHandler.send(new Msg(Type.LOGOUT, new MRoom2(this.nome, self(), null)));
+                          //userHandler.send(new Msg(Type.LOGOUT, new MRoom2(this.nome, self(), null)));
                           this.socket.close();
 
                           return false;
