@@ -2,11 +2,6 @@ syntax = "proto2";
 
 package proto_client;
 
-message User {
-    required actorref ref = 1;
-    required string user=2;
-    required string pass=3;
-}
 
 
 

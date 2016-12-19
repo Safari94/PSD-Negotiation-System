@@ -24,16 +24,7 @@ public class SettlementServer {
 	    
 	    int port1= 12346;
             
-	    ActorRef bank= new Bank().spawn();
-	    ActorRef requests = new RequestsHandler().spawn();
-
-	    AcceptorExchange acceptorE = new AcceptorExchange(port1,requests);
 	    
-
-	    acceptorE.spawn();
-	    
-
-	    acceptorE.join();
 	    
 	  }
     

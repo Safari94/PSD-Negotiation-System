@@ -6,6 +6,9 @@
 package Client;
 
 
+
+
+
 import java.nio.ByteBuffer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -46,7 +49,7 @@ public class Client extends BasicActor<Msg,Void> {
 
             self().send(new Msg(Type.LINE, inicio.getBytes()));
 
-            while (receive(msg -> {
+            while (receive((Msg msg) -> {
 
                   try {
 
@@ -63,7 +66,7 @@ public class Client extends BasicActor<Msg,Void> {
                               case "Login\n":
                                   if(aux.length == 3) {
                                       nome=aux[1];
-                                      userHandler.send(new Msg(Type.LOGIN,new User (self(),aux[1],aux[2])));
+                                      userHandler.send(new Msg(Type.LOGIN,new Usr (self(),aux[1],aux[2])));
                                   }
                                   else{
                                       self().send(new Msg(Type.LINE,inicioErro.getBytes()));
@@ -93,7 +96,7 @@ public class Client extends BasicActor<Msg,Void> {
 
                             case "Sell":
                                 if(aux.length == 3) {
-                                    userHandler.send(new Msg(Type.SELL, new Sell(self(),aux[1],aux[2],aux[3])));
+                                    userHandler.send(new Msg(Type.SELL, new Sell(nome,aux[1],Integer.parseInt(aux[2]),Float.parseFloat(aux[3]))));
                                 }
                                 else{
                                      self().send(new Msg(Type.LINE,menu1Erro.getBytes()));
@@ -102,7 +105,7 @@ public class Client extends BasicActor<Msg,Void> {
 
                             case "Buy":
                                 if(aux.length ==3) {
-                                    userHandler.send(new Msg(Type.BUY, new Buy(self(),aux[1],aux[2],aux[3])));
+                                    userHandler.send(new Msg(Type.BUY, new Buy(nome,aux[1],Integer.parseInt(aux[2]),Float.parseFloat(aux[3]))));
                                 }
                                 else{
                                     
@@ -128,7 +131,7 @@ public class Client extends BasicActor<Msg,Void> {
 
 
 
-                            default: if(ativo ){
+                            default: if(ativo){
 
                                         StringBuilder nick= new StringBuilder();
                                         String mess= new String((byte[])msg.o);
@@ -151,7 +154,7 @@ public class Client extends BasicActor<Msg,Void> {
                           
                      case LOGIN_FAILED:
                          this.ativo=true;
-                         self().send(new Msg(Type.LINE,))
+                         self().send(new Msg(Type.LINE,null));
 
                       case LOGOUT_OK:
 
@@ -191,4 +194,8 @@ public class Client extends BasicActor<Msg,Void> {
     }
 
 
+  
+
 }
+
+

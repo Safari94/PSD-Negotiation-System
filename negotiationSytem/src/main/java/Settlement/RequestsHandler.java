@@ -25,38 +25,21 @@ import java.util.*;
  */
 public class RequestsHandler extends BasicActor<Msg, Void>  {
     
-    final ActorRef exchangeH;
     
+    final FiberSocketChannel socket;
+    final ActorRef rqsHandler;
+    Bank bank;
     
-    
-
-  public RequestsHandler(FiberSocketChannel socket,ActorRef exchangeH ) {
+    public RequestsHandler(FiberSocketChannel socket,ActorRef rqs){
+        this.socket=socket;
+        this.rqsHandler=rqs;
         
-        this.exchangeH=exchangeH;
+    
     }
-  
-  
-  @Override
-  protected Void doRun() throws InterruptedException, SuspendExecution {
 
-            
-
-           
-            
-            while (receive(msg -> {
-
-                  try {
-
-                  switch (msg.type) {
-                      
-                      
-                      //Fazer cenas
-                  }
-            
-            
-            
-            return null;
-            
-  }     
+    @Override
+    protected Void doRun() throws InterruptedException, SuspendExecution {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
