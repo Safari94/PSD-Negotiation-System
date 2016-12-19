@@ -5,6 +5,7 @@
  */
 package Exchange;
 
+import Client.Msg;
 import co.paralleluniverse.actors.*;
 import co.paralleluniverse.actors.BasicActor;
 import co.paralleluniverse.fibers.SuspendExecution;
@@ -14,7 +15,7 @@ import co.paralleluniverse.fibers.io.FiberSocketChannel;
  *
  * @author xavier
  */
-public class SettlementHandler extends BasicActor{
+public abstract class SettlementHandler extends BasicActor<Msg,Void>{
     
     
     
