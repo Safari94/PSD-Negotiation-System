@@ -5,8 +5,10 @@
  */
 package Exchange;
 
+import co.paralleluniverse.actors.*;
 import co.paralleluniverse.actors.BasicActor;
 import co.paralleluniverse.fibers.SuspendExecution;
+import co.paralleluniverse.fibers.io.FiberSocketChannel;
 
 /**
  *
@@ -16,7 +18,10 @@ public class SettlementHandler extends BasicActor{
     
     
     
-    public SettlementHandler() {
+    ActorRef sett;
+    public SettlementHandler(FiberSocketChannel socket,ActorRef sett) {
+        
+        this.sett=sett;
     }
 
     @Override

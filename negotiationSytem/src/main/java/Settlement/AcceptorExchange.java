@@ -6,6 +6,7 @@
 package Settlement;
 
 import Client.Client;
+import Exchange.AcceptorSettlement;
 import co.paralleluniverse.actors.ActorRef;
 import co.paralleluniverse.actors.BasicActor;
 import co.paralleluniverse.fibers.SuspendExecution;
@@ -19,7 +20,7 @@ import Exchange.SettlementHandler;
  *
  * @author xavier
  */
-class AcceptorExchange extends BasicActor{
+public class AcceptorExchange extends BasicActor{
 
     final int port;
     final ActorRef exchangeHandler;

@@ -27,7 +27,7 @@ public class SettlementServer {
 	    ActorRef bank= new Bank().spawn();
 	    ActorRef requests = new RequestsHandler().spawn();
 
-	    AcceptorExchange acceptorE = new AcceptorExchange();
+	    AcceptorExchange acceptorE = new AcceptorExchange(port1,requests);
 	    
 
 	    acceptorE.spawn();

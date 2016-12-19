@@ -62,7 +62,8 @@ public class Client extends BasicActor<Msg,Void> {
 
                               case "Login\n":
                                   if(aux.length == 3) {
-                                      userHandler.send(new Msg(Type.LOGIN,new User (self,aux[1],aux[2])));
+                                      nome=aux[1];
+                                      userHandler.send(new Msg(Type.LOGIN,new User (self(),aux[1],aux[2])));
                                   }
                                   else{
                                       self().send(new Msg(Type.LINE,inicioErro.getBytes()));
@@ -112,7 +113,9 @@ public class Client extends BasicActor<Msg,Void> {
                             case ":Logout\n":
                                 if(aux.length == 1) {
                                    
-                                    userHandler.send(new Msg(Type.LOGOUT, );
+                                    userHandler.send(new Msg(Type.LOGOUT,null));
+                                    self().send(new Msg(Type.LOGOUT_OK,inicio.getBytes()));
+                                    
                                 }
                                
                                     else self().send(new Msg(Type.LINE,menu1Erro.getBytes()));

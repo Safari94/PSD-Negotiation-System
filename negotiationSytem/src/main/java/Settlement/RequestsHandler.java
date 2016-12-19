@@ -26,12 +26,12 @@ import java.util.*;
 public class RequestsHandler extends BasicActor<Msg, Void>  {
     
     final ActorRef exchangeH;
-    final FiberSocketChannel socket;
+    
     
     
 
   public RequestsHandler(FiberSocketChannel socket,ActorRef exchangeH ) {
-        this.socket=socket;
+        
         this.exchangeH=exchangeH;
     }
   
@@ -39,9 +39,9 @@ public class RequestsHandler extends BasicActor<Msg, Void>  {
   @Override
   protected Void doRun() throws InterruptedException, SuspendExecution {
 
-            new LineReader(self(), socket).spawn();
+            
 
-            self().send(new Msg(Type.LINE, null));
+           
             
             while (receive(msg -> {
 
