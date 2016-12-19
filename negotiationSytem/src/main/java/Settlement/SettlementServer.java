@@ -23,9 +23,7 @@ public class SettlementServer {
     public static void main(String[] args) throws Exception {
 	    
 	    int port1= 12346;
-
-	    
-
+            
 	    ActorRef bank= new Bank().spawn();
 	    ActorRef requests = new RequestsHandler().spawn();
 

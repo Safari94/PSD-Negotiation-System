@@ -30,13 +30,14 @@ public class ExchServer {
 	    AcceptorUser acceptorUser = new AcceptorUser(port_cliente,userHandler);
 	    AcceptorSettlement acceptorS = new AcceptorSettlement(port_bank,settlementHandler);
 
+            try{
+            
 	    acceptorUser.spawn();
-	    acceptorS.spawn();
-
-	    acceptorUser.join();
+            acceptorUser.join();
+	    acceptorS.spawn();	    
 	    acceptorS.join();
-	  }
+            } catch (Exception e){}
     }
-           
 }
+           
   

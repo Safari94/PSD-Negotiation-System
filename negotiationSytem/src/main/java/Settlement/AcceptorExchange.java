@@ -5,10 +5,18 @@
  */
 package Settlement;
 
+import co.paralleluniverse.actors.BasicActor;
+import co.paralleluniverse.fibers.SuspendExecution;
+
 /**
  *
  * @author xavier
  */
-class AcceptorExchange {
+class AcceptorExchange extends BasicActor{
+
+    @Override
+    protected Object doRun() throws InterruptedException, SuspendExecution {
+        return null;
+    }
     
 }

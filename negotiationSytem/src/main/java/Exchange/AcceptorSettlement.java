@@ -7,6 +7,7 @@ package Exchange;
 
 
 import co.paralleluniverse.actors.ActorRef;
+import co.paralleluniverse.actors.BasicActor;
 import co.paralleluniverse.fibers.SuspendExecution;
 import co.paralleluniverse.fibers.io.FiberServerSocketChannel;
 import co.paralleluniverse.fibers.io.FiberSocketChannel;
@@ -17,7 +18,7 @@ import java.net.InetSocketAddress;
  *
  * @author xavier
  */
-public class AcceptorSettlement {
+public class AcceptorSettlement extends BasicActor{
     
     final int port;
     final ActorRef rqsHandler;
