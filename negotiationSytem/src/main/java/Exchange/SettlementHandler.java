@@ -20,7 +20,6 @@ public class SettlementHandler extends BasicActor{
     
     ActorRef sett;
     public SettlementHandler(FiberSocketChannel socket,ActorRef sett) {
-        
         this.sett=sett;
     }
 

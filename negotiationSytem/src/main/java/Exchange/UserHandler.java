@@ -20,7 +20,7 @@ import co.paralleluniverse.fibers.io.*;
  */
 public class UserHandler extends BasicActor<Msg, Void> {
     
-    final HashMap<String,String> users;
+    final HashMap<String,User> users;
     final ArrayList<Sell> sells;
     final ArrayList<Buy> buys;
     
@@ -31,7 +31,8 @@ public class UserHandler extends BasicActor<Msg, Void> {
 	}
     
     protected Void doRun() throws InterruptedException, SuspendExecution {
-		
+	
+        this.populate();
         while(receive(msg -> { 
 
 			switch(msg.type){
@@ -77,8 +78,21 @@ public class UserHandler extends BasicActor<Msg, Void> {
 		}));
 			return null;
 	}
+    
+    void populate (){
+        User u;
+        u = new User("Xavier","xavier");
+        users.put("Xavier", u);
+        
+        u = new User("Antonio","antonio");
+        users.put("Antonio",u);
+        
+        u = new User("Joao","joao");
+        users.put("Joao",u);
+        
+        u = new User("Jose","jose");
+        users.put("Jose",u);        
+    }
 }
     
 
-    
-}

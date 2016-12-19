@@ -5,11 +5,9 @@ package proto_client;
 message User {
     required string user=1;
     required string pass=2;
-    
 }
 
 message Sell {
-    
     required ActorRef user = 1;
     required string company=2;
     required int32 actions=3;
@@ -17,7 +15,6 @@ message Sell {
 }
 
 message Buy {
-
     required ActorRef user = 1;
     required string company=2;
     required int32 actions=3;
