@@ -5,10 +5,30 @@
  */
 package Bank;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author toanjo
  */
 public class Bank {
+    
+    Connection c;
+    Statement s;
+
+    public Bank(){
+        //this.c = ;
+        //this.s = c.createStatement();
+    }
+    
+    public void execute(String a, String b, float quantidade){
+        try {
+            s.executeUpdate("update "); //Tirar dinheiro a a
+            s.executeUpdate("update "); //Por dinheiro em b
+        } catch (SQLException e) {}
+    }
+    
     
 }
