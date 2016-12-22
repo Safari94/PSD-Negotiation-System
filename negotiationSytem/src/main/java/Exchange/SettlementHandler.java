@@ -15,13 +15,13 @@ import co.paralleluniverse.fibers.io.FiberSocketChannel;
  *
  * @author xavier
  */
-public abstract class SettlementHandler extends BasicActor<Msg,Void>{
+public  class SettlementHandler extends BasicActor<Msg,Void>{
     
     
     
-    ActorRef sett;
-    public SettlementHandler(FiberSocketChannel socket,ActorRef sett) {
-        this.sett=sett;
+    
+    public SettlementHandler() {
+       
     }
 
     @Override
