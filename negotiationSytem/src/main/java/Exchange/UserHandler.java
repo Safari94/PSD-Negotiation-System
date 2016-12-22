@@ -21,13 +21,11 @@ import co.paralleluniverse.fibers.io.*;
 public class UserHandler extends BasicActor<Msg, Void> {
     
     final HashMap<String,Usr> users;
-    final ArrayList<Sell> sells;
-    final ArrayList<Buy> buys;
+    
     
     UserHandler(){
 		this.users= new HashMap<String,Usr>();
-		this.sells= new ArrayList<Sell>();
-                this.buys= new ArrayList<Buy>();
+		
 	}
     
     protected Void doRun() throws InterruptedException, SuspendExecution {
@@ -45,6 +43,7 @@ public class UserHandler extends BasicActor<Msg, Void> {
                     }
                     else {
                     u1.rf.send(new Msg(Type.LINE,"Your password or user are wrong\n\n".getBytes()));
+                    u1.rf.send(new Msg(Type.LOGIN_FAILED,null));
                     }
                     return true;
 

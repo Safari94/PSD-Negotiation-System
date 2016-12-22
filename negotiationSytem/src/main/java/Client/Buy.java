@@ -10,10 +10,10 @@ package Client;
  * @author xavier
  */
 public class Buy {
-      final String usr;
-    final String company;
-    final int ammount;
-    final float price;
+    public final String usr;
+    public final String company;
+    public final int ammount;
+    public final float price;
 
     public Buy(String usr, String company, int ammount, float price) {
         this.usr = usr;
