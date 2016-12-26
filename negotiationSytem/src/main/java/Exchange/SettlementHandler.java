@@ -39,7 +39,7 @@ public  class SettlementHandler extends BasicActor<Msg,Void>{
 
     @Override
     protected Void doRun() throws InterruptedException, SuspendExecution {
-        while(receive(msg -> { 
+        /*while(receive(msg -> { 
 
             switch(msg.type){
 
@@ -128,13 +128,10 @@ public  class SettlementHandler extends BasicActor<Msg,Void>{
                     
 
          
-	
+	*/
             return null;
         
        
-    }
     
-
-  }
-  }
+}
 }
