@@ -5,6 +5,7 @@
  */
 package Bank;
 
+import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,17 +19,20 @@ public class Bank {
     Connection c;
     Statement s;
 
-    public Bank(){
-        //this.c = ;
-        //this.s = c.createStatement();
+    public Bank() throws SQLException {
+        this.c = DriverManager.getConnection("jdbc:mysql://localhost/psd16");
+        this.s = c.createStatement();
     }
     
-    public void execute(String a, String b, float quantidade){
+    public void execute(String contaA, String contaB, float quantidade){
         try {
-            s.executeUpdate("update "); //Tirar dinheiro a a
-            s.executeUpdate("update "); //Por dinheiro em b
+            s.executeUpdate("update Bank set Balance = Balance - "+quantidade+" "
+                    + "where AccountNumber = "+contaA+";"); 
+            s.executeUpdate("update Bank set Balance = Balance + "+quantidade+" "
+                    + "where AccountNumber = "+contaB+";");
+            
         } catch (SQLException e) {}
     }
-    
+       
     
 }
