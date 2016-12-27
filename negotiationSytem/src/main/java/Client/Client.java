@@ -73,7 +73,7 @@ public class Client extends BasicActor<Msg,Void> {
 
                     switch(aux[0]){
 
-                        case "Login\n":
+                        case "Login":
                             if(aux.length == 3) {
                                 nome=aux[1];
                                 userHandler.send(new Msg(Type.LOGIN,new Usr (self(),aux[1],aux[2])));
@@ -83,7 +83,7 @@ public class Client extends BasicActor<Msg,Void> {
                             }
                             break;
 
-                        case "Exit\n":
+                        case "Exit":
                             if(aux.length == 1) {
                                 this.socket.close();
                                 return false;

@@ -37,13 +37,13 @@ public class UserHandler extends BasicActor<Msg, Void> {
 
 		case LOGIN:
                     Usr u1= (Usr)msg.o;					
-                    if(users.containsKey(u1.username) && users.get(u1.username).equals(u1.password)){											
+                    if(users.containsKey(u1.username) && users.get(u1.username).password.equals(u1.password)){											
 			u1.rf.send(new Msg(Type.LINE,"Login with sucess\n\n".getBytes()));
                         u1.rf.send(new Msg(Type.LOGIN_OK,null)); 			
                     }
                     else {
-                    u1.rf.send(new Msg(Type.LINE,"Your password or user are wrong\n\n".getBytes()));
-                    u1.rf.send(new Msg(Type.LOGIN_FAILED,null));
+                        u1.rf.send(new Msg(Type.LINE,"Your password or user are wrong\n\n".getBytes()));
+                        u1.rf.send(new Msg(Type.LOGIN_FAILED,null));
                     }
                     return true;
 
