@@ -24,6 +24,7 @@ public class Client extends BasicActor<Msg,Void> {
     
     final FiberSocketChannel socket;
     final ActorRef userHandler;
+    final ActorRef settlementHandler;
     private boolean ativo;
     private String nome;
     private String password;
@@ -31,23 +32,25 @@ public class Client extends BasicActor<Msg,Void> {
     public Client() {
         this.socket = null;
         this.userHandler = null;
+        this.settlementHandler = null;
     }
     
     
     
-    public Client(FiberSocketChannel socket, ActorRef userHandler){
+    public Client(FiberSocketChannel socket, ActorRef userHandler, ActorRef settlementHandler){
     this.userHandler=userHandler;
     this.socket=socket;
     this.ativo=false;
     this.nome=new String();
     this.password=new String();
+    this.settlementHandler=settlementHandler;
     }
     
-    private final String inicio = "Commands:\n 1)Login <user> <pass>\n 2)Exit\n\n";
+    private final String inicio = "\nCommands:\n 1)Login <user> <pass>\n 2)Exit\n\n";
     private final String inicioErro = "\nERROR! Choose one of the following commands:\n 1)Login <user> <pass>\n 2)Exit\n\n";
-    private final String menu1 = "Commands:\n 1)Sell <Companyname> <Ammount> <price>\n 2)Buy <> <Ammount> <price>\n 3) Logout\n";
+    private final String menu1 = "Commands:\n 1)Sell <Company Name> <Amount> <Price>\n 2)Buy <Company Name> <Amount> <Price>\n 3)Logout\n\n";
     
-    private final String menu1Erro = "\nERROR! Choose one of the following commands: \n 1)Sell <Companyname> <Ammount> <price>\n 2)Buy <> <Ammount> <price>\n 3) Logout\n";
+    private final String menu1Erro = "\nERROR! Choose one of the following commands: \n 1)Sell <Company Name> <Amount> <Price>\n 2)Buy <Company Name> <Amount> <Price>\n 3)Logout\n";
 
     public static void main(String[] args) throws InterruptedException, SuspendExecution{
        Client cli = new Client();
@@ -71,12 +74,12 @@ public class Client extends BasicActor<Msg,Void> {
 
                 if(!ativo){
 
-                    switch(aux[0]){
+                    switch(aux[0].trim()){
 
                         case "Login":
                             if(aux.length == 3) {
                                 nome=aux[1];
-                                userHandler.send(new Msg(Type.LOGIN,new Usr (self(),aux[1],aux[2])));
+                                userHandler.send(new Msg(Type.LOGIN,new Usr (self(),aux[1],aux[2].trim())));
                             }
                             else{
                                 self().send(new Msg(Type.LINE,inicioErro.getBytes()));
@@ -97,25 +100,25 @@ public class Client extends BasicActor<Msg,Void> {
 
                 }
                 else{
-                    switch(aux[0]){
+                    switch(aux[0].trim()){
 
                         case "Sell":
-                            if(aux.length == 3) {
-                                userHandler.send(new Msg(Type.SELL, new Sell(nome,aux[1],Integer.parseInt(aux[2]),Float.parseFloat(aux[3]))));
+                            if(aux.length == 4) {
+                                settlementHandler.send(new Msg(Type.SELL, new Sell(nome,aux[1],Integer.parseInt(aux[2]),Float.parseFloat(aux[3]))));
                             }
                             else{
                                 self().send(new Msg(Type.LINE,menu1Erro.getBytes()));
                             }
                             break;
                         case "Buy":
-                            if(aux.length ==3) {
-                                userHandler.send(new Msg(Type.BUY, new Buy(nome,aux[1],Integer.parseInt(aux[2]),Float.parseFloat(aux[3]))));
+                            if(aux.length == 4) {
+                                settlementHandler.send(new Msg(Type.BUY, new Buy(nome,aux[1],Integer.parseInt(aux[2]),Float.parseFloat(aux[3]))));
                             }
                             else{       
                                 self().send(new Msg(Type.LINE,menu1Erro.getBytes()));
                             }
                             break;
-                        case "Logout\n":
+                        case "Logout":
                             if(aux.length == 1) {       
                                 userHandler.send(new Msg(Type.LOGOUT,null));
                                 self().send(new Msg(Type.LOGOUT_OK,inicio.getBytes()));    

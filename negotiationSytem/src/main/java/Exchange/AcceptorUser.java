@@ -21,10 +21,12 @@ public class AcceptorUser extends BasicActor {
     
     final int port;
     final ActorRef userHandler;
+    final ActorRef settlementHandler;
 
-    public AcceptorUser(int port, ActorRef userHandler) {
+    public AcceptorUser(int port, ActorRef userHandler, ActorRef settlementHandler) {
         this.port = port;
         this.userHandler = userHandler;
+        this.settlementHandler = settlementHandler;
     }
     
     protected Void doRun() throws InterruptedException, SuspendExecution {
@@ -34,7 +36,7 @@ public class AcceptorUser extends BasicActor {
 
         while (true) {
           FiberSocketChannel socket = ss.accept();
-         new Client(socket,userHandler).spawn();
+         new Client(socket,userHandler,settlementHandler).spawn();
         }
 
       }catch (IOException e) { }

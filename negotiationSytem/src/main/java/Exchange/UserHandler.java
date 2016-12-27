@@ -28,6 +28,7 @@ public class UserHandler extends BasicActor<Msg, Void> {
 		
 	}
     
+    @Override
     protected Void doRun() throws InterruptedException, SuspendExecution {
 	
         this.populate();
@@ -36,13 +37,14 @@ public class UserHandler extends BasicActor<Msg, Void> {
             switch(msg.type){
 
 		case LOGIN:
-                    Usr u1= (Usr)msg.o;					
+                    Usr u1= (Usr)msg.o;	
+                                        
                     if(users.containsKey(u1.username) && users.get(u1.username).password.equals(u1.password)){											
-			u1.rf.send(new Msg(Type.LINE,"Login with sucess\n\n".getBytes()));
+			u1.rf.send(new Msg(Type.LINE,"Login successful!\n\n".getBytes()));
                         u1.rf.send(new Msg(Type.LOGIN_OK,null)); 			
                     }
                     else {
-                        u1.rf.send(new Msg(Type.LINE,"Your password or user are wrong\n\n".getBytes()));
+                        u1.rf.send(new Msg(Type.LINE,"Your password/username combination is wrong\n\n".getBytes()));
                         u1.rf.send(new Msg(Type.LOGIN_FAILED,null));
                     }
                     return true;
@@ -50,7 +52,7 @@ public class UserHandler extends BasicActor<Msg, Void> {
 				
 		case LOGOUT:
                     u1= (Usr)msg.o;
-                    u1.rf.send(new Msg(Type.LINE,"Comeback soon !\n\n".getBytes()));
+                    u1.rf.send(new Msg(Type.LINE,"Come back soon!\n\n".getBytes()));
                     u1.rf.send(new Msg(Type.LOGOUT_OK, null));
                     return true;
             }

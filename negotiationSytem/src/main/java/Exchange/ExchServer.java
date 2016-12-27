@@ -27,7 +27,7 @@ public class ExchServer {
             ActorRef settlementHandler = new SettlementHandler().spawn();
 
 
-	    AcceptorUser acceptorUser = new AcceptorUser(port_cliente,userHandler);
+	    AcceptorUser acceptorUser = new AcceptorUser(port_cliente,userHandler,settlementHandler);
 	    AcceptorSettlement acceptorS = new AcceptorSettlement(port_bank,settlementHandler);
 
             try{
