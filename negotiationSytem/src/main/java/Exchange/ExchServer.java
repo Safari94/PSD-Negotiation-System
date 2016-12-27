@@ -33,9 +33,9 @@ public class ExchServer {
             try{
             
 	    acceptorUser.spawn();
-            acceptorUser.join();
-	    acceptorS.spawn();	    
+            acceptorS.spawn();	    
 	    acceptorS.join();
+            acceptorUser.join();
             } catch (Exception e){}
     }
 }

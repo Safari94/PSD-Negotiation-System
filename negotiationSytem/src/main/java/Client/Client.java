@@ -22,6 +22,9 @@ import java.util.*;
  *
  * @author xavier
  */
+
+
+
 public class Client extends BasicActor<Msg,Void> {
     
     final FiberSocketChannel socket;
@@ -29,6 +32,13 @@ public class Client extends BasicActor<Msg,Void> {
     private boolean ativo;
     private String nome;
     private String password;
+
+    public Client() {
+        this.socket = null;
+        this.userHandler = null;
+    }
+    
+    
     
     public Client(FiberSocketChannel socket, ActorRef userHandler){
     this.userHandler=userHandler;
@@ -41,8 +51,16 @@ public class Client extends BasicActor<Msg,Void> {
     private final String inicio = "Commands:\n 1)Login <user> <pass>\n 2) Exit\n\n";
     private final String inicioErro = "\nERROR chose one of the following commands:\n 1)Login <user> <pass>\n 2)Exit\n\n";
     private final String menu1 = "Commands:\n 1)Sell <Companyname> <Ammount> <price>\n 2)Buy <> <Ammount> <price>\n 3) Logout\n";
-    private final String menu1Erro = "\nERROR chose one of the following commands: \n 1)Sell <Companyname> <Ammount> <price>\n 2)Buy <> <Ammount> <price>\n 3) Logout\n";
+    
+   private final String menu1Erro = "\nERROR chose one of the following commands: \n 1)Sell <Companyname> <Ammount> <price>\n 2)Buy <> <Ammount> <price>\n 3) Logout\n";
 
+   public static void main(String[] args) throws InterruptedException, SuspendExecution{
+       
+       Client cli = new Client();
+       cli.doRun();
+       
+   
+   }
     protected Void doRun() throws InterruptedException, SuspendExecution {
 
             new LineReader(self(), socket).spawn();
@@ -191,6 +209,9 @@ public class Client extends BasicActor<Msg,Void> {
             }));
 
         return null;
+        
+        
+        
     }
 
 
