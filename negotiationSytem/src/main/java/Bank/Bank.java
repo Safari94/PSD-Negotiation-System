@@ -9,13 +9,40 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 /**
  *
  * @author toanjo
  */
-public class Bank {
+public final class Bank {
     
+
+    HashMap<String,Float> accounts;
+
+    public Bank() throws SQLException {
+        this.accounts=new HashMap<>();
+        populate(accounts);
+    }
+    
+    void populate(HashMap<String,Float> a){
+        a.put("001", Float.parseFloat("1500"));
+        a.put("002", Float.parseFloat("50"));
+        a.put("003", Float.parseFloat("250.50"));
+        a.put("004", Float.parseFloat("1200"));
+    }
+    
+    void execute(String contaA, String contaB, float quantidade){
+        float aBefore = accounts.get(contaA);
+        float bBefore = accounts.get(contaB);
+        
+        if(aBefore >= quantidade){        
+            accounts.put(contaA, aBefore - quantidade);
+            accounts.put(contaB, bBefore + quantidade);
+        } else System.out.println("Fundos insuficientes!");
+    }
+       
+    /*
     Connection c;
     Statement s;
 
@@ -33,6 +60,7 @@ public class Bank {
             
         } catch (SQLException e) {}
     }
-       
+    
+    */
     
 }
