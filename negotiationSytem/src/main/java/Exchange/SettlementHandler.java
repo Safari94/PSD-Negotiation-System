@@ -81,18 +81,18 @@ public  class SettlementHandler extends BasicActor<Msg,Void>{
                             if(s.ammount>s2.ammount){
                                 buys.add(new Buy(s.usr,s.company,(s.ammount-s2.ammount),s.price));
                                 pedidos.add(new Pedido(u1,u1,c,s2.ammount,p));
-                                buys.remove(s);
+                                sells.remove(s);
                             }
                              
                             if(s.ammount<s2.ammount){
                                 sells.add(new Sell(s.usr,s.company,(s.ammount-s2.ammount),s.price));
                                 pedidos.add(new Pedido(u1,u1,c,s2.ammount,p));
-                                buys.remove(s);
+                                sells.remove(s);
                             }
                              
                             if(s.ammount==s2.ammount){
                                 pedidos.add(new Pedido(u1,u1,c,s2.ammount,p));
-                                buys.remove(s);
+                                sells.remove(s);
                             }
                         }
                     }
