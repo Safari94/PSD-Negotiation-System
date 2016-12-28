@@ -17,6 +17,7 @@ import co.paralleluniverse.fibers.io.*;
 
 import java.util.*;
 import Bank.Bank;
+import Exchange.Pedido;
 
 /**
  *
@@ -28,19 +29,55 @@ public class RequestsHandler extends BasicActor<Msg, Void>  {
     
     
     final FiberSocketChannel socket;
+    final HashMap<String,ArrayList<Accao>> accoes;
     final ActorRef rqsHandler;
     Bank bank;
     
     public RequestsHandler(FiberSocketChannel socket,ActorRef rqs){
         this.socket=socket;
         this.rqsHandler=rqs;
+        this.accoes= new HashMap<>();
+        
         
     
     }
 
     @Override
     protected Void doRun() throws InterruptedException, SuspendExecution {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+        
+     while(receive(msg -> { 
+
+            switch(msg.type){
+
+		case PEDIDO:
+                    
+                    
+                    
+                    Pedido pd =(Pedido)msg.o;
+                    
+                    //Retirar accoes do usr1
+                    ArrayList<Accao> aux = this.accoes.get(pd.usr1);
+                    for(Accao a:aux){
+                    
+                        if(a.nomeEmpresa.equals(pd.company)){
+                             a.totalAccoes-=pd.amnount;   
+                        }
+                    }
+                    
+                    //Adicionar accoes do usr2
+                    ArrayList<Accao> aux1 = this.accoes.get(pd.usr2);
+                    for(Accao a:aux1){
+                    
+                        if(a.nomeEmpresa.equals(pd.company)){
+                             a.totalAccoes+=pd.amnount;   
+                        }
+                    }
+                    
+                    new Bank(pd).start();
+            }
+
+            return false;
+	}));
+            return null;
+}
 }

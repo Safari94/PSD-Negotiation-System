@@ -9,7 +9,7 @@ package Exchange;
  *
  * @author xavier
  */
-class Pedido {
+public class Pedido {
     
     public String usr1;
     public String usr2;

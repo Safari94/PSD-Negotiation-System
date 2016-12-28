@@ -24,6 +24,8 @@ public class SettlementServer {
 	    
 	    int port1= 12346;
             
+            
+            
 	    
 	    
 	  }

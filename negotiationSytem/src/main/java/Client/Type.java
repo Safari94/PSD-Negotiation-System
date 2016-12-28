@@ -15,7 +15,7 @@ public enum Type {
         LOGIN_FAILED,
         LOGOUT_OK,
 	LOGOUT,
-        SEND_REQUEST,
+        PEDIDO,
         BANK_OK,
         BANK_FAILED
         
