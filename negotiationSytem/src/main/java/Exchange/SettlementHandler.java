@@ -60,13 +60,13 @@ public class SettlementHandler extends BasicActor<Msg,Void>{
                                 sells.remove(s);
                             }
                              
-                            if(s.ammount==s2.ammount){
-                                pedidos.add(new Pedido(u1,u1,c,s2.ammount,p));
+                            if(s.ammount==b1.ammount){
+                                pedidos.add(new Pedido(u1,u1,c,b1.ammount,p));
                                 sells.remove(s);
                             }
                         }
                     }
-                    buys.add(s2);
+                    buys.add(b1);
                                         
                     
                     return true;

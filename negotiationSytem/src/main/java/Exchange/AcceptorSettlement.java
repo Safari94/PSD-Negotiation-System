@@ -6,6 +6,7 @@
 package Exchange;
 
 
+import Client.Client;
 import co.paralleluniverse.actors.ActorRef;
 import co.paralleluniverse.actors.BasicActor;
 import co.paralleluniverse.fibers.SuspendExecution;
@@ -22,21 +23,30 @@ import Settlement.RequestsHandler;
 public class AcceptorSettlement extends BasicActor{
     
     final int port;
+    
     final ActorRef rqsHandler;
+    
 
     public AcceptorSettlement(int port, ActorRef rqsHandler) {
         this.port = port;
+        
         this.rqsHandler = rqsHandler;
+        
     }
     
     protected Void doRun() throws InterruptedException, SuspendExecution {
       try {
         FiberServerSocketChannel ss = FiberServerSocketChannel.open();
+       
         ss.bind(new InetSocketAddress(port));
+     
 
         while (true) {
-          FiberSocketChannel socket = ss.accept();
-         new RequestsHandler(socket,rqsHandler).spawn();
+          FiberSocketChannel socket1 = ss.accept();
+         
+          
+         new RequestsHandler(socket1,rqsHandler).spawn();
+         
         }
 
       }catch (IOException e) { }
