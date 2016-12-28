@@ -51,8 +51,6 @@ public class RequestsHandler extends BasicActor<Msg, Void>  {
 
 		case PEDIDO:
                     
-                    
-                    
                     Pedido pd =(Pedido)msg.o;
                     
                     //Retirar accoes do usr1
@@ -60,7 +58,7 @@ public class RequestsHandler extends BasicActor<Msg, Void>  {
                     for(Accao a:aux){
                     
                         if(a.nomeEmpresa.equals(pd.company)){
-                             a.totalAccoes-=pd.amnount;   
+                             a.totalAccoes-=pd.amount;   
                         }
                     }
                     
@@ -69,7 +67,7 @@ public class RequestsHandler extends BasicActor<Msg, Void>  {
                     for(Accao a:aux1){
                     
                         if(a.nomeEmpresa.equals(pd.company)){
-                             a.totalAccoes+=pd.amnount;   
+                             a.totalAccoes+=pd.amount;   
                         }
                     }
                     
@@ -78,6 +76,6 @@ public class RequestsHandler extends BasicActor<Msg, Void>  {
 
             return false;
 	}));
-            return null;
-}
+        return null;
+    }
 }

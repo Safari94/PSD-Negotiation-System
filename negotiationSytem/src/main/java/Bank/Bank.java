@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import Exchange.Pedido;
 
 /**
  *
@@ -25,6 +26,13 @@ public final class Bank {
         populate(accounts);
     }
     
+    public Bank(Pedido pd){       
+        String contaA = pd.usr1;
+        String contaB = pd.usr2;
+        float quantidade = pd.price * pd.amount;
+        execute(contaA,contaB,quantidade);
+    }
+    
     void populate(HashMap<String,Float> a){
         a.put("001", Float.parseFloat("1500"));
         a.put("002", Float.parseFloat("50"));
@@ -36,9 +44,9 @@ public final class Bank {
         float aBefore = accounts.get(contaA);
         float bBefore = accounts.get(contaB);
         
-        if(aBefore >= quantidade){        
-            accounts.put(contaA, aBefore - quantidade);
-            accounts.put(contaB, bBefore + quantidade);
+        if(bBefore >= quantidade){        
+            accounts.put(contaA, aBefore + quantidade);
+            accounts.put(contaB, bBefore - quantidade);
         } else System.out.println("Fundos insuficientes!");
     }
        
@@ -53,9 +61,9 @@ public final class Bank {
     
     public void execute(String contaA, String contaB, float quantidade){
         try {
-            s.executeUpdate("update Bank set Balance = Balance - "+quantidade+" "
-                    + "where AccountNumber = "+contaA+";"); 
             s.executeUpdate("update Bank set Balance = Balance + "+quantidade+" "
+                    + "where AccountNumber = "+contaA+";"); 
+            s.executeUpdate("update Bank set Balance = Balance - "+quantidade+" "
                     + "where AccountNumber = "+contaB+";");
             
         } catch (SQLException e) {}
