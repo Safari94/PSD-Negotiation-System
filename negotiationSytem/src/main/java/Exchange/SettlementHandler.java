@@ -18,27 +18,62 @@ import java.util.*;
  */
 
     
-public  class SettlementHandler extends BasicActor<Msg,Void>{
+public class SettlementHandler extends BasicActor<Msg,Void>{
     
-    LinkedList<Pedido> pedidos;
-    final ArrayList<Sell> sells;
     final ArrayList<Buy> buys;
+    final ArrayList<Sell> sells;
+    final LinkedList<Pedido> pedidos;
     
-    public SettlementHandler() {
-        
-        this.sells=new ArrayList<>();
-        this.buys=new ArrayList<>();
-        this.pedidos= new LinkedList<>();
-       
-    }
-
+    
+    SettlementHandler(){
+		this.buys= new ArrayList<>();
+                this.sells= new ArrayList<>();
+                this.pedidos= new LinkedList<>();
+		
+	}
+    
     @Override
     protected Void doRun() throws InterruptedException, SuspendExecution {
+	
         
         while(receive(msg -> { 
+
             switch(msg.type){
 
+		case BUY:
+                    Buy b1= (Buy)msg.o;	
+                    for(Sell s: this.sells){
+                        if(s.company.equals(b1.company) && s.price> b1.price){
+                            float p=(s.price+b1.price)/2;
+                            String c = s.company;
+                            String u1=s.usr;
+                            String u2=b1.usr;
+                            if(s.ammount>b1.ammount){
+                                buys.add(new Buy(s.usr,s.company,(s.ammount-b1.ammount),s.price));
+                                pedidos.add(new Pedido(u1,u1,c,b1.ammount,p));
+                                sells.remove(s);
+                            }
+                             
+                            if(s.ammount<b1.ammount){
+                                sells.add(new Sell(s.usr,s.company,(s.ammount-b1.ammount),s.price));
+                                pedidos.add(new Pedido(u1,u1,c,b1.ammount,p));
+                                sells.remove(s);
+                            }
+                             
+                            if(s.ammount==s2.ammount){
+                                pedidos.add(new Pedido(u1,u1,c,s2.ammount,p));
+                                sells.remove(s);
+                            }
+                        }
+                    }
+                    buys.add(s2);
+                                        
+                    
+                    return true;
+
+				
 		case SELL:
+                    
                     Sell s1= (Sell)msg.o;
                     for(Buy b: this.buys){
                         if(b.company.equals(s1.company) && b.price> s1.price){
@@ -67,39 +102,17 @@ public  class SettlementHandler extends BasicActor<Msg,Void>{
                     
                     }
                     sells.add(s1);
+                   
                     return true;
-
-				
-		case BUY:
-                    Buy s2= (Buy)msg.o;
-                    for(Sell s: this.sells){
-                        if(s.company.equals(s2.company) && s.price> s2.price){
-                            float p=(s.price+s2.price)/2;
-                            String c = s.company;
-                            String u1=s.usr;
-                            String u2=s2.usr;
-                            if(s.ammount>s2.ammount){
-                                buys.add(new Buy(s.usr,s.company,(s.ammount-s2.ammount),s.price));
-                                pedidos.add(new Pedido(u1,u1,c,s2.ammount,p));
-                                sells.remove(s);
-                            }
-                             
-                            if(s.ammount<s2.ammount){
-                                sells.add(new Sell(s.usr,s.company,(s.ammount-s2.ammount),s.price));
-                                pedidos.add(new Pedido(u1,u1,c,s2.ammount,p));
-                                sells.remove(s);
-                            }
-                             
-                            if(s.ammount==s2.ammount){
-                                pedidos.add(new Pedido(u1,u1,c,s2.ammount,p));
-                                sells.remove(s);
-                            }
-                        }
-                    }
-                    buys.add(s2);
-                    return null;    
             }
-        }));
-        return null;
-    }
+
+            return false;
+	}));
+            return null;
+	}
+    
+    
 }
+    
+
+
