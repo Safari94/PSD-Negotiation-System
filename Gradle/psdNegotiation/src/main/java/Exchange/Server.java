@@ -13,16 +13,15 @@ public class Server {
 
 
     //ciclo infinito a fazer accepts
-    static class Acceptor extends BasicActor {
+    static class AcceptorClient extends BasicActor {
         final int port; //Client
-        final int port_set; //Settlement
         final ActorRef requestManager;
         final ActorRef loginManager;
 
 
-        public Acceptor(int port, int portset, ActorRef loginManager, ActorRef requestManager) {
+        public AcceptorClient(int port,  ActorRef loginManager, ActorRef requestManager) {
             this.port = port;
-            this.port_set=portset;
+
             this.loginManager = loginManager;
             this.requestManager = requestManager;
         }
@@ -56,9 +55,9 @@ public class Server {
 
         ActorRef loginManager = new LoginManager().spawn();
         ActorRef requestManager = new RequestManager().spawn();
-        Acceptor acceptor = new Acceptor(port,port_settlement, loginManager, requestManager);
-        acceptor.spawn();
-        acceptor.join();
+        AcceptorClient acceptorC = new AcceptorClient(port, loginManager, requestManager);
+        acceptorC.spawn();
+        acceptorC.join();
     }
 
 

@@ -3,6 +3,8 @@ import co.paralleluniverse.actors.ActorRef;
 import co.paralleluniverse.actors.BasicActor;
 import co.paralleluniverse.fibers.SuspendExecution;
 import Exchange.Message.Type;
+
+import java.net.Socket;
 import java.util.*;
 
 
@@ -24,12 +26,37 @@ public class RequestManager extends BasicActor<Message, Void> {
     }
 
 
+    /**
+
+     COMO È QUE FAÇO ISTO
+     **/
+    public void sendPedidos(){
+
+        while(true){
+            if(pedidos.size()>0){
+
+                send(pedidos.getFirst());
+                pedidos.remove(0);
+            }
+            else{
+                Thread.sleep(10);
+            }
+
+
+
+        }
+
+
+    }
+
+
 
 
     @Override
     @SuppressWarnings("empty-statement")
     protected Void doRun() throws InterruptedException, SuspendExecution {
 
+        sendPedidos();
 
         while (receive(message -> {
 
@@ -96,16 +123,6 @@ public class RequestManager extends BasicActor<Message, Void> {
 
 
                     }
-
-
-
-
-
-
-
-
-
-
 
 
 
