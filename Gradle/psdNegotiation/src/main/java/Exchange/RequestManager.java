@@ -29,7 +29,7 @@ public class RequestManager extends BasicActor<Message, Void> {
     /**
 
      COMO È QUE FAÇO ISTO
-     **/
+
     public void sendPedidos(){
 
         while(true){
@@ -48,7 +48,7 @@ public class RequestManager extends BasicActor<Message, Void> {
 
 
     }
-
+     **/
 
 
 
@@ -56,7 +56,7 @@ public class RequestManager extends BasicActor<Message, Void> {
     @SuppressWarnings("empty-statement")
     protected Void doRun() throws InterruptedException, SuspendExecution {
 
-        sendPedidos();
+        //sendPedidos();
 
         while (receive(message -> {
 
