@@ -50,7 +50,7 @@ public class Client extends BasicActor<Message,Void> {
                         String msgContent = new String((byte[]) msg.o);
                         if (msgContent.length() > 0) {
                             String[] splitMsg = msgContent.split(" ");
-                            login(splitMsg);
+                            handler(splitMsg);
 
                         }
                         return true;
@@ -58,6 +58,9 @@ public class Client extends BasicActor<Message,Void> {
                     case LINE:
                         socket.write(ByteBuffer.wrap((byte[]) msg.o));
                         return true;
+
+
+
 
                     case LOGIN_OK:
 
@@ -94,7 +97,7 @@ public class Client extends BasicActor<Message,Void> {
 
 
 
-        private void login(String[] args) throws SuspendExecution, IOException{
+        private void handler(String[] args) throws SuspendExecution, IOException{
             switch(args[0].trim()){
                 case "LOGIN":
                     if(args.length >= 3){
@@ -103,8 +106,30 @@ public class Client extends BasicActor<Message,Void> {
                     }
                     else
                         //error: not enough arguments
-                        socket.write(ByteBuffer.wrap("login: not enough arguments...\n".getBytes()));
+                        socket.write(ByteBuffer.wrap("LOGIN: not enough arguments...\n".getBytes()));
                     break;
+
+                case "SELL":
+
+                    if(args.length >= 4){
+                         Sell s = new Sell(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4]);
+                        requestManager.send(new Message(Type.SELL, s));
+                    }
+                    else
+                        //error: not enough arguments
+                        socket.write(ByteBuffer.wrap("SELL: not enough arguments...\n".getBytes()));
+
+
+                case "BUY":
+
+
+                     if(args.length >= 4){
+                          Buy b = new Buy(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4]);
+                         requestManager.send(new Message(Type.BUY, b));
+                     }
+                     else
+                         //error: not enough arguments
+                         socket.write(ByteBuffer.wrap("BUY: not enough arguments...\n".getBytes()));
 
                 case "EXIT":
                     exitflag = true;
