@@ -2,6 +2,7 @@ package Exchange;
 import co.paralleluniverse.actors.ActorRef;
 import co.paralleluniverse.actors.BasicActor;
 import co.paralleluniverse.fibers.SuspendExecution;
+import org.zeromq.ZMQ;
 import Exchange.Message.Type;
 
 import java.net.Socket;
@@ -17,8 +18,15 @@ public class RequestManager extends BasicActor<Message, Void> {
     private ArrayList<Sell> sells;
     private ArrayList<Buy> buys;
     private LinkedList<Pedidos> pedidos;
+    private ZMQ.Context context;
+    private ZMQ.Socket socket;
+    public static final int port = 12347;
 
     public RequestManager() {
+
+        this.context = ZMQ.context(1);
+        this.socket = context.socket(ZMQ.PUB);
+        socket.bind("tcp://*:" + port);
 
         this.sells = new ArrayList<>();
         this.buys = new ArrayList<>();
@@ -26,16 +34,14 @@ public class RequestManager extends BasicActor<Message, Void> {
     }
 
 
-    /**
 
-     COMO È QUE FAÇO ISTO
 
-    public void sendPedidos(){
+    public void sendPedidos() throws InterruptedException {
 
         while(true){
             if(pedidos.size()>0){
 
-                send(pedidos.getFirst());
+                socket.send(pedidos.getFirst().toString());
                 pedidos.remove(0);
             }
             else{
@@ -48,7 +54,6 @@ public class RequestManager extends BasicActor<Message, Void> {
 
 
     }
-     **/
 
 
 
@@ -56,7 +61,7 @@ public class RequestManager extends BasicActor<Message, Void> {
     @SuppressWarnings("empty-statement")
     protected Void doRun() throws InterruptedException, SuspendExecution {
 
-        //sendPedidos();
+        sendPedidos();
 
         while (receive(message -> {
 
