@@ -5,7 +5,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'Exchange.ExchServer'
+mainClassName = 'Exchange.Server'
 
 repositories {
     mavenCentral()
@@ -43,13 +43,13 @@ task( Client, type: JavaExec ) {
     jvmArgs "-javaagent:${configurations.quasar.iterator().next()}"
     jvmArgs "-Dco.paralleluniverse.fibers.verifyInstrumentation=true"
     standardInput = System.in
-    main = 'Client.Client'
+    main = 'Client.Client_Main'
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task( Server, type: JavaExec ) {
     jvmArgs "-javaagent:${configurations.quasar.iterator().next()}"
     jvmArgs "-Dco.paralleluniverse.fibers.verifyInstrumentation=true"
-    main = 'Exchange.ExchServer'
+    main = 'Exchange.Server'
     classpath = sourceSets.main.runtimeClasspath
 }
