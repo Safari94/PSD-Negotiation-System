@@ -36,6 +36,7 @@ dependencies {
 run {
     jvmArgs "-javaagent:${configurations.quasar.iterator().next()}"
     jvmArgs "-Dco.paralleluniverse.fibers.verifyInstrumentation=true"
+    jvmArgs "-Djava.library.path=/usr/local/lib"
     standardInput = System.in
 }
 
@@ -50,6 +51,7 @@ task( Client, type: JavaExec ) {
 task( ServerE, type: JavaExec ) {
     jvmArgs "-javaagent:${configurations.quasar.iterator().next()}"
     jvmArgs "-Dco.paralleluniverse.fibers.verifyInstrumentation=true"
+    jvmArgs "-Djava.library.path=/usr/local/lib"
     main = 'Exchange.Server'
     classpath = sourceSets.main.runtimeClasspath
 }
@@ -57,6 +59,7 @@ task( ServerE, type: JavaExec ) {
 task( ServerS, type: JavaExec ) {
     jvmArgs "-javaagent:${configurations.quasar.iterator().next()}"
     jvmArgs "-Dco.paralleluniverse.fibers.verifyInstrumentation=true"
+    jvmArgs "-Djava.library.path=/usr/local/lib"
     main = 'Settlement.ServerSettlement'
     classpath = sourceSets.main.runtimeClasspath
 }

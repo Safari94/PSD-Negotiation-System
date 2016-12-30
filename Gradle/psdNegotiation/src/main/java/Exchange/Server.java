@@ -52,7 +52,7 @@ public class Server {
     public static void main(String[] args) throws Exception {
 
         int port = 12345;//Integer.parseInt(args[0]);
-        int port_settlement=12346;
+
 
         ActorRef loginManager = new LoginManager().spawn();
         ActorRef requestManager = new RequestManager().spawn();
