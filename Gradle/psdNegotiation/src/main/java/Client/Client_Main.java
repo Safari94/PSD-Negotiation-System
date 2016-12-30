@@ -110,13 +110,13 @@ public class Client_Main {
 
         } else if (srep[0].equals("WELCOME")) {
             this.logged = true;
-            System.out.println("\nWelcome, " + srep[1]);
+            System.out.println("\nWELCOME, " + srep[1]);
 
         } else if (srep[0].equals("OUT")) {
             this.logged = false;
             System.out.println("\nSuccessfully logged out");
 
-        } else if (srep[0].equals("SELL:")) {
+        } else if (srep[0].equals("SELL_OK:")) {
             System.out.println("\nSell submitted successfully ");
 
         } else if (srep[0].equals("LOGIN_FAILED:")) {

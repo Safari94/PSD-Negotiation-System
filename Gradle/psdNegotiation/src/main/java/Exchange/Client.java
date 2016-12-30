@@ -114,6 +114,7 @@ public class Client extends BasicActor<Message,Void> {
                     if(args.length >= 4){
                          Sell s = new Sell(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4]);
                         requestManager.send(new Message(Type.SELL, s));
+                        socket.write(ByteBuffer.wrap("SELL_OK: Sell creat sucessfully...\n".getBytes()));
                     }
                     else
                         //error: not enough arguments
@@ -126,6 +127,7 @@ public class Client extends BasicActor<Message,Void> {
                      if(args.length >= 4){
                           Buy b = new Buy(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4]);
                          requestManager.send(new Message(Type.BUY, b));
+                         socket.write(ByteBuffer.wrap("BUY_OK: Buy creat sucessfully...\n".getBytes()));
                      }
                      else
                          //error: not enough arguments
