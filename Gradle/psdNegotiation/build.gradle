@@ -47,9 +47,16 @@ task( Client, type: JavaExec ) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task( Server, type: JavaExec ) {
+task( ServerE, type: JavaExec ) {
     jvmArgs "-javaagent:${configurations.quasar.iterator().next()}"
     jvmArgs "-Dco.paralleluniverse.fibers.verifyInstrumentation=true"
     main = 'Exchange.Server'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task( ServerS, type: JavaExec ) {
+    jvmArgs "-javaagent:${configurations.quasar.iterator().next()}"
+    jvmArgs "-Dco.paralleluniverse.fibers.verifyInstrumentation=true"
+    main = 'Settlement.ServerSettlement'
     classpath = sourceSets.main.runtimeClasspath
 }
