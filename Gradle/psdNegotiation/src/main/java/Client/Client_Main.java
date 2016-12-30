@@ -71,7 +71,7 @@ public class Client_Main {
 
             servrep = fromServer.readLine();
             String[] message = servrep.split(" ");
-            if (message[0].equals("welcome")) {
+            if (message[0].equals("WELCOME")) {
 
                 this.logged = true;
                 this.userName=message[1];
@@ -154,6 +154,10 @@ public class Client_Main {
 
 
             handleServerReplyU(fromServer.readLine());
+
+            while ((servout = fromServer.readLine()) != null && (!servout.equals("")) && (!servout.equals("\n"))) {
+                System.out.println(servout);
+            }
 
         } else if (option.equals("2")) {
             System.out.println("Sell: ");

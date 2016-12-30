@@ -59,7 +59,13 @@ public class Client extends BasicActor<Message,Void> {
                         socket.write(ByteBuffer.wrap((byte[]) msg.o));
                         return true;
 
+                    case SELL_OK:
+                        socket.write(ByteBuffer.wrap("SELL_OK: Sell creat sucessfully...\n".getBytes()));
+                        return true;
 
+                    case BUY_OK:
+                        socket.write(ByteBuffer.wrap("BUY_OK: Sell creat sucessfully...\n".getBytes()));
+                        return true;
 
 
                     case LOGIN_OK:
@@ -113,12 +119,13 @@ public class Client extends BasicActor<Message,Void> {
 
                     if(args.length >= 4){
                          Sell s = new Sell(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4]);
+                        
                         requestManager.send(new Message(Type.SELL, s));
-                        socket.write(ByteBuffer.wrap("SELL_OK: Sell creat sucessfully...\n".getBytes()));
+
                     }
                     else
                         //error: not enough arguments
-                        socket.write(ByteBuffer.wrap("SELL: not enough arguments...\n".getBytes()));
+                        socket.write(ByteBuffer.wrap("SELL_FAILED: not enough arguments...\n".getBytes()));
 
 
                 case "BUY":
@@ -131,7 +138,7 @@ public class Client extends BasicActor<Message,Void> {
                      }
                      else
                          //error: not enough arguments
-                         socket.write(ByteBuffer.wrap("BUY: not enough arguments...\n".getBytes()));
+                         socket.write(ByteBuffer.wrap("BUY_FAILED: not enough arguments...\n".getBytes()));
 
                 case "EXIT":
                     exitflag = true;
