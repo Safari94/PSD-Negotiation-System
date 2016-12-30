@@ -23,14 +23,20 @@ public class SettlementHandler extends BasicActor<Msg,Void>{
     final ArrayList<Buy> buys;
     final ArrayList<Sell> sells;
     final LinkedList<Pedido> pedidos;
-    
+    ActorRef clientRef;
     
     SettlementHandler(){
-		this.buys= new ArrayList<>();
-                this.sells= new ArrayList<>();
-                this.pedidos= new LinkedList<>();
-		
-	}
+        this.buys= new ArrayList<>();
+        this.sells= new ArrayList<>();
+        this.pedidos= new LinkedList<>();
+    }
+    
+    SettlementHandler(ActorRef clientRef){
+	this.buys= new ArrayList<>();
+        this.sells= new ArrayList<>();
+        this.pedidos= new LinkedList<>();
+        this.clientRef=clientRef;		
+    }
     
     @Override
     protected Void doRun() throws InterruptedException, SuspendExecution {
@@ -104,6 +110,14 @@ public class SettlementHandler extends BasicActor<Msg,Void>{
                     sells.add(s1);
                    
                     return true;
+                    
+                case SETTLEMENT_OK:
+                    clientRef.send(new Msg(Type.EXCHANGE_OK,"Operação Completa!"));
+                    break;
+                
+                case SETTLEMENT_FAILED:
+                    clientRef.send(new Msg(Type.EXCHANGE_FAILED,"Operação Falhou!"));
+                    break;
             }
 
             return false;

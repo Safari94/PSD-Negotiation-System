@@ -30,12 +30,12 @@ public class RequestsHandler extends BasicActor<Msg, Void>  {
     
     final FiberSocketChannel socket;
     final HashMap<String,ArrayList<Accao>> accoes;
-    final ActorRef rqsHandler;
+    final ActorRef excRef;
     Bank bank;
     
-    public RequestsHandler(FiberSocketChannel socket,ActorRef rqs){
+    public RequestsHandler(FiberSocketChannel socket,ActorRef ecr){
         this.socket=socket;
-        this.rqsHandler=rqs;
+        this.excRef=ecr;
         this.accoes= new HashMap<>();
         
         
@@ -71,7 +71,17 @@ public class RequestsHandler extends BasicActor<Msg, Void>  {
                         }
                     }
                     
-                    new Bank(pd).start();
+                    new Bank(self(),pd).start();
+                    break;
+                
+                case BANK_OK:
+                    excRef.send(new Msg(Type.SETTLEMENT_OK,"Operação Completa!"));
+                    break;
+                    
+                case BANK_FAILED:
+                    excRef.send(new Msg(Type.SETTLEMENT_FAILED,"Operação Falhou!"));
+                    break;
+                
             }
 
             return false;

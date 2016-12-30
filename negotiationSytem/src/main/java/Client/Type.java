@@ -17,8 +17,9 @@ public enum Type {
 	LOGOUT,
         PEDIDO,
         BANK_OK,
-        BANK_FAILED
-        
-	
-
+        BANK_FAILED,
+        SETTLEMENT_OK,
+        SETTLEMENT_FAILED,
+        EXCHANGE_OK,
+        EXCHANGE_FAILED
 }
