@@ -50,6 +50,7 @@ public class Server {
 
 
     public static void main(String[] args) throws Exception {
+
         int port = 12345;//Integer.parseInt(args[0]);
         int port_settlement=12346;
 

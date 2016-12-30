@@ -3,9 +3,9 @@ package Settlement;
 import org.zeromq.ZMQ;
 
 /**
- * Created by xavier on 29/12/16.
+ * Created by xavier on 30/12/16.
  */
-public class Server {
+public class ServerSettlement {
 
     private static final ZMQ.Context context = ZMQ.context(1);
 
