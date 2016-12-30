@@ -20,7 +20,7 @@ public class RequestManager extends BasicActor<Message, Void> {
     private LinkedList<Pedidos> pedidos;
     private ZMQ.Context context;
     private ZMQ.Socket socket;
-    public static final int port = 12347;
+    public static final int port = 12346;
 
     public RequestManager() {
 
