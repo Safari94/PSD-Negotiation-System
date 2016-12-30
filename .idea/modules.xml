@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/negotiationSystem.iml" filepath="$PROJECT_DIR$/.idea/modules/negotiationSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/negotiationSystem_main.iml" filepath="$PROJECT_DIR$/.idea/modules/negotiationSystem_main.iml" group="negotiationSystem" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/negotiationSystem_test.iml" filepath="$PROJECT_DIR$/.idea/modules/negotiationSystem_test.iml" group="negotiationSystem" />
+    </modules>
+  </component>
+</project>
