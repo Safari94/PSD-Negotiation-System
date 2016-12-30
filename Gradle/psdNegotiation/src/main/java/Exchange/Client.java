@@ -20,19 +20,19 @@ public class Client extends BasicActor<Message,Void> {
     static int MAXLEN = 1024;
     final FiberSocketChannel socket;
     final ActorRef loginManager;
-    final ActorRef requestManager;
+
 
     private boolean logged;
     private String usrname;
 
     private boolean exitflag = false;
 
-    public Client(FiberSocketChannel socket, ActorRef loginManager,ActorRef requestManager) {
+    public Client(FiberSocketChannel socket, ActorRef loginManager) {
 
         this.loginManager = loginManager;
         this.socket = socket;
         this.logged = false;
-        this.requestManager=requestManager;
+
     }
 
     @Override
@@ -50,14 +50,11 @@ public class Client extends BasicActor<Message,Void> {
                         String msgContent = new String((byte[]) msg.o);
                         if (msgContent.length() > 0) {
                             String[] splitMsg = msgContent.split(" ");
+                            System.out.println(msgContent);
                             handler(splitMsg);
-
                         }
                         return true;
 
-                    case LINE:
-                        socket.write(ByteBuffer.wrap((byte[]) msg.o));
-                        return true;
 
                     case SELL_OK:
                         socket.write(ByteBuffer.wrap("SELL_OK: Sell creat sucessfully...\n".getBytes()));
@@ -67,11 +64,11 @@ public class Client extends BasicActor<Message,Void> {
                         socket.write(ByteBuffer.wrap("BUY_OK: Sell creat sucessfully...\n".getBytes()));
                         return true;
 
-
                     case LOGIN_OK:
 
-                        ClientInfo ci = (ClientInfo) msg.o;
-                        this.usrname = ci.getUsername();
+                        String ci = (String) msg.o;
+                        System.out.println(ci);
+                        this.usrname = ci;
                         logged = true;
                         socket.write(ByteBuffer.wrap(("WELCOME " + usrname + "\n").getBytes()));
 
@@ -118,35 +115,43 @@ public class Client extends BasicActor<Message,Void> {
                 case "SELL":
 
                     if(args.length >= 4){
-                         Sell s = new Sell(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4]);
-                        
-                        requestManager.send(new Message(Type.SELL, s));
+                        Sell s = new Sell(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4],self());
+                        loginManager.send(new Message(Type.SELL, s));
 
                     }
                     else
                         //error: not enough arguments
                         socket.write(ByteBuffer.wrap("SELL_FAILED: not enough arguments...\n".getBytes()));
 
+                    break;
 
                 case "BUY":
+                    System.out.println(args.length);
 
+                    if(args.length >= 4){
 
-                     if(args.length >= 4){
-                          Buy b = new Buy(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4]);
-                         requestManager.send(new Message(Type.BUY, b));
+                        Buy b = new Buy(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4],self());
+                         loginManager.send(new Message(Type.BUY, b));
+                        System.out.println(args.length);
                          socket.write(ByteBuffer.wrap("BUY_OK: Buy creat sucessfully...\n".getBytes()));
+
                      }
                      else
                          //error: not enough arguments
                          socket.write(ByteBuffer.wrap("BUY_FAILED: not enough arguments...\n".getBytes()));
+                    break;
 
                 case "EXIT":
                     exitflag = true;
                     socket.close();
                     break;
+
+
+
                 default:
                     socket.write(ByteBuffer.wrap("please login frist\n".getBytes()));
                     break;
+
             }
         }
 

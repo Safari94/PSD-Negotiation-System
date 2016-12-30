@@ -15,15 +15,15 @@ public class Server {
     //ciclo infinito a fazer accepts
     static class AcceptorClient extends BasicActor {
         final int port; //Client
-        final ActorRef requestManager;
+        //final ActorRef requestManager;
         final ActorRef loginManager;
 
 
-        public AcceptorClient(int port,  ActorRef loginManager, ActorRef requestManager) {
+        public AcceptorClient(int port,  ActorRef loginManager) {
             this.port = port;
 
             this.loginManager = loginManager;
-            this.requestManager = requestManager;
+            //this.requestManager = requestManager;
         }
 
         @Override
@@ -40,7 +40,7 @@ public class Server {
                     actores privilegiados : room, acceptor
                     ao criar o user, passa-se o id de room e o socket
                     */
-                    new Client(socket, loginManager, requestManager).spawn();
+                    new Client(socket, loginManager).spawn();
                 }
             } catch (IOException e) {
             }
@@ -55,8 +55,8 @@ public class Server {
 
 
         ActorRef loginManager = new LoginManager().spawn();
-        ActorRef requestManager = new RequestManager().spawn();
-        AcceptorClient acceptorC = new AcceptorClient(port, loginManager, requestManager);
+        //ActorRef requestManager = new RequestManager().spawn();
+        AcceptorClient acceptorC = new AcceptorClient(port,loginManager);
         acceptorC.spawn();
         acceptorC.join();
     }

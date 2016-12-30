@@ -52,6 +52,8 @@ public class LineReader extends BasicActor<Message, Void> {
                         byte[] ba = new byte[out.remaining()];
                         out.get(ba);
                         out.clear();
+                        String msgContent = new String((byte[]) ba);
+                        System.out.println(msgContent);
                         dest.send(new Message(Message.Type.DATA, ba));
                     }
                 }

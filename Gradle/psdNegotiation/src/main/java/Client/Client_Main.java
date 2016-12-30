@@ -4,6 +4,8 @@ package Client;
  * Created by xavier on 29/12/16.
  */
 
+import org.zeromq.ZMQ;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -24,6 +26,9 @@ public class Client_Main {
     private Socket clientsock   = null;
     BufferedWriter toServer  = null;
     BufferedReader fromServer = null;
+    private ZMQ.Context context;
+    private ZMQ.Socket socket;
+
 
 
     /*
@@ -104,8 +109,9 @@ public class Client_Main {
      */
     public void handleServerReplyU(String servout) throws IOException{
         String[] srep = servout.split(" ");
+        System.out.println(servout);
 
-        if (srep[0].equals("BUY_OK")) {
+        if (srep[0].equals("BUY_OK:")) {
             System.out.println("\nBuy submitted successfully ");
 
         } else if (srep[0].equals("WELCOME")) {
@@ -149,6 +155,7 @@ public class Client_Main {
             company = input.nextLine();
             amount = input.nextLine();
             price = input.nextLine();
+            System.out.println("BUY " +company + " " + amount + " " + price + " " + this.userName);
 
             sendCommand("BUY", company + " " + amount + " " + price + " " + this.userName);
 
@@ -164,6 +171,7 @@ public class Client_Main {
             company = input.nextLine();
             amount = input.nextLine();
             price = input.nextLine();
+            System.out.println("SELL " +company + " " + amount + " " + price + " " + this.userName);
 
             sendCommand("SELL", company + " " + amount + " " + price + " " + this.userName);
 
@@ -208,8 +216,10 @@ public class Client_Main {
             if(userUI.login() == -1)
                 exitflag = true;
             while(userUI.isLogged())
-                if(userUI.userMenu() == -1)
-                    exitflag = true;
+                while (true) {
+                    if (userUI.userMenu() == -1)
+                        exitflag = true;
+                }
         }
     }
 
