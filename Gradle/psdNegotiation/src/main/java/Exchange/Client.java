@@ -61,7 +61,7 @@ public class Client extends BasicActor<Message,Void> {
                         return true;
 
                     case BUY_OK:
-                        socket.write(ByteBuffer.wrap("BUY_OK: Sell creat sucessfully...\n".getBytes()));
+                        socket.write(ByteBuffer.wrap("BUY_OK: Buy creat sucessfully...\n".getBytes()));
                         return true;
 
                     case LOGIN_OK:

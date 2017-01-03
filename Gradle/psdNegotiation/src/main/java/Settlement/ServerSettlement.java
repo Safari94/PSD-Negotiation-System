@@ -9,18 +9,20 @@ import org.zeromq.ZMQ;
 public class ServerSettlement {
 
     private static final ZMQ.Context context = ZMQ.context(1);
-
+    private static  final ZMQ.Socket socket= context.socket(ZMQ.SUB);
 
     public static void main(String[] args) throws Exception {
 
 
 
 
-        int port = 12347;
-        ZMQ.Socket socket = context.socket(ZMQ.SUB);
+        int port = 12346;
+
+
 
         socket.connect("tcp://localhost:" + port);
-        socket.connect("inproc://noti");
+        socket.subscribe("".getBytes());
+
 
 
 
@@ -30,8 +32,10 @@ public class ServerSettlement {
 
             byte[] b = socket.recv();
             String mess = new String(b);
+            System.out.println(mess);
 
             String[] aux = mess.split(" ");
+
 
             //updateAccoes(args[0],args[1],args[2],args[3]);
 

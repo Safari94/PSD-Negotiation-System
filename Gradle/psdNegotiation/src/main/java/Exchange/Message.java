@@ -11,8 +11,8 @@ public class Message {
 
     static int MAXLEN = 1024;
 
-    static enum Type { DATA, EOF, IOE,  ENTER, LEAVE, LINE, LOGIN, LOGOUT, LOGIN_OK, LOGIN_FAILED,BUY,SELL,SELL_OK,
-        BUY_OK, USER_N_EXISTS, ERROR_UAE}
+    static enum Type { DATA, EOF, IOE,  LOGIN, LOGIN_OK, LOGIN_FAILED,BUY,SELL,SELL_OK,
+        BUY_OK, USER_N_EXISTS}
 
 
     Message(Type type, Object o) {

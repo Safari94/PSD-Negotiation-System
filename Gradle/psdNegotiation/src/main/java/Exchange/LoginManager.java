@@ -51,6 +51,11 @@ public class LoginManager extends BasicActor<Message,Void> {
         users.put("test", test);
         users.put("to", to);
 
+        pedidos.add(new Pedidos("xavier","joao","Primavera",12, 143));
+        pedidos.add(new Pedidos("joao","test","Google",12, 143));
+        pedidos.add(new Pedidos("jjj","to","IBM",12, 143));
+        pedidos.add(new Pedidos("to","jjj","Amazon",12, 143));
+
 
     }
 
@@ -77,6 +82,7 @@ public class LoginManager extends BasicActor<Message,Void> {
         populate();
 
 
+
         while (receive(message -> {
 
             switch (message.type) {
@@ -89,7 +95,9 @@ public class LoginManager extends BasicActor<Message,Void> {
 
                             usrinfo.getActor().send(new Message(Type.LOGIN_OK, users.get(usrname).getUsername()));
                             return true;
+
                         } else {
+
                             usrinfo.getActor().send(new Message(Type.LOGIN_FAILED, usrname));
                             return true;
 
@@ -97,12 +105,14 @@ public class LoginManager extends BasicActor<Message,Void> {
                     } else {
                         usrinfo.getActor().send(new Message(Type.USER_N_EXISTS, usrname));
 
+
                     }
                         break;
 
 
 
                 case SELL:
+
 
                     Sell s=(Sell) message.o;
                     s.cli.send(new Message(Type.SELL_OK,null ));
@@ -144,6 +154,7 @@ public class LoginManager extends BasicActor<Message,Void> {
                     return true;
                 case BUY:
 
+
                     Buy b=(Buy) message.o;
                     b.cli.send(new Message(Type.BUY_OK, null));
                     if(sells.size()==0){buys.add(b); System.out.println(buys.size());}
@@ -173,11 +184,10 @@ public class LoginManager extends BasicActor<Message,Void> {
                         }
                     }
 
+
+
+
                     sendPedidos();
-
-
-
-
 
                     return true;
 
