@@ -107,26 +107,29 @@ public class LoginManager extends BasicActor<Message,Void> {
                     Sell s=(Sell) message.o;
                     s.cli.send(new Message(Type.SELL_OK,null ));
 
+                    if (buys.size()==0){sells.add(s); System.out.println(sells.size());}
+                        else{
+
                     for(Buy b:this.buys){
 
-                        if(b.company.equals(s.company)){
-                            if(b.price>=s.price){
-                                float p= (b.price+s.price)/2;
-                                if(b.amount>=s.amount) {
-                                    pedidos.add(new Pedidos(s.username, b.username,b.company,s.amount, p));
-                                    buys.add(new Buy(b.company,(b.amount-s.amount),b.price,b.username,null));
+                        if(b.company.equals(s.company)) {
+                            if (b.price >= s.price) {
+                                float p = (b.price + s.price) / 2;
+                                if (b.amount >= s.amount) {
+                                    pedidos.add(new Pedidos(s.username, b.username, b.company, s.amount, p));
+                                    buys.add(new Buy(b.company, (b.amount - s.amount), b.price, b.username, null));
                                     buys.remove(b);
                                 }
 
-                                if(b.amount<s.amount) {
-                                    pedidos.add(new Pedidos(s.username, b.username,b.company,s.amount, p));
-                                    sells.add(new Sell(s.company,(s.amount-b.amount),s.price,s.username,null));
+                                if (b.amount < s.amount) {
+                                    pedidos.add(new Pedidos(s.username, b.username, b.company, s.amount, p));
+                                    sells.add(new Sell(s.company, (s.amount - b.amount), s.price, s.username, null));
                                     buys.remove(b);
                                 }
-
 
 
                             }
+                        }
                         }
 
 
@@ -142,14 +145,8 @@ public class LoginManager extends BasicActor<Message,Void> {
                 case BUY:
 
                     Buy b=(Buy) message.o;
-                    System.out.println("AQUI11");
-
-                    System.out.println("AQUI22");
-
-                    System.out.println("AQUI33");
                     b.cli.send(new Message(Type.BUY_OK, null));
-                    System.out.println("AQUI2");
-                    if(sells.size()==0){buys.add(b);}
+                    if(sells.size()==0){buys.add(b); System.out.println(buys.size());}
                     else {
                         for (Sell s1 : this.sells) {
 
