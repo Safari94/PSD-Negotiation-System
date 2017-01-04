@@ -1,6 +1,7 @@
 package Settlement;
 
 import org.zeromq.ZMQ;
+import Bank.Bank;
 
 
 /**
@@ -23,23 +24,15 @@ public class ServerSettlement {
         socket.connect("tcp://localhost:" + port);
         socket.subscribe("".getBytes());
 
-
-
-
-
-
         while (true) {
 
             byte[] b = socket.recv();
             String mess = new String(b);
             System.out.println(mess);
 
-            String[] aux = mess.split(" ");
+          //cria um ator para tratar do pedido
 
-
-            //updateAccoes(args[0],args[1],args[2],args[3]);
-
-            //updateBalance(args[0],args[1],args[4]);
+          new Bank(mess).spawn();
 
 
 

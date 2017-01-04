@@ -5,6 +5,9 @@
  */
 package Bank;
 
+import co.paralleluniverse.actors.BasicActor;
+import co.paralleluniverse.fibers.SuspendExecution;
+
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,13 +18,15 @@ import java.util.HashMap;
  *
  * @author toanjo
  */
-public final class Bank {
+public final class Bank extends BasicActor<Void,Void> {
     
 
     HashMap<String,Float> accounts;
+    String mess;
 
-    public Bank() throws SQLException {
+    public Bank(String mess) throws SQLException {
         this.accounts=new HashMap<>();
+        this.mess=mess;
         populate(accounts);
     }
     
@@ -41,7 +46,12 @@ public final class Bank {
             accounts.put(contaB, bBefore + quantidade);
         } else System.out.println("Fundos insuficientes!");
     }
-       
+
+    @Override
+    protected Void doRun() throws InterruptedException, SuspendExecution {
+        return null;
+    }
+
     /*
     Connection c;
     Statement s;
