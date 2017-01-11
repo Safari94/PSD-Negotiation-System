@@ -7,6 +7,11 @@ package Bank;
 
 import co.paralleluniverse.actors.BasicActor;
 import co.paralleluniverse.fibers.SuspendExecution;
+import bitronix.tm.TransactionManagerServices;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+import javax.transaction.UserTransaction;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
