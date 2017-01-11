@@ -84,7 +84,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `psd16`.`Actions` (
   `idActions` INT NOT NULL AUTO_INCREMENT,
   `Company` VARCHAR(45) NOT NULL,
-  `Ammount` INT NOT NULL,
+  `Amount` INT NOT NULL,
   `Users_Username` VARCHAR(40) NOT NULL,
   PRIMARY KEY (`idActions`),
   INDEX `fk_Actions_Users1_idx` (`Users_Username` ASC),

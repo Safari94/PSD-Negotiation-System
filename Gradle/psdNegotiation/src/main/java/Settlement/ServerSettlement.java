@@ -12,20 +12,22 @@ public class ServerSettlement {
     private static final ZMQ.Context context = ZMQ.context(1);
     private static  final ZMQ.Socket socket= context.socket(ZMQ.SUB);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         int port = 12346;
-        socket.connect("tcp://localhost:" + port);
-        socket.subscribe("".getBytes());
 
-        while (true) {
-            byte[] b = socket.recv();
-            String mess = new String(b);
+        try {
+            socket.connect("tcp://localhost:" + port);
+            socket.subscribe("".getBytes());
+            while (true) {
+                byte[] b = socket.recv();
+                String mess = new String(b);
 
-
-            new Bank(mess).spawn();
+                new Bank(mess).spawn();
+            }
+        } catch (Exception e){
+            socket.close();
+            context.term();
         }
-        //socket.close();
-        //context.term();
     }
 }
