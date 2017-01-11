@@ -23,7 +23,6 @@ public class ServerSettlement {
             String mess = new String(b);
             System.out.println(mess);
 
-            //Cria um actor para tratar do pedido
             new Bank(mess).spawn();
         }
         //socket.close();

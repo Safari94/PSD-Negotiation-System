@@ -48,6 +48,16 @@ public final class Bank extends BasicActor<Void,Void> {
 
     @Override
     protected Void doRun() throws InterruptedException, SuspendExecution {
+        String pedido[]=mess.split(" ");
+
+        String contaA = pedido[0];
+        String contaB = pedido[1];
+        String company = pedido[2];
+        int amount = Integer.parseInt(pedido[3]);
+        float price = Float.parseFloat(pedido[4]);
+
+
+
         return null;
     }
 
