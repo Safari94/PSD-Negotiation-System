@@ -190,11 +190,10 @@ public class Client_Main {
             if(userUI.login() == -1)
                 exitflag = true;
             while(userUI.isLogged())
-                while (true) {
                     if (userUI.userMenu() == -1)
                         exitflag = true;
                 }
         }
     }
 
-}
+
