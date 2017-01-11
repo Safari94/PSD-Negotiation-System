@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `psd16`.`Actions` (
   `Company` VARCHAR(45) NOT NULL,
   `Amount` INT NOT NULL,
   `Users_Username` VARCHAR(40) NOT NULL,
-  PRIMARY KEY (`idActions`),
+  PRIMARY KEY (`Company`,`Users_Username`)
   INDEX `fk_Actions_Users1_idx` (`Users_Username` ASC),
   CONSTRAINT `fk_Actions_Users1`
     FOREIGN KEY (`Users_Username`)
