@@ -70,7 +70,6 @@ public class LoginManager extends BasicActor<Message,Void> {
                 Thread.sleep(10);
             }
 
-
         }
 
     }
@@ -78,11 +77,7 @@ public class LoginManager extends BasicActor<Message,Void> {
     @Override
     @SuppressWarnings("empty-statement")
     protected Void doRun() throws InterruptedException, SuspendExecution {
-
         populate();
-
-
-
         while (receive(message -> {
 
             switch (message.type) {
@@ -105,20 +100,16 @@ public class LoginManager extends BasicActor<Message,Void> {
                     } else {
                         usrinfo.getActor().send(new Message(Type.USER_N_EXISTS, usrname));
 
-
                     }
-                        break;
-
+                    break;
 
 
                 case SELL:
-
-
                     Sell s=(Sell) message.o;
                     s.cli.send(new Message(Type.SELL_OK,null ));
 
                     if (buys.size()==0){sells.add(s); System.out.println(sells.size());}
-                        else{
+                    else{
 
                     for(Buy b:this.buys){
 
@@ -140,21 +131,14 @@ public class LoginManager extends BasicActor<Message,Void> {
 
                             }
                         }
-                        }
-
-
-
-
-
-
+                    }
 
                     }
                     sendPedidos();
-
                     return true;
+
+
                 case BUY:
-
-
                     Buy b=(Buy) message.o;
                     b.cli.send(new Message(Type.BUY_OK, null));
                     if(sells.size()==0){buys.add(b); System.out.println(buys.size());}
@@ -175,30 +159,16 @@ public class LoginManager extends BasicActor<Message,Void> {
                                         sells.add(new Sell(s1.company, (s1.amount - b.amount), s1.price, s1.username,null));
                                         buys.remove(b);
                                     }
-
-
                                 }
                             }
-
-
                         }
                     }
-
-
-
-
                     sendPedidos();
-
                     return true;
 
-
-        }
+            }
         return null;
-    }));
-
+        }));
         return null;
-}
-
-
-
+    }
 }

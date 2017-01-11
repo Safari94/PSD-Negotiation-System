@@ -21,44 +21,34 @@ public class Client_Main {
     private final String loginMenu ;
     private  String userName;
     private final String usermenu = "\n1.Buy \n2.Sell \n0.Logout\n";
-    private boolean logged      = false;
-    private Scanner input       = new Scanner(System.in);
-    private Socket clientsock   = null;
-    BufferedWriter toServer  = null;
+    private boolean logged = false;
+    private Scanner input = new Scanner(System.in);
+    private Socket clientsock = null;
+    BufferedWriter toServer = null;
     BufferedReader fromServer = null;
     private ZMQ.Context context;
     private ZMQ.Socket socket;
-
-
 
     /*
     Constructor
     */
     public Client_Main( Socket client) throws IOException{
-
         this.clientsock = client;
         fromServer = new BufferedReader(new InputStreamReader(clientsock.getInputStream()));
         toServer = new BufferedWriter(new OutputStreamWriter(clientsock.getOutputStream()));
         this.userName=new String();
         loginMenu="1.Login\n0.Exit\n";
-
-
     }
 
-    /*
 
-    */
     public boolean isLogged(){
         return this.logged;
     }
 
-    /*
-
-    */
-
-
-
-
+    /**
+     * Method for handling login operation.
+     * @throws IOException
+     */
     public int login() throws IOException{
 
         String user, pass, option;
@@ -100,11 +90,6 @@ public class Client_Main {
     /**
      * Method for handling replies from the Server to an User.
      * @param servout
-
-
-    /**
-     * Method for handling replies from the Server to an Admin.
-     * @param servout
      * @throws IOException
      */
     public void handleServerReplyU(String servout) throws IOException{
@@ -129,10 +114,6 @@ public class Client_Main {
             System.out.println("\nUser " + srep[1] + " doesn't exist");
 
         }
-
-
-
-
     }
 
 
@@ -187,14 +168,9 @@ public class Client_Main {
             sendCommand("LOGOUT", "");
             handleServerReplyU(fromServer.readLine());
             return -1;
-        } else {
-        }
+        } else {}
         return 0;
     }
-
-
-
-
 
 
     public void sendCommand(String command, String arguments) throws IOException{
@@ -208,9 +184,7 @@ public class Client_Main {
 
         boolean exitflag = false;
 
-
         System.out.println("====== User Client ======\nWelcome\n");
-
 
         while(!exitflag){
             if(userUI.login() == -1)
@@ -222,6 +196,5 @@ public class Client_Main {
                 }
         }
     }
-
 
 }

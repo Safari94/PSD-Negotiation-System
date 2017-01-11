@@ -6,7 +6,7 @@ package Exchange;
 public class Message {
 
     final Type type;
-    final Object o;  // careful with mutable objects, such as the byte array
+    final Object o;
 
 
     static int MAXLEN = 1024;

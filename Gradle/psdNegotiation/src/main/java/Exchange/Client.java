@@ -20,19 +20,14 @@ public class Client extends BasicActor<Message,Void> {
     static int MAXLEN = 1024;
     final FiberSocketChannel socket;
     final ActorRef loginManager;
-
-
     private boolean logged;
     private String usrname;
-
     private boolean exitflag = false;
 
     public Client(FiberSocketChannel socket, ActorRef loginManager) {
-
         this.loginManager = loginManager;
         this.socket = socket;
         this.logged = false;
-
     }
 
     @Override
@@ -42,7 +37,6 @@ public class Client extends BasicActor<Message,Void> {
         linereader.spawn();
 
         while(receive((Message msg) -> {
-
             try {
                 switch (msg.type) {
 
@@ -54,7 +48,6 @@ public class Client extends BasicActor<Message,Void> {
                             handler(splitMsg);
                         }
                         return true;
-
 
                     case SELL_OK:
                         socket.write(ByteBuffer.wrap("SELL_OK: Sell creat sucessfully...\n".getBytes()));
@@ -77,16 +70,10 @@ public class Client extends BasicActor<Message,Void> {
                         return true;
                 }
 
-
-            } catch (IOException e) {
-            }
-
+            } catch (IOException e) {}
             return false;
-
         }) && !exitflag);
-
         return null;
-
     }
 
     public String concatArgs(String[] args, int nargs) {
@@ -100,62 +87,53 @@ public class Client extends BasicActor<Message,Void> {
 
 
 
-        private void handler(String[] args) throws SuspendExecution, IOException{
-            switch(args[0].trim()){
-                case "LOGIN":
-                    if(args.length >= 3){
-                        ClientInfo usr = new ClientInfo(args[1], args[2].trim(), self());
-                        loginManager.send(new Message(Type.LOGIN, usr));
-                    }
-                    else
-                        //error: not enough arguments
-                        socket.write(ByteBuffer.wrap("LOGIN: not enough arguments...\n".getBytes()));
-                    break;
+    private void handler(String[] args) throws SuspendExecution, IOException{
+        switch(args[0].trim()){
+            case "LOGIN":
+                if(args.length >= 3){
+                    ClientInfo usr = new ClientInfo(args[1], args[2].trim(), self());
+                    loginManager.send(new Message(Type.LOGIN, usr));
+                }
+                else {
+                    //error: not enough arguments
+                    socket.write(ByteBuffer.wrap("LOGIN: not enough arguments...\n".getBytes()));
+                }
+                break;
 
-                case "SELL":
+            case "SELL":
+                if(args.length >= 4){
+                    Sell s = new Sell(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4],self());
+                    loginManager.send(new Message(Type.SELL, s));
+                }
+                else {
+                    //error: not enough arguments
+                    socket.write(ByteBuffer.wrap("SELL_FAILED: not enough arguments...\n".getBytes()));
+                }
+                break;
 
-                    if(args.length >= 4){
-                        Sell s = new Sell(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4],self());
-                        loginManager.send(new Message(Type.SELL, s));
-
-                    }
-                    else
-                        //error: not enough arguments
-                        socket.write(ByteBuffer.wrap("SELL_FAILED: not enough arguments...\n".getBytes()));
-
-                    break;
-
-                case "BUY":
+            case "BUY":
+                System.out.println(args.length);
+                if(args.length >= 4){
+                    Buy b = new Buy(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4],self());
+                    loginManager.send(new Message(Type.BUY, b));
                     System.out.println(args.length);
+                    socket.write(ByteBuffer.wrap("BUY_OK: Buy creat sucessfully...\n".getBytes()));
+                } else {
+                    //error: not enough arguments
+                    socket.write(ByteBuffer.wrap("BUY_FAILED: not enough arguments...\n".getBytes()));
+                }
+                break;
 
-                    if(args.length >= 4){
+            case "EXIT":
+                exitflag = true;
+                socket.close();
+                break;
 
-                        Buy b = new Buy(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4],self());
-                         loginManager.send(new Message(Type.BUY, b));
-                        System.out.println(args.length);
-                         socket.write(ByteBuffer.wrap("BUY_OK: Buy creat sucessfully...\n".getBytes()));
+            default:
+                socket.write(ByteBuffer.wrap("please login frist\n".getBytes()));
+                break;
 
-                     }
-                     else
-                         //error: not enough arguments
-                         socket.write(ByteBuffer.wrap("BUY_FAILED: not enough arguments...\n".getBytes()));
-                    break;
-
-                case "EXIT":
-                    exitflag = true;
-                    socket.close();
-                    break;
-
-
-
-                default:
-                    socket.write(ByteBuffer.wrap("please login frist\n".getBytes()));
-                    break;
-
-            }
         }
-
-
-
+    }
 
 }

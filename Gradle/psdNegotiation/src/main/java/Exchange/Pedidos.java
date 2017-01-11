@@ -20,8 +20,6 @@ public class Pedidos {
     }
 
     public String toString(){
-
         return new String(usr1+" "+usr2+" "+company+" "+amount+" "+price);
-
     }
 }

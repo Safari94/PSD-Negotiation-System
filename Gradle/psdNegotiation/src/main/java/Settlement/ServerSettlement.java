@@ -14,30 +14,17 @@ public class ServerSettlement {
 
     public static void main(String[] args) throws Exception {
 
-
-
-
         int port = 12346;
-
-
-
         socket.connect("tcp://localhost:" + port);
         socket.subscribe("".getBytes());
 
         while (true) {
-
             byte[] b = socket.recv();
             String mess = new String(b);
             System.out.println(mess);
 
-          //cria um ator para tratar do pedido
-
-          new Bank(mess).spawn();
-
-
-
-
-
+            //Cria um actor para tratar do pedido
+            new Bank(mess).spawn();
         }
         //socket.close();
         //context.term();

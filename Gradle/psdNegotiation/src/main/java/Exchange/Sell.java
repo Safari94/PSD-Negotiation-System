@@ -20,8 +20,6 @@ public class Sell {
         this.price=price;
         this.username=username;
         this.cli=cli;
-
-
     }
 
 }

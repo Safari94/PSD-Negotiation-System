@@ -19,7 +19,6 @@ import java.util.HashMap;
  * @author toanjo
  */
 public final class Bank extends BasicActor<Void,Void> {
-    
 
     HashMap<String,Float> accounts;
     String mess;

@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
 public class LineReader extends BasicActor<Message, Void> {
     static int MAXLEN = 1024;
     private ActorRef<Message> dest;
@@ -66,7 +65,6 @@ public class LineReader extends BasicActor<Message, Void> {
             dest.send(new Message(Message.Type.EOF, null));
             return null;
         } catch (IOException e) {
-
             System.out.println("[IOE] ");
             dest.send(new Message(Message.Type.IOE, null));
             return null;
