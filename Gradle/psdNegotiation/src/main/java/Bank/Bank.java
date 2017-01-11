@@ -48,7 +48,6 @@ public final class Bank extends BasicActor<Void,Void> {
 
     @Override
     protected Void doRun() throws InterruptedException, SuspendExecution {
-<<<<<<< Updated upstream
         String pedido[]=mess.split(" ");
 
         String contaA = pedido[0];
@@ -57,12 +56,7 @@ public final class Bank extends BasicActor<Void,Void> {
         int amount = Integer.parseInt(pedido[3]);
         float price = Float.parseFloat(pedido[4]);
 
-
-
-=======
-
         System.out.println(mess);
->>>>>>> Stashed changes
         return null;
     }
 
