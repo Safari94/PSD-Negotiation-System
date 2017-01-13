@@ -83,21 +83,18 @@ public class LoginManager extends BasicActor<Message,Void> {
 
             switch (message.type) {
                 case LOGIN:
-                    System.out.println(message.type); // ta a dar erro daqui para baixo
-                     ClientInfo usrinfo = (ClientInfo) message.o;
-                     String usrname = usrinfo.getUsername();
-
+                    System.out.println("recebi login"); // ta a dar erro daqui para baixo
+                    ClientInfo usrinfo = (ClientInfo) message.o;
+                    String usrname = usrinfo.getUsername();
+                    System.out.println("Vou verificar."+usrname);
                     if (users.containsKey(usrname)) {
                         if (users.get(usrname).authenticate(usrinfo.getPassword())) {
-
+                            System.out.println("Mandei mensagem");
                             usrinfo.getActor().send(new Message(Type.LOGIN_OK, users.get(usrname).getUsername()));
                             return true;
-
                         } else {
-
                             usrinfo.getActor().send(new Message(Type.LOGIN_FAILED, usrname));
                             return true;
-
                         }
                     } else {
                         usrinfo.getActor().send(new Message(Type.USER_N_EXISTS, usrname));

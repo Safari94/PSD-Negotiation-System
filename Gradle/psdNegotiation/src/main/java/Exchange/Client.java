@@ -50,35 +50,33 @@ public class Client extends BasicActor<Message,Void> {
                         return true;
 
                     case LOGIN_OK:
-                        ClientInfo loggedusr = (ClientInfo) msg.o;
-                        this.usrname = loggedusr.getUsername();
+                        System.out.println("Login");
+                        this.usrname = (String) msg.o;
+                        System.out.println(this.usrname);
                         logged = true;
-                        socket.write(ByteBuffer.wrap(("welcome "+usrname+"\n").getBytes()));
+                        System.out.println("A informar cliente");
+                        //socket.write(ByteBuffer.wrap(("welcome "+this.usrname+"\n").getBytes()));
+                        System.out.println("Informei cliente");
                         return true;
-
 
                     case LOGIN_FAILED:
                         socket.write(ByteBuffer.wrap(("login_failed").getBytes()));
                         return true;
 
-
                     case USER_N_EXISTS:
                         socket.write(ByteBuffer.wrap(("login_failed").getBytes()));
                         return true;
-
-
 
                     case BUY_OK:
                         socket.write(ByteBuffer.wrap(("buy_ok").getBytes()));
                         return true;
 
-
                     case SELL_OK:
                         socket.write(ByteBuffer.wrap(("sell_ok").getBytes()));
                         return true;
 
-
-
+                    default:
+                        break;
                 }
 
             } catch (IOException e) {}
