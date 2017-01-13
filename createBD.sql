@@ -19,7 +19,7 @@ USE `psd16` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `psd16`.`Client` (
   `Username` VARCHAR(20) NOT NULL,
-  `accountBalancce` FLOAT NOT NULL,
+  `AccountBalance` FLOAT NOT NULL,
   PRIMARY KEY (`Username`))
 ENGINE = InnoDB;
 
@@ -30,12 +30,12 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `psd16`.`Accoes` (
   `idAccoes` INT NOT NULL,
   `NomeEmpresa` VARCHAR(45) NULL,
-  `quantidade` INT NOT NULL,
-  `cUsername` VARCHAR(20) NOT NULL,
+  `Quantidade` INT NOT NULL,
+  `User` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`idAccoes`),
-  INDEX `fk_Accoes_Client_idx` (`cUsername` ASC),
+  INDEX `fk_Accoes_Client_idx` (`User` ASC),
   CONSTRAINT `fk_Accoes_Client`
-    FOREIGN KEY (`cUsername`)
+    FOREIGN KEY (`User`)
     REFERENCES `psd16`.`Client` (`Username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

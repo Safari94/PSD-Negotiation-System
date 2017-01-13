@@ -49,12 +49,12 @@ public final class Bank extends BasicActor<Void,Void> {
             float aBalance = 0; //Balance que A tem antes da transação.
             int bAmount = 0; //Ações que B tem antes da transação.
 
-            rs = s.executeQuery("select Balance from Users where Username = " + contaA);
-            while (rs.next()) aBalance = rs.getFloat("Balance");
+            rs = s.executeQuery("select AccountBalance from Client where Username = " + contaA);
+            while (rs.next()) aBalance = rs.getFloat("AccountBalance");
 
-            rs = s.executeQuery("select Amount from Actions where Users_Username = " +contaB+
-                            " and Company = "+company);
-            while (rs.next()) bAmount += rs.getInt("Amount");
+            rs = s.executeQuery("select Quantidade from Accoes where User = " +contaB+
+                            " and NomeEmpresa = "+company);
+            while (rs.next()) bAmount += rs.getInt("Quantidade");
 
             //Alterar Balance dos Utilizadores
 
@@ -65,10 +65,10 @@ public final class Bank extends BasicActor<Void,Void> {
                 System.out.println("TRANSACT_FAILED");
             } else {
                 try {
-                    s.executeUpdate("update Users set Balance = Balance - "
+                    s.executeUpdate("update Client set AccountBalance = AccountBalance - "
                             + amount * price + " where Username = " + contaA);
 
-                    s.executeUpdate("update Users set Balance = Balance + "
+                    s.executeUpdate("update Client set AccountBalance = AccountBalance + "
                             + amount * price + " where Username = " + contaB);
                     //Print para debugging
                     System.out.println("Transação de dinheiro ok");
@@ -88,16 +88,16 @@ public final class Bank extends BasicActor<Void,Void> {
 
                 try {
                     if (bAmount == amount) {
-                        s.executeUpdate("delete from Actions where Users_Username = " + contaB +
-                                " and Company = " + company);
+                        s.executeUpdate("delete from Accoes where User = " + contaB +
+                                " and NomeEmpresa = " + company);
                     } else {
-                        s.executeUpdate("update Actions set Amount = Amount - " + amount + " where " +
-                                "Users_Username = " + contaB + " and Company = " + company);
+                        s.executeUpdate("update Accoes set Quantidade = Quantidade - " + amount + " where " +
+                                "User = " + contaB + " and NomeEmpresa = " + company);
                     }
 
                     //Adicionar ações a A : Cria registo ou atualiza se o user já tiver ações na empresa
-                    s.executeUpdate("insert into Actions values ("+company+","+amount+","+contaA+") " +
-                            "on duplicate key update amount = amount + "+amount);
+                    s.executeUpdate("insert into Accoes values ("+company+","+amount+","+contaA+") " +
+                            "on duplicate key update Quantidade = Quantidade + "+amount);
 
                     System.out.println("Transação de ações ok");
 
