@@ -55,7 +55,7 @@ public class Client extends BasicActor<Message,Void> {
                         System.out.println(this.usrname);
                         logged = true;
                         System.out.println("A informar cliente");
-                        //socket.write(ByteBuffer.wrap(("welcome "+this.usrname+"\n").getBytes()));
+                        socket.write(ByteBuffer.wrap(("welcome "+this.usrname+"\n").getBytes()));
                         System.out.println("Informei cliente");
                         return true;
 
