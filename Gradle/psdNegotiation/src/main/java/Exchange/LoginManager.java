@@ -77,11 +77,13 @@ public class LoginManager extends BasicActor<Message,Void> {
     @Override
     @SuppressWarnings("empty-statement")
     protected Void doRun() throws InterruptedException, SuspendExecution {
+        System.out.println("tou aqui");
         populate();
         while (receive(message -> {
 
             switch (message.type) {
                 case LOGIN:
+                    System.out.println(message.type); // ta a dar erro daqui para baixo
                      ClientInfo usrinfo = (ClientInfo) message.o;
                      String usrname = usrinfo.getUsername();
 

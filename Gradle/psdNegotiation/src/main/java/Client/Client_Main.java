@@ -26,8 +26,7 @@ public class Client_Main {
     private Socket clientsock = null;
     BufferedWriter toServer = null;
     BufferedReader fromServer = null;
-    private ZMQ.Context context;
-    private ZMQ.Socket socket;
+
 
     /*
     Constructor
@@ -62,11 +61,11 @@ public class Client_Main {
             user = input.nextLine();
             System.out.println("Password: ");
             pass = input.nextLine();
-            sendCommand("LOGIN", user + " " + pass);
+            sendCommand("login", user + " " + pass);
 
             servrep = fromServer.readLine();
             String[] message = servrep.split(" ");
-            if (message[0].equals("WELCOME")) {
+            if (message[0].equals("welcome")) {
 
                 this.logged = true;
                 this.userName=message[1];
@@ -96,21 +95,21 @@ public class Client_Main {
         String[] srep = servout.split(" ");
         System.out.println(servout);
 
-        if (srep[0].equals("BUY_OK:")) {
+        if (srep[0].equals("buy_ok")) {
             System.out.println("\nBuy submitted successfully ");
 
-        } else if (srep[0].equals("WELCOME")) {
+        } else if (srep[0].equals("welcome")) {
             this.logged = true;
-            System.out.println("\nWELCOME, " + srep[1]);
+            System.out.println("\nWelcome, " + srep[1]);
 
-        } else if (srep[0].equals("OUT")) {
+        } else if (srep[0].equals("out")) {
             this.logged = false;
             System.out.println("\nSuccessfully logged out");
 
-        } else if (srep[0].equals("SELL_OK:")) {
+        } else if (srep[0].equals("sell_ok")) {
             System.out.println("\nSell submitted successfully ");
 
-        } else if (srep[0].equals("LOGIN_FAILED:")) {
+        } else if (srep[0].equals("login_failed")) {
             System.out.println("\nUser " + srep[1] + " doesn't exist");
 
         }
@@ -136,9 +135,9 @@ public class Client_Main {
             company = input.nextLine();
             amount = input.nextLine();
             price = input.nextLine();
-            System.out.println("BUY " +company + " " + amount + " " + price + " " + this.userName);
+            System.out.println("buy " +company + " " + amount + " " + price + " " + this.userName);
 
-            sendCommand("BUY", company + " " + amount + " " + price + " " + this.userName);
+            sendCommand("buy", company + " " + amount + " " + price + " " + this.userName);
 
 
             handleServerReplyU(fromServer.readLine());
@@ -152,9 +151,9 @@ public class Client_Main {
             company = input.nextLine();
             amount = input.nextLine();
             price = input.nextLine();
-            System.out.println("SELL " +company + " " + amount + " " + price + " " + this.userName);
+            System.out.println("sell " +company + " " + amount + " " + price + " " + this.userName);
 
-            sendCommand("SELL", company + " " + amount + " " + price + " " + this.userName);
+            sendCommand("sell", company + " " + amount + " " + price + " " + this.userName);
 
 
             handleServerReplyU(fromServer.readLine());
@@ -165,7 +164,7 @@ public class Client_Main {
             }
 
         } else if (option.equals("0")) {
-            sendCommand("LOGOUT", "");
+            sendCommand("out", "");
             handleServerReplyU(fromServer.readLine());
             return -1;
         } else {}

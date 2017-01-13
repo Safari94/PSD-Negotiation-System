@@ -49,25 +49,36 @@ public class Client extends BasicActor<Message,Void> {
                         }
                         return true;
 
-                    case SELL_OK:
-                        socket.write(ByteBuffer.wrap("SELL_OK: Sell creat sucessfully...\n".getBytes()));
-                        return true;
-
-                    case BUY_OK:
-                        socket.write(ByteBuffer.wrap("BUY_OK: Buy creat sucessfully...\n".getBytes()));
-                        return true;
-
                     case LOGIN_OK:
-
-                        String ci = (String) msg.o;
-                        System.out.println(ci);
-                        this.usrname = ci;
+                        ClientInfo loggedusr = (ClientInfo) msg.o;
+                        this.usrname = loggedusr.getUsername();
                         logged = true;
-                        socket.write(ByteBuffer.wrap(("WELCOME " + usrname + "\n").getBytes()));
+                        socket.write(ByteBuffer.wrap(("welcome "+usrname+"\n").getBytes()));
+                        return true;
+
 
                     case LOGIN_FAILED:
-                        socket.write(ByteBuffer.wrap(("LOGIN_FAILED: " + (String) msg.o + " doesn't exist\n").getBytes()));
+                        socket.write(ByteBuffer.wrap(("login_failed").getBytes()));
                         return true;
+
+
+                    case USER_N_EXISTS:
+                        socket.write(ByteBuffer.wrap(("login_failed").getBytes()));
+                        return true;
+
+
+
+                    case BUY_OK:
+                        socket.write(ByteBuffer.wrap(("buy_ok").getBytes()));
+                        return true;
+
+
+                    case SELL_OK:
+                        socket.write(ByteBuffer.wrap(("sell_ok").getBytes()));
+                        return true;
+
+
+
                 }
 
             } catch (IOException e) {}
@@ -89,42 +100,38 @@ public class Client extends BasicActor<Message,Void> {
 
     private void handler(String[] args) throws SuspendExecution, IOException{
         switch(args[0].trim()){
-            case "LOGIN":
-                if(args.length >= 3){
+            case "login":
+                System.out.println(args.length);
+                if(args.length == 3){
                     ClientInfo usr = new ClientInfo(args[1], args[2].trim(), self());
                     loginManager.send(new Message(Type.LOGIN, usr));
+                    break;
                 }
                 else {
                     //error: not enough arguments
-                    socket.write(ByteBuffer.wrap("LOGIN: not enough arguments...\n".getBytes()));
+                    socket.write(ByteBuffer.wrap("login: not enough arguments...\n".getBytes()));
                 }
                 break;
 
-            case "SELL":
-                if(args.length >= 4){
-                    Sell s = new Sell(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4],self());
+            case "sell":
+                if(args.length >= 4) {
+                    Sell s = new Sell(args[1], Integer.parseInt(args[2]), Float.parseFloat(args[3]), args[4], self());
                     loginManager.send(new Message(Type.SELL, s));
-                }
-                else {
-                    //error: not enough arguments
-                    socket.write(ByteBuffer.wrap("SELL_FAILED: not enough arguments...\n".getBytes()));
+
                 }
                 break;
 
-            case "BUY":
+            case "buy":
                 System.out.println(args.length);
                 if(args.length >= 4){
                     Buy b = new Buy(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4],self());
                     loginManager.send(new Message(Type.BUY, b));
                     System.out.println(args.length);
-                    socket.write(ByteBuffer.wrap("BUY_OK: Buy creat sucessfully...\n".getBytes()));
-                } else {
-                    //error: not enough arguments
-                    socket.write(ByteBuffer.wrap("BUY_FAILED: not enough arguments...\n".getBytes()));
+
                 }
                 break;
 
-            case "EXIT":
+            case "out":
                 exitflag = true;
                 socket.close();
                 break;
