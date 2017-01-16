@@ -110,7 +110,7 @@ public class Client_Main {
             System.out.println("\nSell submitted successfully ");
 
         } else if (srep[0].equals("login_failed")) {
-            System.out.println("\nUser " + srep[1] + " doesn't exist");
+            System.out.println("\nUser " + srep[1] + " doesn't exist or wrong password");
 
         }
     }
@@ -123,52 +123,56 @@ public class Client_Main {
      * @return 0 if everything worked fine, -1 if user wants to exit.
      * @throws IOException
      */
-    public int userMenu() throws IOException{
-        String option,company, amount, price, servout;
+    public void userMenu() throws IOException {
+        String option, company, amount, price, servout;
         String[] srep;
-        System.out.println("==========================\n"
-                + usermenu +"\n==========================\n");
-        option = input.nextLine();
+        while (isLogged()) {
+            System.out.println("==========================\n"
+                    + usermenu + "\n==========================\n");
+            option = input.nextLine();
 
-        if (option.equals("1")) {
-            System.out.println("Buy: ");
-            company = input.nextLine();
-            amount = input.nextLine();
-            price = input.nextLine();
-            System.out.println("buy " +company + " " + amount + " " + price + " " + this.userName);
+            if (option.equals("1")) {
+                System.out.println("Buy: ");
+                company = input.nextLine();
+                amount = input.nextLine();
+                price = input.nextLine();
+                System.out.println("buy " + company + " " + amount + " " + price + " " + this.userName);
 
-            sendCommand("buy", company + " " + amount + " " + price + " " + this.userName);
+                sendCommand("buy", company + " " + amount + " " + price + " " + this.userName);
 
 
-            handleServerReplyU(fromServer.readLine());
+                handleServerReplyU(fromServer.readLine());
 
-            while ((servout = fromServer.readLine()) != null && (!servout.equals("")) && (!servout.equals("\n"))) {
-                System.out.println(servout);
+                while ((servout = fromServer.readLine()) != null && (!servout.equals("")) && (!servout.equals("\n"))) {
+                    System.out.println(servout);
+                }
+
+            } else if (option.equals("2")) {
+                System.out.println("Sell: ");
+                company = input.nextLine();
+                amount = input.nextLine();
+                price = input.nextLine();
+                System.out.println("sell " + company + " " + amount + " " + price + " " + this.userName);
+
+                sendCommand("sell", company + " " + amount + " " + price + " " + this.userName);
+
+
+                handleServerReplyU(fromServer.readLine());
+
+
+                while ((servout = fromServer.readLine()) != null && (!servout.equals("")) && (!servout.equals("\n"))) {
+                    System.out.println(servout);
+                }
+
+
+            } else if (option.equals("0")) {
+                sendCommand("out", "");
+                handleServerReplyU(fromServer.readLine());
+
+            } else {
             }
 
-        } else if (option.equals("2")) {
-            System.out.println("Sell: ");
-            company = input.nextLine();
-            amount = input.nextLine();
-            price = input.nextLine();
-            System.out.println("sell " +company + " " + amount + " " + price + " " + this.userName);
-
-            sendCommand("sell", company + " " + amount + " " + price + " " + this.userName);
-
-
-            handleServerReplyU(fromServer.readLine());
-
-
-            while ((servout = fromServer.readLine()) != null && (!servout.equals("")) && (!servout.equals("\n"))) {
-                System.out.println(servout);
-            }
-
-        } else if (option.equals("0")) {
-            sendCommand("out", "");
-            handleServerReplyU(fromServer.readLine());
-            return -1;
-        } else {}
-        return 0;
+        }
     }
 
 
@@ -189,8 +193,8 @@ public class Client_Main {
             if(userUI.login() == -1)
                 exitflag = true;
             while(userUI.isLogged())
-                    if (userUI.userMenu() == -1)
-                        exitflag = true;
+                   userUI.userMenu();
+
                 }
         }
     }

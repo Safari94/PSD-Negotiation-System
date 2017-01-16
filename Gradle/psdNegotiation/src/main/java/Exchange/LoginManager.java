@@ -82,21 +82,25 @@ public class LoginManager extends BasicActor<Message,Void> {
         while (receive(message -> {
 
             switch (message.type) {
+
                 case LOGIN:
-                    System.out.println("recebi login"); // ta a dar erro daqui para baixo
+                    System.out.println("recebi login"); // D
                     ClientInfo usrinfo = (ClientInfo) message.o;
                     String usrname = usrinfo.getUsername();
-                    System.out.println("Vou verificar."+usrname);
+                    System.out.println("Vou verificar."+usrname); //D
                     if (users.containsKey(usrname)) {
+                        System.out.println("User existe"); //D
                         if (users.get(usrname).authenticate(usrinfo.getPassword())) {
-                            System.out.println("Mandei mensagem");
+                            System.out.println("Mandei mensagem"); //D
                             usrinfo.getActor().send(new Message(Type.LOGIN_OK, users.get(usrname).getUsername()));
                             return true;
                         } else {
+                            System.out.println("Password Invalida");//D
                             usrinfo.getActor().send(new Message(Type.LOGIN_FAILED, usrname));
                             return true;
                         }
                     } else {
+                        System.out.println("User not exists");//D
                         usrinfo.getActor().send(new Message(Type.USER_N_EXISTS, usrname));
 
                     }
@@ -104,8 +108,9 @@ public class LoginManager extends BasicActor<Message,Void> {
 
 
                 case SELL:
+                    System.out.println();
                     Sell s=(Sell) message.o;
-                    s.cli.send(new Message(Type.SELL_OK,null ));
+
 
                     if (buys.size()==0){sells.add(s); System.out.println(sells.size());}
                     else{
@@ -134,12 +139,12 @@ public class LoginManager extends BasicActor<Message,Void> {
 
                     }
                     sendPedidos();
-                    return true;
+                    break;
 
 
                 case BUY:
                     Buy b=(Buy) message.o;
-                    b.cli.send(new Message(Type.BUY_OK, null));
+
                     if(sells.size()==0){buys.add(b); System.out.println(buys.size());}
                     else {
                         for (Sell s1 : this.sells) {
@@ -163,7 +168,7 @@ public class LoginManager extends BasicActor<Message,Void> {
                         }
                     }
                     sendPedidos();
-                    return true;
+                    break;
 
             }
         return null;

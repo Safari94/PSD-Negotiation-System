@@ -60,20 +60,15 @@ public class Client extends BasicActor<Message,Void> {
                         return true;
 
                     case LOGIN_FAILED:
-                        socket.write(ByteBuffer.wrap(("login_failed").getBytes()));
+                        this.usrname=(String) msg.o;
+                        socket.write(ByteBuffer.wrap(("login_failed ").getBytes()));
                         return true;
 
                     case USER_N_EXISTS:
+                        this.usrname=(String) msg.o;
                         socket.write(ByteBuffer.wrap(("login_failed").getBytes()));
                         return true;
 
-                    case BUY_OK:
-                        socket.write(ByteBuffer.wrap(("buy_ok").getBytes()));
-                        return true;
-
-                    case SELL_OK:
-                        socket.write(ByteBuffer.wrap(("sell_ok").getBytes()));
-                        return true;
 
                     default:
                         break;

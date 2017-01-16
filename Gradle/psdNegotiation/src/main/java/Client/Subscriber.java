@@ -38,7 +38,7 @@ public class Subscriber {
                 user = input.nextLine();
                 System.out.println("Password: ");
                 pass = input.nextLine();
-                toServer.write("LOGIN " + user +" "+ pass + "\n");
+                toServer.write("login " + user +" "+ pass + "\n");
                 toServer.flush();
 
                 servrep = fromServer.readLine();

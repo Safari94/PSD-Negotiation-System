@@ -22,6 +22,7 @@ public class ServerSettlement {
             while (true) {
                 byte[] b = socket.recv();
                 String mess = new String(b);
+                System.out.println(mess);
 
                 new Bank(mess).spawn();
             }
