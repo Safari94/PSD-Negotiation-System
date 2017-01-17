@@ -14,7 +14,7 @@ public class ServerSettlement {
 
     public static void main(String[] args) {
 
-        int port = 12346;
+        int port = 12345;
 
         try {
             socket.connect("tcp://localhost:" + port);

@@ -50,13 +50,13 @@ public class Client extends BasicActor<Message,Void> {
                         return true;
 
                     case LOGIN_OK:
-                        System.out.println("Login");
+                        System.out.println("Login"); //D
                         this.usrname = (String) msg.o;
                         System.out.println(this.usrname);
                         logged = true;
-                        System.out.println("A informar cliente");
+                        System.out.println("A informar cliente");//D
                         socket.write(ByteBuffer.wrap(("welcome "+this.usrname+"\n").getBytes()));
-                        System.out.println("Informei cliente");
+                        System.out.println("Informei cliente");//D
                         return true;
 
                     case LOGIN_FAILED:
@@ -119,7 +119,7 @@ public class Client extends BasicActor<Message,Void> {
                 if(args.length >= 4){
                     Buy b = new Buy(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4],self());
                     loginManager.send(new Message(Type.BUY, b));
-                    System.out.println(args.length);
+                    System.out.println(args.length); //D
 
                 }
                 break;
