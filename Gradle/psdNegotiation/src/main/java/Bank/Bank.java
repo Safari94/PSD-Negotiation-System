@@ -48,7 +48,7 @@ public final class Bank extends BasicActor<Void,Void> {
             txn.begin();
 
 
-            DataSource ds = (DataSource) ctx.lookup("jdbc/psd16");
+            DataSource ds = (DataSource) ctx.lookup("jdbc:mysql://localhost:3306/psd16");
             Connection c = ds.getConnection();
             Statement s = c.createStatement();
             ResultSet rs;
