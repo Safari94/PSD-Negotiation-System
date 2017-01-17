@@ -28,8 +28,8 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Accoes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `psd16`.`Accoes` (
-  `idAccoes` INT NOT NULL,
-  `NomeEmpresa` VARCHAR(45) NULL,
+  `idAccoes` INT NOT NULL AUTO_INCREMENT,
+  `NomeEmpresa` VARCHAR(45) NOT NULL,
   `Quantidade` INT NOT NULL,
   `User` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`idAccoes`),
