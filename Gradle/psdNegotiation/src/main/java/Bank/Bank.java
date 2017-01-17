@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import javax.transaction.UserTransaction;
 
 import java.sql.*;
+import java.util.Hashtable;
 
 /**
  *
@@ -26,9 +27,15 @@ public final class Bank extends BasicActor<Void,Void> {
     @Override
     protected Void doRun() throws InterruptedException, SuspendExecution {
 
+        System.out.println("Olá! Recebi: "+mess);
+
         try {
-            Context ctx = new InitialContext();
+            Hashtable contextArgs = new Hashtable();
+            contextArgs.put( Context.INITIAL_CONTEXT_FACTORY, "bitronix.tm.jndi.BitronixInitialContextFactory");
+            Context ctx = new InitialContext(contextArgs);
             UserTransaction txn = (UserTransaction) ctx.lookup("java:comp/UserTransaction");
+
+            System.out.println("Contexto e Transação criados");
 
             String pedido[] = mess.split(" ");
 
@@ -41,7 +48,7 @@ public final class Bank extends BasicActor<Void,Void> {
             txn.begin();
 
 
-            DataSource ds = (DataSource) ctx.lookup("jdbc/bankaccounts");
+            DataSource ds = (DataSource) ctx.lookup("jdbc/psd16");
             Connection c = ds.getConnection();
             Statement s = c.createStatement();
             ResultSet rs;
@@ -112,7 +119,8 @@ public final class Bank extends BasicActor<Void,Void> {
             System.out.println("TRANSACT_OK");
 
         } catch (Exception e) {
-            System.out.println("TRANSACT_FAILED");
+            System.out.println("TRANSACT_FAILED : Ligação à base de dados?");
+            System.out.println(e.getMessage());
         }
 
         return null;
