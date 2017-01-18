@@ -53,6 +53,8 @@ public final class Bank extends BasicActor<Void,Void> {
             Statement s = c.createStatement();
             ResultSet rs;
 
+            System.out.println("Ligado à BD");
+
             float aBalance = 0; //Balance que A tem antes da transação.
             int bAmount = 0; //Ações que B tem antes da transação.
 
