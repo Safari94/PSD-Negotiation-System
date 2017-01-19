@@ -15,6 +15,7 @@
     <orderEntry type="library" name="Gradle: co.paralleluniverse:quasar-core:jdk8:0.7.3" level="project" />
     <orderEntry type="library" name="Gradle: co.paralleluniverse:quasar-actors:0.7.3" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.btm:btm:2.1.4" level="project" />
+    <orderEntry type="library" name="Gradle: mysql:mysql-connector-java:5.1.6" level="project" />
     <orderEntry type="library" name="Gradle: io.dropwizard.metrics:metrics-core:3.1.2" level="project" />
     <orderEntry type="library" name="Gradle: org.latencyutils:LatencyUtils:2.0.2" level="project" />
     <orderEntry type="library" name="Gradle: de.javakaffee:kryo-serializers:0.36" level="project" />

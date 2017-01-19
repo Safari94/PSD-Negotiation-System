@@ -2,6 +2,7 @@ package Bank;
 
 import co.paralleluniverse.actors.BasicActor;
 import co.paralleluniverse.fibers.SuspendExecution;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -27,8 +28,6 @@ public final class Bank extends BasicActor<Void,Void> {
     @Override
     protected Void doRun() throws InterruptedException, SuspendExecution {
 
-        System.out.println("Olá! Recebi: "+mess);
-
         try {
             Hashtable contextArgs = new Hashtable();
             contextArgs.put( Context.INITIAL_CONTEXT_FACTORY, "bitronix.tm.jndi.BitronixInitialContextFactory");
@@ -47,9 +46,17 @@ public final class Bank extends BasicActor<Void,Void> {
 
             txn.begin();
 
+            System.out.println("A criar DataSource");
 
-            DataSource ds = (DataSource) ctx.lookup("jdbc:mysql://localhost:3306/psd16");
-            Connection c = ds.getConnection();
+            //DataSource dataSource = (DataSource) ctx.lookup("jdbc:mysql://localhost:3306/psd16");
+            MysqlDataSource dataSource = new MysqlDataSource();
+            dataSource.setUser("admin");
+            dataSource.setPassword("admin");
+            dataSource.setUrl("jdbc:mysql://localhost:3306/psd16");
+
+            System.out.println("A criar Ligação / Statement"); //FALHA AQUI, não dá exceção mas não acontece nada
+
+            Connection c = dataSource.getConnection();
             Statement s = c.createStatement();
             ResultSet rs;
 

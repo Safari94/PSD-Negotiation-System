@@ -31,6 +31,7 @@ dependencies {
     quasar  "co.paralleluniverse:quasar-core:0.7.3:jdk8"
 
     compile group: 'org.codehaus.btm', name: 'btm', version: '2.1.4'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 
     //compile files("../")
 }
