@@ -63,26 +63,25 @@ public final class Bank extends BasicActor<Void,Void> {
                             "' and NomeEmpresa = '"+company+"';");
             while (rs.next()) bAmount += rs.getInt("Quantidade");
 
-            //Até aqui tudo bem
             //Alterar Balance dos Utilizadores
 
             if (aBalance < amount * price) {
-                //Print para debugging
-                System.out.println("Transação no banco falhou por fundos insuficientes." + contaA + " " + contaB + " " + company);
+                System.out.println("Transação no banco falhou por fundos insuficientes.");
                 txn.rollback();
                 System.out.println("TRANSACT_FAILED");
+                return null;
             } else {
                 try {
                     s.executeUpdate("update Client set AccountBalance = AccountBalance - "
-                            + amount * price + " where Username = " + contaA);
+                            + amount * price + " where Username = '" + contaA +"';");
 
                     s.executeUpdate("update Client set AccountBalance = AccountBalance + "
-                            + amount * price + " where Username = " + contaB);
+                            + amount * price + " where Username = '" + contaB+"';");
                     //Print para debugging
-                    System.out.println("Transação de dinheiro ok");
                 } catch (SQLException se){
                     txn.rollback();
                     System.out.println("TRANSACT_FAILED");
+                    System.out.println(se.getMessage());
                 }
             }
 
@@ -90,28 +89,29 @@ public final class Bank extends BasicActor<Void,Void> {
             //Em caso de sucesso, enviar TRANSACT_OK
 
             if (bAmount < amount) {
+                System.out.println("Transação no banco falhou por ações insuficientes do vendedor.");
                 txn.rollback();
                 System.out.print("TRANSACT_FAILED");
+                return null;
             } else {
-
                 try {
                     if (bAmount == amount) {
-                        s.executeUpdate("delete from Accoes where User = " + contaB +
-                                " and NomeEmpresa = " + company);
+                        s.executeUpdate("delete from Accoes where User = '" + contaB +
+                                "' and NomeEmpresa = '" + company + "';");
                     } else {
                         s.executeUpdate("update Accoes set Quantidade = Quantidade - " + amount + " where " +
-                                "User = " + contaB + " and NomeEmpresa = " + company);
+                                "User = '" + contaB + "' and NomeEmpresa = '" + company + "';");
                     }
 
                     //Adicionar ações a A : Cria registo ou atualiza se o user já tiver ações na empresa
-                    s.executeUpdate("insert into Accoes values ("+company+","+amount+","+contaA+") " +
+                    s.executeUpdate("insert into Accoes (NomeEmpresa, Quantidade, User) " +
+                            "values ('"+company+"','"+amount+"','"+contaA+"') " +
                             "on duplicate key update Quantidade = Quantidade + "+amount);
-
-                    System.out.println("Transação de ações ok");
 
                 } catch (SQLException se){
                     txn.rollback();
                     System.out.println("TRANSACT_FAILED");
+                    System.out.println(se.getMessage());
                 }
 
             }

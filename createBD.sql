@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS `psd16`.`Accoes` (
   `NomeEmpresa` VARCHAR(45) NOT NULL,
   `Quantidade` INT NOT NULL,
   `User` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`idAccoes`),
+  PRIMARY KEY (`NomeEmpresa`,`User`),
+  KEY (`idAccoes`),
   INDEX `fk_Accoes_Client_idx` (`User` ASC),
   CONSTRAINT `fk_Accoes_Client`
     FOREIGN KEY (`User`)

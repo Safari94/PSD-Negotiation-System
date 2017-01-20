@@ -26,7 +26,7 @@ public class ServerSettlement {
                 /*Debugging / Testing do Settlement
                 String mess = "comprador vendedor empresa quantidade preço";
                 */
-                String mess = "to xavier primavera 25 2";
+                String mess = "to xavier primavera 1 1";
                 //String mess = "joao jjj eurotux 5 10";
 
                 System.out.println("A testar : "+mess);
