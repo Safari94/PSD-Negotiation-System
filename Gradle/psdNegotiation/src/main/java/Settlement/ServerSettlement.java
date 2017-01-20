@@ -18,21 +18,14 @@ public class ServerSettlement {
         System.out.println("Settlement Iniciado!");
 
         try {
-            //socket.connect("tcp://localhost:" + port);
-            //socket.subscribe("".getBytes());
-            //while (true) {
-                //byte[] b = socket.recv();
-                //String mess = new String(b);
-                /*Debugging / Testing do Settlement
-                String mess = "comprador vendedor empresa quantidade preço";
-                */
-                String mess = "to xavier primavera 1 1";
-                //String mess = "joao jjj eurotux 5 10";
-
-                System.out.println("A testar : "+mess);
+            socket.connect("tcp://localhost:" + port);
+            socket.subscribe("".getBytes());
+            while (true) {
+                byte[] b = socket.recv();
+                String mess = new String(b);
 
                 new Bank(mess).spawn();
-            //}
+            }
         } catch (Exception e){
             //socket.close();
             //context.term();
