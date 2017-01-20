@@ -34,44 +34,36 @@ public final class Bank extends BasicActor<Void,Void> {
             Context ctx = new InitialContext(contextArgs);
             UserTransaction txn = (UserTransaction) ctx.lookup("java:comp/UserTransaction");
 
-            System.out.println("Contexto e Transação criados");
-
             String pedido[] = mess.split(" ");
 
-            String contaA = pedido[0]; //A Perde Dinheiro e Ganha Ações
-            String contaB = pedido[1]; //B Ganha Dinheiro e Perde Ações
-            String company = pedido[2];
+            String contaA = pedido[0].trim(); //A Perde Dinheiro e Ganha Ações
+            String contaB = pedido[1].trim(); //B Ganha Dinheiro e Perde Ações
+            String company = pedido[2].trim();
             int amount = Integer.parseInt(pedido[3]);
             float price = Float.parseFloat(pedido[4]);
 
             txn.begin();
 
-            System.out.println("A criar DataSource");
-
-            //DataSource dataSource = (DataSource) ctx.lookup("jdbc:mysql://localhost:3306/psd16");
             MysqlDataSource dataSource = new MysqlDataSource();
             dataSource.setUser("psd16");
             dataSource.setPassword("psd16");
             dataSource.setUrl("jdbc:mysql://localhost:3306/psd16");
 
-            System.out.println("A criar Ligação / Statement"); //FALHA AQUI, não dá exceção mas não acontece nada
-
             Connection c = dataSource.getConnection();
             Statement s = c.createStatement();
             ResultSet rs;
 
-            System.out.println("Ligado à BD");
-
             float aBalance = 0; //Balance que A tem antes da transação.
             int bAmount = 0; //Ações que B tem antes da transação.
 
-            rs = s.executeQuery("select AccountBalance from Client where Username = " + contaA);
+            rs = s.executeQuery("select AccountBalance from Client where Username = '" + contaA + "';");
             while (rs.next()) aBalance = rs.getFloat("AccountBalance");
 
-            rs = s.executeQuery("select Quantidade from Accoes where User = " +contaB+
-                            " and NomeEmpresa = "+company);
+            rs = s.executeQuery("select Quantidade from Accoes where User = '" +contaB+
+                            "' and NomeEmpresa = '"+company+"';");
             while (rs.next()) bAmount += rs.getInt("Quantidade");
 
+            //Até aqui tudo bem
             //Alterar Balance dos Utilizadores
 
             if (aBalance < amount * price) {
