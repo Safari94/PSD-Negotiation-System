@@ -14,7 +14,9 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE SCHEMA IF NOT EXISTS `psd16` DEFAULT CHARACTER SET utf8 ;
 USE `psd16` ;
 
-create user 'admin' identified by 'admin';
+-- drop user 'psd16'@'localhost';
+ create user 'psd16'@'localhost' identified by 'psd16';
+ grant all on psd16.* to 'psd16'@'localhost';
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Client`

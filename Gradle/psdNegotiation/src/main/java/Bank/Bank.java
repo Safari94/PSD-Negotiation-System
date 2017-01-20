@@ -50,8 +50,8 @@ public final class Bank extends BasicActor<Void,Void> {
 
             //DataSource dataSource = (DataSource) ctx.lookup("jdbc:mysql://localhost:3306/psd16");
             MysqlDataSource dataSource = new MysqlDataSource();
-            dataSource.setUser("admin");
-            dataSource.setPassword("admin");
+            dataSource.setUser("psd16");
+            dataSource.setPassword("psd16");
             dataSource.setUrl("jdbc:mysql://localhost:3306/psd16");
 
             System.out.println("A criar Ligação / Statement"); //FALHA AQUI, não dá exceção mas não acontece nada
@@ -128,7 +128,7 @@ public final class Bank extends BasicActor<Void,Void> {
             System.out.println("TRANSACT_OK");
 
         } catch (Exception e) {
-            System.out.println("TRANSACT_FAILED : Ligação à base de dados?");
+            System.out.println("TRANSACT_FAILED");
             System.out.println(e.getMessage());
         }
 
