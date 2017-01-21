@@ -14,48 +14,52 @@ public class Buy {
     public String username;
 
 
-    public Buy(String company,int amount,float price,String username){
+    public Buy(String company, int amount, float price, String username) {
 
-        this.company=company;
-        this.amount=amount;
-        this.price=price;
-        this.username=username;
+        this.company = company;
+        this.amount = amount;
+        this.price = price;
+        this.username = username;
         this.actor = null;
 
     }
-    
-    public Buy(String company,int amount,float price,String username, ActorRef actor){
-        
-        this.company=company;
-        this.amount=amount;
-        this.price=price;
-        this.username=username;
+
+    public Buy(String company, int amount, float price, String username, ActorRef actor) {
+
+        this.company = company;
+        this.amount = amount;
+        this.price = price;
+        this.username = username;
         this.actor = actor;
-        
+
     }
 
-    public String getCompany(){
+    public String getCompany() {
         return this.company;
     }
-    
-    public String getUser(){
+
+    public String getUser() {
         return this.username;
     }
-    
-    public int getAmount(){
+
+    public int getAmount() {
         return this.amount;
     }
-    
-    public float getPrice(){
+
+    public float getPrice() {
         return this.price;
     }
-    
-    public ActorRef getActor(){
+
+    public ActorRef getActor() {
         return this.actor;
     }
-    
-    public void setActor(ActorRef actor){
+
+    public void setActor(ActorRef actor) {
         this.actor = actor;
     }
 
+    public String toString() {
+        return new String(company + " " + amount + " " + price + " " + username);
+
+    }
 }

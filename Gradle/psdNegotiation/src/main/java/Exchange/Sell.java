@@ -23,14 +23,6 @@ public class Sell {
         this.actor = null;
     }
 
-    public Sell(String company,int amount,float price,String username, ActorRef actor){
-
-        this.company=company;
-        this.amount=amount;
-        this.price=price;
-        this.username=username;
-        this.actor = actor;
-    }
 
     
     public String getCompany(){
@@ -55,5 +47,9 @@ public class Sell {
     
     public void setActor(ActorRef actor){
         this.actor = actor;
+    }
+
+    public String toString() {
+        return new String(company + " " + amount + " " + price + " " + username);
     }
 }
