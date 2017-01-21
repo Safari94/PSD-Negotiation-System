@@ -26,7 +26,7 @@ public class Subscriber {
 
 
 
-    private static int login() throws IOException{
+    public int login() throws IOException{
         String user, pass, option;
         String servrep;
         System.out.println(loginMenu);
@@ -47,6 +47,7 @@ public class Subscriber {
                     if(message.length > 2) {
                         logged = true;
                         System.out.println("\nWelcome, " + message[2]);
+                        
                     }
 
 
@@ -136,14 +137,15 @@ public class Subscriber {
         toServer = new BufferedWriter(new OutputStreamWriter(server.getOutputStream()));
         boolean exitflag = false;
         notifTypes = new ArrayList<>();
+        Subscriber sb= new Subscriber();
 
         System.out.println("==== Notification Console ====\nWelcome\n");
 
         while(!exitflag){
-            if(login()==-1)
+            if(sb.login()==-1)
                 exitflag = true;
             while(logged){
-                if(consoleMenu()==-1)
+                if(sb.consoleMenu()==-1)
                     exitflag = true;
             }
         }

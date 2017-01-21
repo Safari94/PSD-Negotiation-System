@@ -68,6 +68,7 @@ task( ServerS, type: JavaExec ) {
 }
 
 task( Sub, type: JavaExec ) {
+    standardInput = System.in
     jvmArgs "-javaagent:${configurations.quasar.iterator().next()}"
     jvmArgs "-Dco.paralleluniverse.fibers.verifyInstrumentation=true"
     jvmArgs "-Djava.library.path=/usr/local/lib"
