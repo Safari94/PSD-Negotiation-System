@@ -30,15 +30,15 @@ public class LoginManager extends BasicActor<Message,Void> {
 
     private ArrayList<Sell> sells;
     private ArrayList<Buy> buys;
-    private LinkedList<Pedidos> pedidos;
+
     private ZMQ.Context context;
     private ZMQ.Socket socket;
-    //private final ActorRef publisher;
+
     public static final int port = 12346;
 
 
-    public LoginManager(/*ActorRef p*/) {
-        //this.publisher=p;
+    public LoginManager() {
+
         this.users = new HashMap<>();
         this.context = ZMQ.context(1);
         this.socket = context.socket(ZMQ.PUB);
@@ -46,7 +46,7 @@ public class LoginManager extends BasicActor<Message,Void> {
 
         this.sells = new ArrayList<>();
         this.buys = new ArrayList<>();
-        this.pedidos = new LinkedList<Pedidos>();
+
     }
 
     private void populate() {
@@ -61,10 +61,6 @@ public class LoginManager extends BasicActor<Message,Void> {
         users.put("test", test);
         users.put("to", to);
 
-        pedidos.add(new Pedidos("xavier","joao","Primavera",12, 143));
-        pedidos.add(new Pedidos("joao","test","Google",12, 143));
-        pedidos.add(new Pedidos("jjj","to","IBM",12, 143));
-        pedidos.add(new Pedidos("to","jjj","Amazon",12, 143));
 
 
 
@@ -73,20 +69,7 @@ public class LoginManager extends BasicActor<Message,Void> {
 
     }
 
-    public void sendPedidos() throws InterruptedException {
 
-        while (true) {
-            if (pedidos.size() > 0) {
-
-                socket.send(pedidos.getFirst().toString());
-                pedidos.remove(0);
-            } else {
-                Thread.sleep(10);
-            }
-
-        }
-
-    }
 
     @Override
     @SuppressWarnings("empty-statement")
@@ -144,14 +127,13 @@ public class LoginManager extends BasicActor<Message,Void> {
                             if (b.price >= s.price) {
                                 float p = (b.price + s.price) / 2;
                                 if (b.amount >= s.amount) {
-                                    //pedidos.add(new Pedidos(s.username, b.username, b.company, s.amount, p));
                                     socket.send(new Pedidos(s.username, b.username, b.company, s.amount, p).toString());
                                     buys.add(new Buy(b.company, (b.amount - s.amount), b.price, b.username));
                                     buys.remove(b);
                                 }
 
                                 if (b.amount < s.amount) {
-                                    pedidos.add(new Pedidos(s.username, b.username, b.company, s.amount, p));
+                                    socket.send(new Pedidos(s.username, b.username, b.company, s.amount, p).toString());
                                     sells.add(new Sell(s.company, (s.amount - b.amount), s.price, s.username));
                                     buys.remove(b);
                                 }
@@ -162,7 +144,7 @@ public class LoginManager extends BasicActor<Message,Void> {
                     }
 
                     }
-                    //sendPedidos();
+
                     return true;
 
 
@@ -178,7 +160,6 @@ public class LoginManager extends BasicActor<Message,Void> {
                                 if (s1.price >= b.price) {
                                     float p = (s1.price + b.price) / 2;
                                     if (b.amount >= s1.amount) {
-                                        //pedidos.add(new Pedidos(s1.username, b.username, b.company, s1.amount, p));
                                         socket.send(new Pedidos(s1.username, b.username, b.company, s1.amount, p).toString());
                                         System.out.println("enviei");  //D
                                         buys.add(new Buy(b.company, (b.amount - s1.amount), b.price, b.username));
@@ -186,7 +167,7 @@ public class LoginManager extends BasicActor<Message,Void> {
                                     }
 
                                     if (b.amount < s1.amount) {
-                                        pedidos.add(new Pedidos(s1.username, b.username, b.company, s1.amount, p));
+                                        socket.send(new Pedidos(s1.username, b.username, b.company, s1.amount, p).toString());
                                         sells.add(new Sell(s1.company, (s1.amount - b.amount), s1.price, s1.username));
                                         buys.remove(b);
                                     }
@@ -194,7 +175,7 @@ public class LoginManager extends BasicActor<Message,Void> {
                             }
                         }
                     }
-                    //sendPedidos();
+
                     return true;
 
             }
@@ -205,104 +186,10 @@ public class LoginManager extends BasicActor<Message,Void> {
 
 
 
-    //Guardar sells e buys em ficheiros para não haver perdas caso o server va abaixo
-
-    public void load_files(){
-        FileInputStream fis = null;
-        FileInputStream fis1 = null;
-        FileInputStream fis2 = null;
-        try{
-            //ficheiro com as compras
-            fis = new FileInputStream("buys.txt");
-            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-            String strLine = "";
-            String[] tokens = strLine.split(" ");
-            while ((strLine = br.readLine()) != null)   {
-                tokens = strLine.split(" ");
-                buys.add(new Buy(tokens[0], Integer.parseInt(tokens[1]), Float.parseFloat(tokens[2]), tokens[3]));
-            }
-            fis.close();
-            //ficheiro com as vendas
-            fis1 = new FileInputStream("sells.txt");
-            BufferedReader br1 = new BufferedReader(new InputStreamReader(fis1));
-            strLine = "";
-            tokens = strLine.split(" ");
-            while ((strLine = br1.readLine()) != null)   {
-                tokens = strLine.split(" ");
-                sells.add(new Sell(tokens[0], Integer.parseInt(tokens[1]), Float.parseFloat(tokens[2]), tokens[3]));
-            }
-            fis1.close();
-            //ficheiro com os pedidos
-            fis2 = new FileInputStream("pedidos.txt");
-            BufferedReader br2 = new BufferedReader(new InputStreamReader(fis2));
-            strLine = "";
-            tokens = strLine.split(" ");
-            while ((strLine = br2.readLine()) != null)   {
-                tokens = strLine.split(" ");
-                pedidos.add(new Pedidos(tokens[0], tokens[1], tokens[2],Integer.parseInt(tokens[3]), Float.parseFloat(tokens[4])));
-            }
-            fis2.close();
-        } catch(FileNotFoundException ex){ System.out.println("FileNotFoundException"); }
-        catch(IOException ex){System.out.println("OutputException");}
-    }
-
-    public void saveSell_to_file(Sell aux) {
-        int n,i;
-
-        String s = "sells.txt";
-
-        try {
-            //SELLS
-            PrintWriter pw = new PrintWriter(new FileOutputStream(s));
-            n = sells.size();
-            for (i=0;i<n;i++) {
-                aux = sells.get(n);
-                pw.println(aux.toString());
-            }
-            pw.close();
-
-        } catch (Exception e) {
-        }
-    }
 
 
-    public void saveBuy_to_file(Buy aux) {
-        int n,i;
-
-        String s = "buys.txt";
-        String p = "pedidos.txt";
-        try {
-            //BUYS
-            PrintWriter pw = new PrintWriter(new FileOutputStream(s));
-            n = buys.size();
-            for (i=0;i<n;i++) {
-                aux = buys.get(n);
-                pw.println(aux.toString());
-            }
-            pw.close();
-
-        } catch (Exception e) {
-        }
-    }
-
-    public void savePedido_to_file(Pedidos aux) {
-        int n,i;
 
 
-        String p = "pedidos.txt";
-        try {
-            //BUYS
-            PrintWriter pw = new PrintWriter(new FileOutputStream(p));
-            n = pedidos.size();
-            for (i=0;i<n;i++) {
-                aux = pedidos.get(n);
-                pw.println(aux.toString());
-            }
-            pw.close();
-
-        } catch (Exception e) {
-        }
-    }
 
 
 

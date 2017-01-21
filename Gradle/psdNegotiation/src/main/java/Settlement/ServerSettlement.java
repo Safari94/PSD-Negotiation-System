@@ -18,16 +18,17 @@ public class ServerSettlement {
         System.out.println("Settlement Iniciado!");
 
         try {
-            socket.connect("tcp://localhost:" + port);
-            socket.subscribe("".getBytes());
-            while (true) {
-                byte[] b = socket.recv();
+            //socket.connect("tcp://localhost:" + port);
+            //socket.subscribe("".getBytes());
+           // while (true) {
+                //byte[] b = socket.recv();
 
-                String mess = new String(b);
+               // String mess =new String(b);
+                String mess= new String("o xavier primavera 1 1");
                 System.out.println(mess);
 
                 new Bank(mess).spawn();
-            }
+            //}
         } catch (Exception e){
             //socket.close();
             //context.term();

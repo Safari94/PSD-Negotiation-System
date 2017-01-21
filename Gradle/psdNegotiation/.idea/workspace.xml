@@ -6,12 +6,15 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/Client.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/Client.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Bank/Bank.class" afterPath="$PROJECT_DIR$/build/classes/main/Bank/Bank.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager$1.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Settlement/ServerSettlement.class" afterPath="$PROJECT_DIR$/build/classes/main/Settlement/ServerSettlement.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btm1.tlog" afterPath="$PROJECT_DIR$/btm1.tlog" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Exchange/Client.java" afterPath="$PROJECT_DIR$/src/main/java/Exchange/Client.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Bank/Bank.java" afterPath="$PROJECT_DIR$/src/main/java/Bank/Bank.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java" afterPath="$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Settlement/ServerSettlement.java" afterPath="$PROJECT_DIR$/src/main/java/Settlement/ServerSettlement.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -57,18 +60,18 @@
       <file leaf-file-name="ServerSettlement.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Settlement/ServerSettlement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+            <state relative-caret-position="435">
+              <caret line="30" column="14" lean-forward="false" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bank.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Bank.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Bank/Bank.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+            <state relative-caret-position="435">
+              <caret line="51" column="43" lean-forward="false" selection-start-line="51" selection-start-column="43" selection-end-line="51" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -76,14 +79,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="176" column="63" lean-forward="true" selection-start-line="176" selection-start-column="63" selection-end-line="176" selection-end-column="63" />
+            <state relative-caret-position="-315">
+              <caret line="84" column="29" lean-forward="true" selection-start-line="83" selection-start-column="27" selection-end-line="84" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2377#2413#0" expanded="true" />
+                <element signature="e#1644#1680#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -508,7 +511,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/Bank/Bank.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Server.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Publisher.java" />
         <option value="$PROJECT_DIR$/src/main/java/Client/Subscriber.java" />
@@ -516,9 +518,10 @@
         <option value="$PROJECT_DIR$/src/main/java/Client/Client_Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Sell.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Buy.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Settlement/ServerSettlement.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Client.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Settlement/ServerSettlement.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Bank/Bank.java" />
       </list>
     </option>
   </component>
@@ -1274,16 +1277,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Bank/Bank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/Server.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
@@ -1300,21 +1293,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-315">
+          <caret line="84" column="29" lean-forward="true" selection-start-line="83" selection-start-column="27" selection-end-line="84" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1644#1680#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Settlement/ServerSettlement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        <state relative-caret-position="435">
+          <caret line="30" column="14" lean-forward="false" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Bank/Bank.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="176" column="63" lean-forward="true" selection-start-line="176" selection-start-column="63" selection-end-line="176" selection-end-column="63" />
+        <state relative-caret-position="435">
+          <caret line="51" column="43" lean-forward="false" selection-start-line="51" selection-start-column="43" selection-end-line="51" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2377#2413#0" expanded="true" />
           </folding>
         </state>
       </provider>

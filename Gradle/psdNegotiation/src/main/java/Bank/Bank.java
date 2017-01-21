@@ -47,8 +47,9 @@ public final class Bank extends BasicActor<Void,Void> {
             dataSource.setUser("psd16");
             dataSource.setPassword("psd16");
             dataSource.setUrl("jdbc:mysql://localhost:3306/psd16");
-
+            System.out.println("aqui"); //D
             Connection c = dataSource.getConnection();
+            System.out.println("aqui"); //D
             Statement s = c.createStatement();
             ResultSet rs;
 
