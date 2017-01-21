@@ -6,10 +6,19 @@ import co.paralleluniverse.fibers.SuspendExecution;
 import Exchange.Message.Type;
 import org.zeromq.ZMQ;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 
 
 /**
@@ -56,6 +65,12 @@ public class LoginManager extends BasicActor<Message,Void> {
         pedidos.add(new Pedidos("joao","test","Google",12, 143));
         pedidos.add(new Pedidos("jjj","to","IBM",12, 143));
         pedidos.add(new Pedidos("to","jjj","Amazon",12, 143));
+
+        savePedido_to_file(new Pedidos("xavier","joao","Primavera",12, 143));
+        savePedido_to_file(new Pedidos("joao","test","Google",12, 143));
+        savePedido_to_file(new Pedidos("to","jjj","Amazon",12, 143));
+
+        load_files();
 
 
     }
@@ -117,7 +132,7 @@ public class LoginManager extends BasicActor<Message,Void> {
 
 
 
-                    if (buys.size()==0){sells.add(s); System.out.println(sells.size());}
+                    if (buys.size()==0){sells.add(s);saveSell_to_file(s); System.out.println(sells.size());}
                     else{
 
                     for(Buy b:this.buys){
@@ -127,13 +142,13 @@ public class LoginManager extends BasicActor<Message,Void> {
                                 float p = (b.price + s.price) / 2;
                                 if (b.amount >= s.amount) {
                                     pedidos.add(new Pedidos(s.username, b.username, b.company, s.amount, p));
-                                    buys.add(new Buy(b.company, (b.amount - s.amount), b.price, b.username, null));
+                                    buys.add(new Buy(b.company, (b.amount - s.amount), b.price, b.username));
                                     buys.remove(b);
                                 }
 
                                 if (b.amount < s.amount) {
                                     pedidos.add(new Pedidos(s.username, b.username, b.company, s.amount, p));
-                                    sells.add(new Sell(s.company, (s.amount - b.amount), s.price, s.username, null));
+                                    sells.add(new Sell(s.company, (s.amount - b.amount), s.price, s.username));
                                     buys.remove(b);
                                 }
 
@@ -150,7 +165,7 @@ public class LoginManager extends BasicActor<Message,Void> {
                 case BUY:
                     Buy b=(Buy) message.o;
 
-                    if(sells.size()==0){buys.add(b); System.out.println(buys.size());}
+                    if(sells.size()==0){buys.add(b); saveBuy_to_file(b); System.out.println(buys.size());}
                     else {
                         for (Sell s1 : this.sells) {
 
@@ -159,13 +174,14 @@ public class LoginManager extends BasicActor<Message,Void> {
                                     float p = (s1.price + b.price) / 2;
                                     if (b.amount >= s1.amount) {
                                         pedidos.add(new Pedidos(s1.username, b.username, b.company, s1.amount, p));
-                                        buys.add(new Buy(b.company, (b.amount - s1.amount), b.price, b.username,null));
+                                        savePedido_to_file(new Pedidos(s1.username, b.username, b.company, s1.amount, p));
+                                        buys.add(new Buy(b.company, (b.amount - s1.amount), b.price, b.username));
                                         buys.remove(b);
                                     }
 
                                     if (b.amount < s1.amount) {
                                         pedidos.add(new Pedidos(s1.username, b.username, b.company, s1.amount, p));
-                                        sells.add(new Sell(s1.company, (s1.amount - b.amount), s1.price, s1.username,null));
+                                        sells.add(new Sell(s1.company, (s1.amount - b.amount), s1.price, s1.username));
                                         buys.remove(b);
                                     }
                                 }
@@ -180,4 +196,108 @@ public class LoginManager extends BasicActor<Message,Void> {
         }));
         return null;
     }
+
+
+
+    //Guardar sells e buys em ficheiros para não haver perdas caso o server va abaixo
+
+    public void load_files(){
+        FileInputStream fis = null;
+        FileInputStream fis1 = null;
+        FileInputStream fis2 = null;
+        try{
+            //ficheiro com as compras
+            fis = new FileInputStream("buys.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+            String strLine = "";
+            String[] tokens = strLine.split(" ");
+            while ((strLine = br.readLine()) != null)   {
+                tokens = strLine.split(" ");
+                buys.add(new Buy(tokens[0], Integer.parseInt(tokens[1]), Float.parseFloat(tokens[2]), tokens[3]));
+            }
+            fis.close();
+            //ficheiro com as vendas
+            fis1 = new FileInputStream("sells.txt");
+            BufferedReader br1 = new BufferedReader(new InputStreamReader(fis1));
+            strLine = "";
+            tokens = strLine.split(" ");
+            while ((strLine = br1.readLine()) != null)   {
+                tokens = strLine.split(" ");
+                sells.add(new Sell(tokens[0], Integer.parseInt(tokens[1]), Float.parseFloat(tokens[2]), tokens[3]));
+            }
+            fis1.close();
+            //ficheiro com os pedidos
+            fis2 = new FileInputStream("pedidos.txt");
+            BufferedReader br2 = new BufferedReader(new InputStreamReader(fis2));
+            strLine = "";
+            tokens = strLine.split(" ");
+            while ((strLine = br2.readLine()) != null)   {
+                tokens = strLine.split(" ");
+                pedidos.add(new Pedidos(tokens[0], tokens[1], tokens[2],Integer.parseInt(tokens[3]), Float.parseFloat(tokens[4])));
+            }
+            fis2.close();
+        } catch(FileNotFoundException ex){ System.out.println("FileNotFoundException"); }
+        catch(IOException ex){System.out.println("OutputException");}
+    }
+
+    public void saveSell_to_file(Sell aux) {
+        int n;
+
+        String s = "sells.txt";
+
+        try {
+            //SELLS
+            PrintWriter pw = new PrintWriter(new FileOutputStream(s));
+            n = sells.size();
+
+            aux = sells.get(n+1);
+            pw.println(aux.toString());
+
+            pw.close();
+
+        } catch (Exception e) {
+        }
+    }
+
+
+    public void saveBuy_to_file(Buy aux) {
+        int n;
+
+        String s = "buys.txt";
+        String p = "pedidos.txt";
+        try {
+            //BUYS
+            PrintWriter pw = new PrintWriter(new FileOutputStream(s));
+            n = buys.size();
+
+            aux = buys.get(n+1);
+            pw.println(aux.toString());
+
+            pw.close();
+
+        } catch (Exception e) {
+        }
+    }
+
+    public void savePedido_to_file(Pedidos aux) {
+        int n;
+
+
+        String p = "pedidos.txt";
+        try {
+            //BUYS
+            PrintWriter pw = new PrintWriter(new FileOutputStream(p));
+            n = pedidos.size();
+
+            aux = pedidos.get(n+1);
+            pw.println(aux.toString());
+
+            pw.close();
+
+        } catch (Exception e) {
+        }
+    }
+
+
+
 }

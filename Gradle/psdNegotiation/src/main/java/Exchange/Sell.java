@@ -11,15 +11,15 @@ public class Sell {
     public int amount;
     public float price;
     public String username;
-    public ActorRef cli;
 
-    public Sell(String company,int amount,float price,String username,ActorRef cli){
+
+    public Sell(String company,int amount,float price,String username){
 
         this.company=company;
         this.amount=amount;
         this.price=price;
         this.username=username;
-        this.cli=cli;
+
     }
 
 }
