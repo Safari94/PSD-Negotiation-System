@@ -56,6 +56,35 @@ public class Client_Main {
                 + loginMenu +"\n==========================\n");
         option = input.nextLine();
 
+        switch (option){
+            case "1":
+                System.out.println("Username: ");
+                user = input.nextLine();
+                System.out.println("Password: ");
+                pass = input.nextLine();
+                sendCommand("login", user + " " + pass);
+                
+                servrep = fromServer.readLine();
+                String[] message = servrep.split(" ");
+                if (message[0].equals("welcome")) {
+                    
+                    this.logged = true;
+                    this.userName=message[1];
+                    System.out.println("\nWelcome, " + message[1]);
+                    
+                    return 1;
+                } else {
+                    System.out.println("\nInvalid name or password.");
+                }
+                return 0;
+            case "0":
+                sendCommand("exit", "");
+                return -1;
+            default:
+                System.out.println("\nInvalid option.\nPlease choose one of the options presented");
+                break;
+        }
+        /*
         if (option.equals("1")) {
             System.out.println("Username: ");
             user = input.nextLine();
@@ -83,6 +112,7 @@ public class Client_Main {
             System.out.println("\nInvalid option.\nPlease choose one of the options presented");
 
         }
+         */
         return 0;
     }
 
@@ -94,6 +124,7 @@ public class Client_Main {
     public void handleServerReplyU(String servout) throws IOException{
         String[] srep = servout.split(" ");
         System.out.println(servout);
+        System.out.println("SERVOUT");
 
      if (srep[0].equals("welcome")) {
             this.logged = true;
@@ -127,6 +158,7 @@ public class Client_Main {
                     + usermenu + "\n==========================\n");
             option = input.nextLine();
 
+            /*
             if (option.equals("1")) {
                 System.out.println("Empresa:");
                 company = input.nextLine();
@@ -169,7 +201,51 @@ public class Client_Main {
                 handleServerReplyU(fromServer.readLine());
 
             }
-
+             */
+            switch(option){
+                case "1":
+                    System.out.println("Empresa:");
+                    company = input.nextLine();
+                    System.out.println("Quantidade:");
+                    amount = input.nextLine();
+                    System.out.println("Preço:");
+                    price = input.nextLine();
+                    System.out.println("buy " + company + " " + amount + " " + price + " " + this.userName);
+                    
+                    sendCommand("buy", company + " " + amount + " " + price + " " + this.userName);
+                    
+                    //handleServerReplyU(fromServer.readLine());
+                    
+                   /* while ((servout = fromServer.readLine()) != null && (!servout.equals("")) && (!servout.equals("\n"))) {
+                        System.out.println(servout);
+                        System.out.println("HERE");
+                        
+                    }*/
+                    break;
+                case "2":
+                    System.out.println("Empresa:");
+                    company = input.nextLine();
+                    System.out.println("Quantidade:");
+                    amount = input.nextLine();
+                    System.out.println("Preço:");
+                    price = input.nextLine();
+                    System.out.println("sell " + company + " " + amount + " " + price + " " + this.userName);
+                    
+                    sendCommand("sell", company + " " + amount + " " + price + " " + this.userName);
+                    
+                    
+                    //handleServerReplyU(fromServer.readLine());
+                    
+                    
+                    /*while ((servout = fromServer.readLine()) != null && (!servout.equals("")) && (!servout.equals("\n"))) {
+                        System.out.println(servout);
+                    }*/
+                    break;
+                case "0":
+                    sendCommand("out", "");
+                    handleServerReplyU(fromServer.readLine());
+                    break;
+            }
         }
     }
 
@@ -192,7 +268,6 @@ public class Client_Main {
                 exitflag = true;
             while(userUI.isLogged())
                    userUI.userMenu();
-
                 }
         }
     }

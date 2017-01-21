@@ -12,10 +12,6 @@ public class Subscriber {
 
 
     private static final  String loginMenu = "\n1.Login\n0.Exit\n";
-    /*private static final String mainMenu = "==========================\n"
-            + "1. Notify by Enterpise.\n2. Notify by amount.\n3. Notify by price c\n"
-            + "4. All\n5. I made my choice, please subscribe me.\n"
-            + "6. Show Choices\n7. Reset\n8. Logout\n\n0. Exit\n==========================\n";*/
     private static final String mainMenu = "==========================\n"
     + "1. Subscribe to enterprise notifications.\n2. Unsubscribe from enterprise notifications.\n3. Validate my choices.\n4. List subscriptions\n"
     + "\n5. Logout\n\n0. Exit\n==========================\n";
@@ -27,6 +23,11 @@ public class Subscriber {
     private static boolean logged              = false;
     private static ArrayList<String> subscriptions;
     private static ArrayList<String> unsubscriptions;
+    private static ArrayList<String> subscribed;
+    private static boolean FirstTime = true;
+    private static byte[] received;
+    private static ZMQ.Context context;
+    private static ZMQ.Socket socket;
 
 
 
@@ -58,7 +59,6 @@ public class Subscriber {
                     System.out.println("\nInvalid name or password.");
                 }
                 return 0;
-
             case "0":
                 toServer.write("exit\n");
                 toServer.flush();
@@ -80,41 +80,35 @@ public class Subscriber {
 
         switch(option){
             case "1":
-                System.out.println("Please Enter the enterprise Name to subscribe:");
-                company = input.nextLine();
-                subscriptions.add("info:" + company);
+                if (subscribed.size() + subscriptions.size() >= 10){
+                    System.out.println("You reached the maximum number of 10 subscriptions.");
+                }else{
+                    System.out.println("Please Enter the enterprise Name to subscribe:");
+                    company = input.nextLine();
+                    if (!checkExists("info:" + company)){
+                        subscriptions.add("info:" + company);
+                    }else{
+                        System.out.println("You cannot subscribe twice to the same company.");
+                    }
+                }
                 break;
             case "2":
                 System.out.println("Please Enter the enterprise Name to unsubscribe:");
                 company = input.nextLine();
-                unsubscriptions.add("info:" + company);
+                if(checkExists("info:" + company)){
+                    unsubscriptions.add("info:" + company);
+                }else{
+                    System.out.println("You are not subscribed to this company.");
+                }
                 break;
             case "3":
+                if (FirstTime)
+                    createSocket();
                 subscribe(subscriptions, unsubscriptions);
+                break;
             case "4":
-                displayChoices(subscriptions);
-           /* case "2":
-                notifTypes.add("infou:" + company);
+                displayChoices(subscribed);
                 break;
-            case "3":
-                notifTypes.add("info:Price");
-                break;
-
-            case "4":
-                notifTypes.add("info");
-                break;
-            case "5":
-                subscribe(notifTypes);
-                return 1;
-            case "6":
-                displayChoices(notifTypes);
-                return 1;
-            case "7":
-                notifTypes.clear();
-                break;
-            case "8":
-                logged = false;
-                return 0;*/
             case "5":
                 logged = false;
                 return 0;
@@ -127,41 +121,75 @@ public class Subscriber {
         }
         return 0;
     }
+    
+    public static boolean checkExists(String name){
+        boolean check = false;
+        for (int i = 0; i < subscribed.size(); i++){
+            if(subscribed.get(i).equals(name))
+                check = true;
+        }
+        return check;
+            
+    }
 
-    public static void displayChoices(ArrayList<String> types){
-        for(String s : types){
-            if (s.equals("info")){
-                System.out.println("Requested Subscription to all notifications");
-            }else{
-                System.out.println("Requested Subscription to "+s);
+    public static void displayChoices(ArrayList<String> subscribedList){
+        if(subscribedList.size() == 0){
+            System.out.println("You have no subscriptions.");
+        }else{
+            System.out.println("You are subscribed to:");
+            for(String s : subscribedList){
+                System.out.println("\n- "+s.substring(5));
             }
         }
     }
     
-    public static void subscribe(ArrayList<String> subs, ArrayList<String> unsubs){
-        byte[] received;
-        ZMQ.Context context = ZMQ.context(1);
-        ZMQ.Socket socket = context.socket(ZMQ.SUB);
-        socket.connect("tcp://localhost:" + 12347);
-
-        System.out.println("Connected");
-
+    public static void subscribe(ArrayList<String> subs, ArrayList<String> unsubs){        
         for(String s : subs){
-            System.out.println("Subscribing to "+s);
+            System.out.println("Subscribing to "+s.substring(5));
             socket.subscribe(s.getBytes());
+            subscribed.add(s);
         }
+        subscriptions.clear();
         
         for(String s : unsubs){
-            System.out.println("Unsubcribing from "+s);
+            System.out.println("Unsubcribing from "+s.substring(5));
             socket.unsubscribe(s.getBytes());
+            searchAndRemove(s);
         }
-        while (!Thread.currentThread().isInterrupted()) {
-            System.out.println("Entering While waiting for message Sub...");//D
-            received = socket.recv();
-            System.out.print(new String(received));
-        }
-
+        unsubscriptions.clear();
     }
+    
+    public static void searchAndRemove(String s){
+        int index = 0;
+        for(int i = 0; i < subscribed.size(); i++){
+            if(subscribed.get(i).equals(s))
+                index = i;
+        }
+        subscribed.remove(index);
+    }
+    
+    public static void createSocket(){
+        context = ZMQ.context(1);
+        socket = context.socket(ZMQ.SUB);
+        socket.connect("tcp://localhost:" + 12347);
+        
+        System.out.println("Connected");
+        
+        FirstTime = false;
+        
+        new Thread(new Runnable()
+                   {
+            public void run()
+            {
+                while (!Thread.currentThread().isInterrupted()) {
+                    received = socket.recv();
+                    System.out.print(new String(received).substring(5));
+                }
+            } 
+        }).start();
+    }
+    
+    
 
     public static void main(String args[]) throws IOException {
 
@@ -171,7 +199,7 @@ public class Subscriber {
         boolean exitflag = false;
         subscriptions = new ArrayList<>();
         unsubscriptions = new ArrayList<>();
-        //notifTypes = new ArrayList<>();
+        subscribed = new ArrayList<>();
         Subscriber sb= new Subscriber();
 
         System.out.println("==== Notification Console ====\nWelcome\n");

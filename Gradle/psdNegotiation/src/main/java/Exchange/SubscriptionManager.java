@@ -15,50 +15,31 @@ public class SubscriptionManager extends BasicActor<Message, Void> {
     public SubscriptionManager(ActorRef publisher){
         this.subscriptionList = new HashMap<>();
         this.publisher = publisher;
-        System.out.println("CREATED SUBMANAGER");//D
     }
     
     
     @Override
     @SuppressWarnings("empty-statement")
     protected Void doRun() throws InterruptedException, SuspendExecution {
-        System.out.println("INSIDE RUN");//D
             while(receive(message -> {
                 
                 ActorRef user;
                 String infoEnterprise;
-                //String infoPrice;
-                //String infoAmount;
-                //String infoAll;
                 switch(message.type){
                     case BUY:
                         Buy buyrqst = (Buy) message.o;
-                        infoEnterprise = "info:" + buyrqst.getCompany() + " Quantity : " + buyrqst.getAmount() + " for a price of : " + buyrqst.getPrice() + " buy";
-
-                        //infoEnterprise = "info:" + buyrqst.getCompany() + " buy";
-                        //infoAll = "info : Enterprise " + buyrqst.getCompany() + " Quantity : " + buyrqst.getAmount() + " for a price of : " + buyrqst.getPrice() + " buy";
-
+                        infoEnterprise = "info:" + buyrqst.getCompany() + " - Quantity: " + buyrqst.getAmount() + " - Price: " + buyrqst.getPrice() + " -- Bought by: " + buyrqst.getUser();
 
                         publisher.send(new Message(null,infoEnterprise));
-                        //publisher.send(new Message(null,infoAmount));
-                        //publisher.send(new Message(null,infoPrice));
-                        //publisher.send(new Message(null,infoAll));
                         
                         return true;
                         
                     case SELL:
                         Sell sellrqst = (Sell) message.o;
-                        infoEnterprise = "info:" + sellrqst.getCompany() + " Quantity : " + sellrqst.getAmount() + " for a price of : " + sellrqst.getPrice() + " sell";
-                        //infoEnterprise = "info:Enterprise : Enterprise " + sellrqst.getCompany() + " sell";
-                        //infoAmount = "info:Amount : Amount " + sellrqst.getAmount() + " sell";
-                        //infoPrice = "info:Price : Price " + sellrqst.getPrice() + " sell";
-                        //infoAll = "info : Enterprise " + sellrqst.getCompany() + " Quantity : " + sellrqst.getAmount() + " for a price of : " + sellrqst.getPrice() + " sell";
+                        infoEnterprise = "info:" + sellrqst.getCompany() + " - Quantity: " + sellrqst.getAmount() + " - Price: " + sellrqst.getPrice() + " -- Sold by: " + sellrqst.getUser();
 
                         publisher.send(new Message(null,infoEnterprise));
-                        //publisher.send(new Message(null,infoAmount));
-                        //publisher.send(new Message(null,infoPrice));
-                        //publisher.send(new Message(null,infoAll));
-                        
+
                         return true;
                 }
             
