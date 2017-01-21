@@ -138,7 +138,6 @@ public class Client_Main {
 
                 sendCommand("buy", company + " " + amount + " " + price + " " + this.userName);
 
-
                 handleServerReplyU(fromServer.readLine());
 
                 while ((servout = fromServer.readLine()) != null && (!servout.equals("")) && (!servout.equals("\n"))) {

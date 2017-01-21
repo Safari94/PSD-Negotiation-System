@@ -12,7 +12,7 @@ public class Message {
     static int MAXLEN = 1024;
 
     static enum Type { DATA, EOF, IOE,  LOGIN, LOGIN_OK, LOGIN_FAILED,BUY,SELL,SELL_OK,
-        BUY_OK, USER_N_EXISTS, TRANSACT_OK, TRANSACT_FAILED}
+        BUY_OK, USER_N_EXISTS, TRANSACT_OK, TRANSACT_FAILED, SUBPR_OK, SUBPR_ERR}
 
 
     Message(Type type, Object o) {

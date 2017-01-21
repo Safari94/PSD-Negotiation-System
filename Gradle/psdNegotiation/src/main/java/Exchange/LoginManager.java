@@ -33,12 +33,12 @@ public class LoginManager extends BasicActor<Message,Void> {
     private LinkedList<Pedidos> pedidos;
     private ZMQ.Context context;
     private ZMQ.Socket socket;
-    private final ActorRef publisher;
+    //private final ActorRef publisher;
     public static final int port = 12346;
 
 
-    public LoginManager(ActorRef p) {
-        this.publisher=p;
+    public LoginManager(/*ActorRef p*/) {
+        //this.publisher=p;
         this.users = new HashMap<>();
         this.context = ZMQ.context(1);
         this.socket = context.socket(ZMQ.PUB);

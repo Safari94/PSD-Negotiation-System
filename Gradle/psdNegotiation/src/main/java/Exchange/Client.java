@@ -20,12 +20,14 @@ public class Client extends BasicActor<Message,Void> {
     static int MAXLEN = 1024;
     final FiberSocketChannel socket;
     final ActorRef loginManager;
+    final ActorRef subscriptionManager;
     private boolean logged;
     private String usrname;
     private boolean exitflag = false;
 
-    public Client(FiberSocketChannel socket, ActorRef loginManager) {
+    public Client(FiberSocketChannel socket, ActorRef loginManager, ActorRef subscriptionManager) {
         this.loginManager = loginManager;
+        this.subscriptionManager = subscriptionManager;
         this.socket = socket;
         this.logged = false;
     }
@@ -114,6 +116,7 @@ public class Client extends BasicActor<Message,Void> {
                 if(args.length >= 4) {
                     Sell s = new Sell(args[1], Integer.parseInt(args[2]), Float.parseFloat(args[3]), args[4]);
                     loginManager.send(new Message(Type.SELL, s));
+                    subscriptionManager.send(new Message(Type.SELL, s));
 
                 }
                 break;
@@ -124,6 +127,7 @@ public class Client extends BasicActor<Message,Void> {
                     Buy b = new Buy(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4]);
                     loginManager.send(new Message(Type.BUY, b));
                     System.out.println(args.length); //D
+                    subscriptionManager.send(new Message(Type.BUY, b));
 
                 }
                 break;

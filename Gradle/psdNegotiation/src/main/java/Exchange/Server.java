@@ -15,14 +15,14 @@ public class Server {
     /*Aceitar Clientes*/
     static class AcceptorClient extends BasicActor {
         final int port; //Client
-        //final ActorRef requestManager;
+        final ActorRef subscriptionManager;
         final ActorRef loginManager;
 
 
-        public AcceptorClient(int port,  ActorRef loginManager) {
+        public AcceptorClient(int port,  ActorRef loginManager, ActorRef subscriptionManager) {
             this.port = port;
             this.loginManager = loginManager;
-            //this.requestManager = requestManager;
+            this.subscriptionManager = subscriptionManager;
         }
 
         @Override
@@ -39,7 +39,7 @@ public class Server {
                     Actores privilegiados : room, acceptor.
                     Ao criar o user, passa-se o id de room e o socket.
                     */
-                    new Client(socket, loginManager).spawn();
+                    new Client(socket, loginManager, subscriptionManager).spawn();
                 }
             } catch (IOException e) {
             }
@@ -52,9 +52,11 @@ public class Server {
 
         int port = 12345;//Integer.parseInt(args[0]);
 
+        
         ActorRef publisher = new Publisher().spawn();
-        ActorRef loginManager = new LoginManager(publisher).spawn();
-        AcceptorClient acceptorC = new AcceptorClient(port,loginManager);
+        ActorRef subscriptionManager = new SubscriptionManager(publisher).spawn();
+        ActorRef loginManager = new LoginManager().spawn();
+        AcceptorClient acceptorC = new AcceptorClient(port,loginManager, subscriptionManager);
         acceptorC.spawn();
         acceptorC.join();
 

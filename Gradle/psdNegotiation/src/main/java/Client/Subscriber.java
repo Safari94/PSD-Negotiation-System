@@ -14,8 +14,8 @@ public class Subscriber {
     private static final  String loginMenu = "\n1.Login\n0.Exit\n";
     private static final String mainMenu = "==========================\n"
             + "1. Notify by Enterpise.\n2. Notify by amount.\n3. Notify by price c\n"
-            + "4. All\n5. I have already chosen the notifications that interest me.\n"
-            + "6. Reset\n7. Logout\n\n0. Exit\n==========================\n";
+            + "4. All\n5. I made my choice, please subscribe me.\n"
+            + "6. Show Choices\n7. Reset\n8. Logout\n\n0. Exit\n==========================\n";
 
     private static Scanner input = new Scanner(System.in);
     private static Socket server               = null;
@@ -44,18 +44,16 @@ public class Subscriber {
                 servrep = fromServer.readLine();
                 String[] message = servrep.split(" ");
                 if(message[0].equals("welcome") ){
-                    if(message.length > 2) {
-                        logged = true;
-                        System.out.println("\nWelcome, " + message[2]);
+                    logged = true;
+                    System.out.println("\nWelcome, " + message[1]);
                         
-                    }
-
+                    return 1;
 
                 }
                 else{
                     System.out.println("\nInvalid name or password.");
                 }
-                return 1;
+                return 0;
 
             case "0":
                 toServer.write("exit\n");
@@ -94,9 +92,12 @@ public class Subscriber {
                 subscribe(notifTypes);
                 return 1;
             case "6":
+                displayChoices(notifTypes);
+                return 1;
+            case "7":
                 notifTypes.clear();
                 break;
-            case "7":
+            case "8":
                 logged = false;
                 return 0;
             case "0":
@@ -109,6 +110,16 @@ public class Subscriber {
         return 0;
     }
 
+    public static void displayChoices(ArrayList<String> types){
+        for(String s : types){
+            if (s.equals("info")){
+                System.out.println("Reauested Subscription to all notifications");
+            }else{
+                System.out.println("Reauested Subscription to "+s);
+            }
+        }
+    }
+    
     public static void subscribe(ArrayList<String> types){
         byte[] received;
         ZMQ.Context context = ZMQ.context(1);
@@ -122,12 +133,11 @@ public class Subscriber {
             socket.subscribe(s.getBytes());
         }
         while (true) {
+            System.out.println("Entering While waiting for message Sub...");//D
             received = socket.recv();
             System.out.print(new String(received));
         }
 
-        //socket.close();
-        //context.term();
     }
 
     public static void main(String args[]) throws IOException {
@@ -145,8 +155,7 @@ public class Subscriber {
             if(sb.login()==-1)
                 exitflag = true;
             while(logged){
-                if(sb.consoleMenu()==-1)
-                    exitflag = true;
+                sb.consoleMenu();
             }
         }
     }

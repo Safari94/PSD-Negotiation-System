@@ -1,5 +1,6 @@
 package Exchange;
 
+
 /**
  * Created by xavier on 29/12/16.
  */
@@ -18,8 +19,10 @@ public class Pedidos {
         this.amount = amount;
         this.price = price;
     }
+    
 
     public String toString(){
         return new String(usr1+" "+usr2+" "+company+" "+amount+" "+price);
     }
+    
 }
