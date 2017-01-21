@@ -44,23 +44,18 @@ public class Subscriber {
                 servrep = fromServer.readLine();
                 String[] message = servrep.split(" ");
                 if(message[0].equals("welcome") ){
-                    if(message.length > 2){
+                    if(message.length > 2) {
                         logged = true;
-                        System.out.println("\nWelcome, "+message[2]);
+                        System.out.println("\nWelcome, " + message[2]);
+                    }
 
-                    }
-                    else{
-                        System.out.println("\nUser is not an admin.");
-                        toServer.write("logout \n");
-                        toServer.flush();
-                        fromServer.readLine();
-                    }
 
                 }
                 else{
                     System.out.println("\nInvalid name or password.");
                 }
                 return 1;
+
             case "0":
                 toServer.write("exit\n");
                 toServer.flush();
@@ -117,7 +112,7 @@ public class Subscriber {
         byte[] received;
         ZMQ.Context context = ZMQ.context(1);
         ZMQ.Socket socket = context.socket(ZMQ.SUB);
-        socket.connect("tcp://localhost:" + 12346);
+        socket.connect("tcp://localhost:" + 12347);
 
         System.out.println("Connected");
 

@@ -52,7 +52,8 @@ public class Server {
 
         int port = 12345;//Integer.parseInt(args[0]);
 
-        ActorRef loginManager = new LoginManager().spawn();
+        ActorRef publisher = new Publisher().spawn();
+        ActorRef loginManager = new LoginManager(publisher).spawn();
         AcceptorClient acceptorC = new AcceptorClient(port,loginManager);
         acceptorC.spawn();
         acceptorC.join();

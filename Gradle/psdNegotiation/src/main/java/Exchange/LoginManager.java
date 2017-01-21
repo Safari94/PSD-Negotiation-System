@@ -24,11 +24,12 @@ public class LoginManager extends BasicActor<Message,Void> {
     private LinkedList<Pedidos> pedidos;
     private ZMQ.Context context;
     private ZMQ.Socket socket;
+    private final ActorRef publisher;
     public static final int port = 12346;
 
 
-    public LoginManager() {
-
+    public LoginManager(ActorRef p) {
+        this.publisher=p;
         this.users = new HashMap<>();
         this.context = ZMQ.context(1);
         this.socket = context.socket(ZMQ.PUB);
@@ -80,6 +81,7 @@ public class LoginManager extends BasicActor<Message,Void> {
         System.out.println("tou aqui");
         populate();
         while (receive(message -> {
+            String info;
 
             switch (message.type) {
 
@@ -110,6 +112,7 @@ public class LoginManager extends BasicActor<Message,Void> {
                 case SELL:
                     System.out.println();
                     Sell s=(Sell) message.o;
+
 
 
                     if (buys.size()==0){sells.add(s); System.out.println(sells.size());}

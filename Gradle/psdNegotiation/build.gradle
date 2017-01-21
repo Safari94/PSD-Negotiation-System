@@ -66,3 +66,11 @@ task( ServerS, type: JavaExec ) {
     main = 'Settlement.ServerSettlement'
     classpath = sourceSets.main.runtimeClasspath
 }
+
+task( Sub, type: JavaExec ) {
+    jvmArgs "-javaagent:${configurations.quasar.iterator().next()}"
+    jvmArgs "-Dco.paralleluniverse.fibers.verifyInstrumentation=true"
+    jvmArgs "-Djava.library.path=/usr/local/lib"
+    main = 'Client.Subscriber'
+    classpath = sourceSets.main.runtimeClasspath
+}
