@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="325160b4-d746-41de-8dd4-ea8ec7385475" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.2.1/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Bank/Bank.class" afterPath="$PROJECT_DIR$/build/classes/main/Bank/Bank.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager$1.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Settlement/ServerSettlement.class" afterPath="$PROJECT_DIR$/build/classes/main/Settlement/ServerSettlement.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btm1.tlog" afterPath="$PROJECT_DIR$/btm1.tlog" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Bank/Bank.java" afterPath="$PROJECT_DIR$/src/main/java/Bank/Bank.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java" afterPath="$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Settlement/ServerSettlement.java" afterPath="$PROJECT_DIR$/src/main/java/Settlement/ServerSettlement.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -67,7 +56,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bank.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Bank.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Bank/Bank.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
@@ -79,15 +68,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginManager.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LoginManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-315">
-              <caret line="84" column="29" lean-forward="true" selection-start-line="83" selection-start-column="27" selection-end-line="84" selection-end-column="29" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1644#1680#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="2625">
+              <caret line="192" column="14" lean-forward="false" selection-start-line="192" selection-start-column="14" selection-end-line="192" selection-end-column="14" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -95,7 +81,7 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
+            <state relative-caret-position="765">
               <caret line="55" column="53" lean-forward="false" selection-start-line="55" selection-start-column="53" selection-end-line="55" selection-end-column="53" />
               <folding />
             </state>
@@ -105,7 +91,7 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="628">
+            <state relative-caret-position="1950">
               <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
               <folding />
             </state>
@@ -519,9 +505,9 @@
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Sell.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Buy.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Client.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/Settlement/ServerSettlement.java" />
         <option value="$PROJECT_DIR$/src/main/java/Bank/Bank.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java" />
       </list>
     </option>
   </component>
@@ -546,6 +532,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
@@ -581,10 +568,6 @@
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Settlement" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -612,57 +595,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="psdNegotiation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="psdNegotiation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="psdNegotiation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="psdNegotiation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Bank" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="RunManager">
@@ -902,7 +836,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2673667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2714055" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875606" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1239,9 +1173,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="49" column="24" lean-forward="false" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1265,7 +1196,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="107" column="48" lean-forward="false" selection-start-line="107" selection-start-column="48" selection-end-line="107" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1279,7 +1209,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
+        <state relative-caret-position="765">
           <caret line="55" column="53" lean-forward="false" selection-start-line="55" selection-start-column="53" selection-end-line="55" selection-end-column="53" />
           <folding />
         </state>
@@ -1287,20 +1217,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="628">
+        <state relative-caret-position="1950">
           <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-315">
-          <caret line="84" column="29" lean-forward="true" selection-start-line="83" selection-start-column="27" selection-end-line="84" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1644#1680#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1319,6 +1238,14 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2625">
+          <caret line="192" column="14" lean-forward="false" selection-start-line="192" selection-start-column="14" selection-end-line="192" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
