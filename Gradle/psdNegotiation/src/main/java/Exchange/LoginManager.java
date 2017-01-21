@@ -127,7 +127,8 @@ public class LoginManager extends BasicActor<Message,Void> {
 
 
                 case SELL:
-                    System.out.println();
+
+
                     Sell s=(Sell) message.o;
 
 
@@ -241,7 +242,7 @@ public class LoginManager extends BasicActor<Message,Void> {
     }
 
     public void saveSell_to_file(Sell aux) {
-        int n;
+        int n,i;
 
         String s = "sells.txt";
 
@@ -249,10 +250,10 @@ public class LoginManager extends BasicActor<Message,Void> {
             //SELLS
             PrintWriter pw = new PrintWriter(new FileOutputStream(s));
             n = sells.size();
-
-            aux = sells.get(n+1);
-            pw.println(aux.toString());
-
+            for (i=0;i<n;i++) {
+                aux = sells.get(n);
+                pw.println(aux.toString());
+            }
             pw.close();
 
         } catch (Exception e) {
@@ -261,7 +262,7 @@ public class LoginManager extends BasicActor<Message,Void> {
 
 
     public void saveBuy_to_file(Buy aux) {
-        int n;
+        int n,i;
 
         String s = "buys.txt";
         String p = "pedidos.txt";
@@ -269,10 +270,10 @@ public class LoginManager extends BasicActor<Message,Void> {
             //BUYS
             PrintWriter pw = new PrintWriter(new FileOutputStream(s));
             n = buys.size();
-
-            aux = buys.get(n+1);
-            pw.println(aux.toString());
-
+            for (i=0;i<n;i++) {
+                aux = buys.get(n);
+                pw.println(aux.toString());
+            }
             pw.close();
 
         } catch (Exception e) {
@@ -280,7 +281,7 @@ public class LoginManager extends BasicActor<Message,Void> {
     }
 
     public void savePedido_to_file(Pedidos aux) {
-        int n;
+        int n,i;
 
 
         String p = "pedidos.txt";
@@ -288,10 +289,10 @@ public class LoginManager extends BasicActor<Message,Void> {
             //BUYS
             PrintWriter pw = new PrintWriter(new FileOutputStream(p));
             n = pedidos.size();
-
-            aux = pedidos.get(n+1);
-            pw.println(aux.toString());
-
+            for (i=0;i<n;i++) {
+                aux = pedidos.get(n);
+                pw.println(aux.toString());
+            }
             pw.close();
 
         } catch (Exception e) {
