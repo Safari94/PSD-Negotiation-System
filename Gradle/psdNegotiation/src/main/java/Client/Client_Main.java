@@ -95,10 +95,7 @@ public class Client_Main {
         String[] srep = servout.split(" ");
         System.out.println(servout);
 
-        if (srep[0].equals("buy_ok")) {
-            System.out.println("\nBuy submitted successfully ");
-
-        } else if (srep[0].equals("welcome")) {
+     if (srep[0].equals("welcome")) {
             this.logged = true;
             System.out.println("\nWelcome, " + srep[1]);
 
@@ -106,10 +103,9 @@ public class Client_Main {
             this.logged = false;
             System.out.println("\nSuccessfully logged out");
 
-        } else if (srep[0].equals("sell_ok")) {
-            System.out.println("\nSell submitted successfully ");
 
-        } else if (srep[0].equals("login_failed")) {
+
+        } else if (srep[0].equals("login_failed1")) {
             System.out.println("\nUser " + srep[1] + " doesn't exist or wrong password");
 
         }
@@ -132,9 +128,11 @@ public class Client_Main {
             option = input.nextLine();
 
             if (option.equals("1")) {
-                System.out.println("Buy: ");
+                System.out.println("Empresa:");
                 company = input.nextLine();
+                System.out.println("Quantidade:");
                 amount = input.nextLine();
+                System.out.println("Preço:");
                 price = input.nextLine();
                 System.out.println("buy " + company + " " + amount + " " + price + " " + this.userName);
 
@@ -148,9 +146,11 @@ public class Client_Main {
                 }
 
             } else if (option.equals("2")) {
-                System.out.println("Sell: ");
+                System.out.println("Empresa:");
                 company = input.nextLine();
+                System.out.println("Quantidade:");
                 amount = input.nextLine();
+                System.out.println("Preço:");
                 price = input.nextLine();
                 System.out.println("sell " + company + " " + amount + " " + price + " " + this.userName);
 
@@ -169,7 +169,6 @@ public class Client_Main {
                 sendCommand("out", "");
                 handleServerReplyU(fromServer.readLine());
 
-            } else {
             }
 
         }

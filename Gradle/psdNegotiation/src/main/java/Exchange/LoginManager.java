@@ -98,15 +98,17 @@ public class LoginManager extends BasicActor<Message,Void> {
                             return true;
                         } else {
                             System.out.println("Password Invalida");//D
-                            usrinfo.getActor().send(new Message(Type.LOGIN_FAILED, usrname));
+                            usrinfo.getActor().send(new Message(Type.LOGIN_FAILED, users.get(usrname).getUsername()));
+                            System.out.println("Mandei mensagem"); //D
                             return true;
                         }
                     } else {
                         System.out.println("User not exists");//D
                         usrinfo.getActor().send(new Message(Type.USER_N_EXISTS, usrname));
+                        return  true;
 
                     }
-                    break;
+
 
 
                 case SELL:

@@ -61,12 +61,16 @@ public class Client extends BasicActor<Message,Void> {
 
                     case LOGIN_FAILED:
                         this.usrname=(String) msg.o;
-                        socket.write(ByteBuffer.wrap(("login_failed ").getBytes()));
+                        System.out.println("A informar cliente");//D
+                        socket.write(ByteBuffer.wrap(("login_failed "+this.usrname+"\n ").getBytes()));
+                        System.out.println("Informei cliente");//D
                         return true;
 
                     case USER_N_EXISTS:
                         this.usrname=(String) msg.o;
+                        System.out.println("A informar cliente");//D
                         socket.write(ByteBuffer.wrap(("login_failed").getBytes()));
+                        System.out.println("Informei cliente");//D
                         return true;
 
 
