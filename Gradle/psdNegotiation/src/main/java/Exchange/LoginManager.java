@@ -66,11 +66,9 @@ public class LoginManager extends BasicActor<Message,Void> {
         pedidos.add(new Pedidos("jjj","to","IBM",12, 143));
         pedidos.add(new Pedidos("to","jjj","Amazon",12, 143));
 
-        savePedido_to_file(new Pedidos("xavier","joao","Primavera",12, 143));
-        savePedido_to_file(new Pedidos("joao","test","Google",12, 143));
-        savePedido_to_file(new Pedidos("to","jjj","Amazon",12, 143));
 
-        load_files();
+
+        //load_files();
 
 
     }
@@ -133,9 +131,12 @@ public class LoginManager extends BasicActor<Message,Void> {
 
 
 
-                    if (buys.size()==0){sells.add(s);saveSell_to_file(s); System.out.println(sells.size());}
-                    else{
+                    if (buys.size()==0){sells.add(s);
+                    System.out.println(sells.size());  //D
+                    }
 
+                    else{
+                        System.out.println("tou aqui");  //D
                     for(Buy b:this.buys){
 
                         if(b.company.equals(s.company)) {
@@ -166,8 +167,9 @@ public class LoginManager extends BasicActor<Message,Void> {
                 case BUY:
                     Buy b=(Buy) message.o;
 
-                    if(sells.size()==0){buys.add(b); saveBuy_to_file(b); System.out.println(buys.size());}
+                    if(sells.size()==0){buys.add(b);  System.out.println(buys.size());}
                     else {
+                        System.out.println("tou aqui");  //D
                         for (Sell s1 : this.sells) {
 
                             if (s1.company.equals(b.company)) {
@@ -175,7 +177,7 @@ public class LoginManager extends BasicActor<Message,Void> {
                                     float p = (s1.price + b.price) / 2;
                                     if (b.amount >= s1.amount) {
                                         pedidos.add(new Pedidos(s1.username, b.username, b.company, s1.amount, p));
-                                        savePedido_to_file(new Pedidos(s1.username, b.username, b.company, s1.amount, p));
+
                                         buys.add(new Buy(b.company, (b.amount - s1.amount), b.price, b.username));
                                         buys.remove(b);
                                     }
