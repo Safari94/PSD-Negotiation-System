@@ -14,7 +14,7 @@ public class ServerSettlement {
 
     public static void main(String[] args) {
 
-        int port = 12345;
+        int port = 12346;
         System.out.println("Settlement Iniciado!");
 
         try {
@@ -22,7 +22,9 @@ public class ServerSettlement {
             socket.subscribe("".getBytes());
             while (true) {
                 byte[] b = socket.recv();
+
                 String mess = new String(b);
+                System.out.println(mess);
 
                 new Bank(mess).spawn();
             }

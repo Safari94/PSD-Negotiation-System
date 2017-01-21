@@ -114,6 +114,7 @@ public class Client extends BasicActor<Message,Void> {
 
             case "sell":
                 if(args.length >= 4) {
+                    System.out.println("Recebi uma sell"); //D
                     Sell s = new Sell(args[1], Integer.parseInt(args[2]), Float.parseFloat(args[3]), args[4]);
                     loginManager.send(new Message(Type.SELL, s));
                     subscriptionManager.send(new Message(Type.SELL, s));
@@ -124,6 +125,7 @@ public class Client extends BasicActor<Message,Void> {
             case "buy":
                 System.out.println(args.length);
                 if(args.length >= 4){
+                    System.out.println("Recebi um buy"); //D
                     Buy b = new Buy(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4]);
                     loginManager.send(new Message(Type.BUY, b));
                     System.out.println(args.length); //D
