@@ -138,7 +138,6 @@ public class Client extends BasicActor<Message,Void> {
                 exitflag = true;
                 socket.close();
                 break;
-
             default:
                 socket.write(ByteBuffer.wrap("please login frist\n".getBytes()));
                 break;

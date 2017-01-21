@@ -108,19 +108,20 @@ public class LoginManager extends BasicActor<Message,Void> {
                         if (users.get(usrname).authenticate(usrinfo.getPassword())) {
                             System.out.println("Mandei mensagem"); //D
                             usrinfo.getActor().send(new Message(Type.LOGIN_OK, users.get(usrname).getUsername()));
-                            return true;
+
                         } else {
                             System.out.println("Password Invalida");//D
                             usrinfo.getActor().send(new Message(Type.LOGIN_FAILED, users.get(usrname).getUsername()));
                             System.out.println("Mandei mensagem"); //D
-                            return true;
+
                         }
                     } else {
                         System.out.println("User not exists");//D
                         usrinfo.getActor().send(new Message(Type.USER_N_EXISTS, usrname));
-                        return  true;
+
 
                     }
+                    return true;
 
 
 
@@ -143,7 +144,8 @@ public class LoginManager extends BasicActor<Message,Void> {
                             if (b.price >= s.price) {
                                 float p = (b.price + s.price) / 2;
                                 if (b.amount >= s.amount) {
-                                    pedidos.add(new Pedidos(s.username, b.username, b.company, s.amount, p));
+                                    //pedidos.add(new Pedidos(s.username, b.username, b.company, s.amount, p));
+                                    socket.send(new Pedidos(s.username, b.username, b.company, s.amount, p).toString());
                                     buys.add(new Buy(b.company, (b.amount - s.amount), b.price, b.username));
                                     buys.remove(b);
                                 }
@@ -160,8 +162,8 @@ public class LoginManager extends BasicActor<Message,Void> {
                     }
 
                     }
-                    sendPedidos();
-                    break;
+                    //sendPedidos();
+                    return true;
 
 
                 case BUY:
@@ -176,8 +178,9 @@ public class LoginManager extends BasicActor<Message,Void> {
                                 if (s1.price >= b.price) {
                                     float p = (s1.price + b.price) / 2;
                                     if (b.amount >= s1.amount) {
-                                        pedidos.add(new Pedidos(s1.username, b.username, b.company, s1.amount, p));
-
+                                        //pedidos.add(new Pedidos(s1.username, b.username, b.company, s1.amount, p));
+                                        socket.send(new Pedidos(s1.username, b.username, b.company, s1.amount, p).toString());
+                                        System.out.println("enviei");  //D
                                         buys.add(new Buy(b.company, (b.amount - s1.amount), b.price, b.username));
                                         buys.remove(b);
                                     }
@@ -191,8 +194,8 @@ public class LoginManager extends BasicActor<Message,Void> {
                             }
                         }
                     }
-                    sendPedidos();
-                    break;
+                    //sendPedidos();
+                    return true;
 
             }
         return null;
