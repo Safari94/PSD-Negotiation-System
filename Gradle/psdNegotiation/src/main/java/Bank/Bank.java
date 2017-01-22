@@ -68,9 +68,8 @@ public final class Bank extends BasicActor<Void,Void> {
             //Alterar Balance dos Utilizadores
 
             if (aBalance < amount * price) {
-                System.out.println("Transação no banco falhou por fundos insuficientes.");
                 txn.rollback();
-                System.out.println("TRANSACT_FAILED");
+                System.out.println("TRANSACT_FAILED : Insufficent Funds");
                 return null;
             } else {
                 try {
@@ -91,9 +90,8 @@ public final class Bank extends BasicActor<Void,Void> {
             //Em caso de sucesso, enviar TRANSACT_OK
 
             if (bAmount < amount) {
-                System.out.println("Transação no banco falhou por ações insuficientes do vendedor.");
                 txn.rollback();
-                System.out.print("TRANSACT_FAILED");
+                System.out.println("TRANSACT_FAILED : Insufficient Actions on Seller");
                 return null;
             } else {
                 try {

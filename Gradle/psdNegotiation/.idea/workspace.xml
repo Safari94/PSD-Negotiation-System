@@ -2,28 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="325160b4-d746-41de-8dd4-ea8ec7385475" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Client/Client_Main.class" afterPath="$PROJECT_DIR$/build/classes/main/Client/Client_Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/Client.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/Client.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager$1.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/LoginManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/Publisher.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/Publisher.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/Server$AcceptorClient.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/Server$AcceptorClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/Server.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/Server.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/SubscriptionManager$1.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/SubscriptionManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Exchange/SubscriptionManager.class" afterPath="$PROJECT_DIR$/build/classes/main/Exchange/SubscriptionManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Settlement/ServerSettlement.class" afterPath="$PROJECT_DIR$/build/classes/main/Settlement/ServerSettlement.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/buys.txt" afterPath="$PROJECT_DIR$/buys.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sells.txt" afterPath="$PROJECT_DIR$/sells.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Exchange/Client.java" afterPath="$PROJECT_DIR$/src/main/java/Exchange/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java" afterPath="$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Exchange/Publisher.java" afterPath="$PROJECT_DIR$/src/main/java/Exchange/Publisher.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Exchange/Server.java" afterPath="$PROJECT_DIR$/src/main/java/Exchange/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Exchange/SubscriptionManager.java" afterPath="$PROJECT_DIR$/src/main/java/Exchange/SubscriptionManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Bank/Bank.java" afterPath="$PROJECT_DIR$/src/main/java/Bank/Bank.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -78,12 +57,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Exchange/Server.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="320">
               <caret line="40" column="44" lean-forward="false" selection-start-line="40" selection-start-column="44" selection-end-line="40" selection-end-column="44" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bank.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Bank/Bank.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-288">
+              <caret line="74" column="21" lean-forward="true" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -502,7 +493,6 @@
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Buy.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Sell.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Bank/Bank.java" />
         <option value="$PROJECT_DIR$/src/main/java/Settlement/ServerSettlement.java" />
         <option value="$PROJECT_DIR$/src/main/java/Client/Client_Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Publisher.java" />
@@ -510,6 +500,7 @@
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Client.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/LoginManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/Exchange/Server.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Bank/Bank.java" />
       </list>
     </option>
   </component>
@@ -618,6 +609,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psdNegotiation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psdNegotiation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Bank" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1187,16 +1204,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Bank/Bank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1647">
-          <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Client/Subscriber.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
@@ -1276,6 +1283,16 @@
         <state relative-caret-position="320">
           <caret line="40" column="44" lean-forward="false" selection-start-line="40" selection-start-column="44" selection-end-line="40" selection-end-column="44" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Bank/Bank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-288">
+          <caret line="74" column="21" lean-forward="true" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
