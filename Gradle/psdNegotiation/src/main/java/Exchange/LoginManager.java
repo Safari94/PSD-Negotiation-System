@@ -53,31 +53,23 @@ public class LoginManager extends BasicActor<Message,Void> {
     @Override
     @SuppressWarnings("empty-statement")
     protected Void doRun() throws InterruptedException, SuspendExecution {
-        System.out.println("tou aqui");
         populate();
         while (receive(message -> {
 
             switch (message.type) {
 
                 case LOGIN:
-                    System.out.println("recebi login"); // D
                     ClientInfo usrinfo = (ClientInfo) message.o;
                     String usrname = usrinfo.getUsername();
-                    System.out.println("Vou verificar."+usrname); //D
                     if (users.containsKey(usrname)) {
-                        System.out.println("User existe"); //D
                         if (users.get(usrname).authenticate(usrinfo.getPassword())) {
-                            System.out.println("Mandei mensagem"); //D
                             usrinfo.getActor().send(new Message(Type.LOGIN_OK, users.get(usrname).getUsername()));
 
                         } else {
-                            System.out.println("Password Invalida");//D
                             usrinfo.getActor().send(new Message(Type.LOGIN_FAILED, users.get(usrname).getUsername()));
-                            System.out.println("Mandei mensagem"); //D
 
                         }
                     } else {
-                        System.out.println("User not exists");//D
                         usrinfo.getActor().send(new Message(Type.USER_N_EXISTS, usrname));
 
 
@@ -94,11 +86,9 @@ public class LoginManager extends BasicActor<Message,Void> {
 
 
                     if (buys.size()==0){sells.add(s);saveSell_to_file(s);
-                        System.out.println(sells.size());  //D
                     }
 
                     else{
-                        System.out.println("tou aqui");  //D
                         for(Buy b:this.buys){
 
                             if(b.company.equals(s.company)) {
@@ -109,7 +99,6 @@ public class LoginManager extends BasicActor<Message,Void> {
                                         buys.add(new Buy(b.company, (b.amount - s.amount), b.price, b.username));
                                         saveBuy_to_file(new Buy(b.company, (b.amount - s.amount), b.price, b.username));
                                         buys.remove(b);
-                                        //remove_Buy(b);
                                         save_to_file();
                                     }
 
@@ -118,7 +107,6 @@ public class LoginManager extends BasicActor<Message,Void> {
                                         sells.add(new Sell(s.company, (s.amount - b.amount), s.price, s.username));
                                         saveSell_to_file(new Sell(s.company, (s.amount - b.amount), s.price, s.username));
                                         buys.remove(b);
-                                        //remove_Buy(b);
                                         save_to_file();
                                     }
 
@@ -137,7 +125,6 @@ public class LoginManager extends BasicActor<Message,Void> {
 
                     if(sells.size()==0){buys.add(b);saveBuy_to_file(b);  System.out.println(buys.size());}
                     else {
-                        System.out.println("tou aqui");  //D
                         for (Sell s1 : this.sells) {
 
                             if (s1.company.equals(b.company)) {
@@ -145,11 +132,9 @@ public class LoginManager extends BasicActor<Message,Void> {
                                     float p = (s1.price + b.price) / 2;
                                     if (b.amount >= s1.amount) {
                                         socket.send(new Pedidos(s1.username, b.username, b.company, s1.amount, p).toString());
-                                        System.out.println("enviei");  //D
                                         buys.add(new Buy(b.company, (b.amount - s1.amount), b.price, b.username));
                                         saveBuy_to_file(new Buy(b.company, (b.amount - s1.amount), b.price, b.username));
                                         buys.remove(b);
-                                        //remove_Buy(b);
                                         save_to_file();
                                     }
 
@@ -158,7 +143,6 @@ public class LoginManager extends BasicActor<Message,Void> {
                                         sells.add(new Sell(s1.company, (s1.amount - b.amount), s1.price, s1.username));
                                         saveSell_to_file(new Sell(s1.company, (s1.amount - b.amount), s1.price, s1.username));
                                         buys.remove(b);
-                                        //remove_Buy(b);
                                         save_to_file();
                                     }
                                 }
@@ -177,12 +161,12 @@ public class LoginManager extends BasicActor<Message,Void> {
     public void load_files(){
         FileInputStream fis = null;
         FileInputStream fis1 = null;
+        String[] tokens;
+        String strLine;
         try{
             //Compras
             fis = new FileInputStream("buys.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-            String strLine = "";
-            String[] tokens = strLine.split(" ");
             while ((strLine = br.readLine()) != null)   {
                 tokens = strLine.split(" ");
                 buys.add(new Buy(tokens[0], Integer.parseInt(tokens[1]), Float.parseFloat(tokens[2]), tokens[3]));
@@ -191,8 +175,6 @@ public class LoginManager extends BasicActor<Message,Void> {
             //Vendas
             fis1 = new FileInputStream("sells.txt");
             BufferedReader br1 = new BufferedReader(new InputStreamReader(fis1));
-            strLine = "";
-            tokens = strLine.split(" ");
             while ((strLine = br1.readLine()) != null)   {
                 tokens = strLine.split(" ");
                 sells.add(new Sell(tokens[0], Integer.parseInt(tokens[1]), Float.parseFloat(tokens[2]), tokens[3]));

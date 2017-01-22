@@ -27,6 +27,10 @@ public class Server {
 
         @Override
         protected Object doRun() throws InterruptedException, SuspendExecution {
+
+            System.setProperty("co.paralleluniverse.fibers.detectRunawayFibers","false");
+            System.out.println("Exchange Iniciado!");
+
             try {
                 //Socket Channel para fibers
                 FiberServerSocketChannel ss = FiberServerSocketChannel.open();

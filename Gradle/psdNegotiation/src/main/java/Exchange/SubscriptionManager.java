@@ -15,14 +15,12 @@ public class SubscriptionManager extends BasicActor<Message, Void> {
     public SubscriptionManager(ActorRef publisher){
         this.subscriptionList = new HashMap<>();
         this.publisher = publisher;
-        System.out.println("CREATED SUBMANAGER");//D
     }
     
     
     @Override
     @SuppressWarnings("empty-statement")
     protected Void doRun() throws InterruptedException, SuspendExecution {
-        System.out.println("INSIDE RUN");//D
             while(receive(message -> {
                 
                 ActorRef user;
