@@ -52,27 +52,20 @@ public class Client extends BasicActor<Message,Void> {
                         return true;
 
                     case LOGIN_OK:
-                        System.out.println("Login"); //D
                         this.usrname = (String) msg.o;
                         System.out.println(this.usrname);
                         logged = true;
-                        System.out.println("A informar cliente");//D
                         socket.write(ByteBuffer.wrap(("welcome "+this.usrname+"\n").getBytes()));
-                        System.out.println("Informei cliente");//D
                         return true;
 
                     case LOGIN_FAILED:
                         this.usrname=(String) msg.o;
-                        System.out.println("A informar cliente");//D
                         socket.write(ByteBuffer.wrap(("login_failed "+this.usrname+"\n ").getBytes()));
-                        System.out.println("Informei cliente");//D
                         return true;
 
                     case USER_N_EXISTS:
                         this.usrname=(String) msg.o;
-                        System.out.println("A informar cliente");//D
                         socket.write(ByteBuffer.wrap(("login_failed").getBytes()));
-                        System.out.println("Informei cliente");//D
                         return true;
 
 
@@ -114,7 +107,6 @@ public class Client extends BasicActor<Message,Void> {
 
             case "sell":
                 if(args.length >= 4) {
-                    System.out.println("Recebi uma sell"); //D
                     Sell s = new Sell(args[1], Integer.parseInt(args[2]), Float.parseFloat(args[3]), args[4]);
                     loginManager.send(new Message(Type.SELL, s));
                     subscriptionManager.send(new Message(Type.SELL, s));
@@ -125,10 +117,8 @@ public class Client extends BasicActor<Message,Void> {
             case "buy":
                 System.out.println(args.length);
                 if(args.length >= 4){
-                    System.out.println("Recebi um buy"); //D
                     Buy b = new Buy(args[1],Integer.parseInt(args[2]),Float.parseFloat(args[3]),args[4]);
                     loginManager.send(new Message(Type.BUY, b));
-                    System.out.println(args.length); //D
                     subscriptionManager.send(new Message(Type.BUY, b));
 
                 }
