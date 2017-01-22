@@ -27,6 +27,8 @@ public final class Bank extends BasicActor<Void,Void> {
     @Override
     protected Void doRun() throws InterruptedException, SuspendExecution {
 
+        System.setProperty("co.paralleluniverse.fibers.detectRunawayFibers","false");
+
         try {
             Hashtable contextArgs = new Hashtable();
             contextArgs.put( Context.INITIAL_CONTEXT_FACTORY, "bitronix.tm.jndi.BitronixInitialContextFactory");

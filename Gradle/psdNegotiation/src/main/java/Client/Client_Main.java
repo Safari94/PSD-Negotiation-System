@@ -4,8 +4,6 @@ package Client;
  * Created by xavier on 29/12/16.
  */
 
-import org.zeromq.ZMQ;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -13,8 +11,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Client_Main {
 
@@ -28,9 +24,6 @@ public class Client_Main {
     BufferedReader fromServer = null;
 
 
-    /*
-    Constructor
-    */
     public Client_Main( Socket client) throws IOException{
         this.clientsock = client;
         fromServer = new BufferedReader(new InputStreamReader(clientsock.getInputStream()));
@@ -44,10 +37,7 @@ public class Client_Main {
         return this.logged;
     }
 
-    /**
-     * Method for handling login operation.
-     * @throws IOException
-     */
+
     public int login() throws IOException{
 
         String user, pass, option;
@@ -86,11 +76,6 @@ public class Client_Main {
         return 0;
     }
 
-    /**
-     * Method for handling replies from the Server to an User.
-     * @param servout
-     * @throws IOException
-     */
     public void handleServerReplyU(String servout) throws IOException{
         String[] srep = servout.split(" ");
         System.out.println(servout);
@@ -111,14 +96,6 @@ public class Client_Main {
         }
     }
 
-
-
-    /**
-     * Shows User Menu and handles each option.
-     *
-     * @return 0 if everything worked fine, -1 if user wants to exit.
-     * @throws IOException
-     */
     public void userMenu() throws IOException {
         String option, company, amount, price, servout;
         String[] srep;
@@ -172,7 +149,6 @@ public class Client_Main {
 
         }
     }
-
 
     public void sendCommand(String command, String arguments) throws IOException{
         toServer.write(command+" "+arguments+'\n');
